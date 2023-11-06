@@ -1,0 +1,20 @@
+{
+  "name": "config",
+  "version": "0.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "files": [
+    "next.js",
+    "server.js"
+  ],
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "5.7.0",
+    "@typescript-eslint/parser": "^5.7.0",
+    "eslint-config-next": "12.0.3",
+    "eslint-import-resolver-typescript": "2.5.0",
+    "eslint-plugin-import": "2.25.3"
+  },
+  "devDependencies": {
+    "eslint-config-prettier": "^9.0.0"
+  }
+}
