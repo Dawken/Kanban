@@ -1,8 +1,10 @@
 {
-  "extends": "tsconfig/server.json",
+  "extends": "../../packages/tsconfig/server.json",
   "compilerOptions": {
     "rootDir": ".",
-    "outDir": "dist"
+    "outDir": "dist",
+    "experimentalDecorators": true,
+    "strictPropertyInitialization": false
   },
   "include": ["src/"],
   "exclude": ["node_modules", ".turbo", "coverage", "dist"]

@@ -26,5 +26,9 @@ module.exports = {
       },
     },
   },
+  rules: {
+    quotes: ['error', 'single', { avoidEscape: true }],
+    semi: ['error', 'never'],
+  },
   ignorePatterns: ['**/*.js', 'node_modules', '.turbo', 'dist', 'coverage'],
 }
