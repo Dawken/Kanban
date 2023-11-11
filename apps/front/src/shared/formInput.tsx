@@ -22,6 +22,7 @@ const FormInput: FC<FormInputProps> = ({ name, ...otherProps }) => {
                 <TextField
                     label='Standard'
                     variant='standard'
+                    fullWidth
                     {...otherProps}
                     {...field}
                     value={field.value ?? otherProps.value ?? ''}
