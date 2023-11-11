@@ -17,8 +17,6 @@ const server = async () => {
     const app = express()
     app.use(cookieParser())
 
-    console.log(process.env.ORIGIN)
-
     const server = new ApolloServer({
         typeDefs,
         resolvers: userResolvers,
