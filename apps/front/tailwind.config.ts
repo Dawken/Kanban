@@ -5,7 +5,7 @@ const config: Config = {
     theme: {
         extend: {
             backgroundColor: {
-                black: '#0a0a0a',
+                black: '#090909',
             },
             fontFamily: {
                 raleway: ['Raleway'],

@@ -10,6 +10,8 @@ const FormInput: FC<FormInputProps> = ({ name, ...otherProps }) => {
     const {
         control,
         formState: { errors },
+        trigger,
+        setValue,
     } = useFormContext()
 
     const error = get(errors, name)
@@ -21,13 +23,24 @@ const FormInput: FC<FormInputProps> = ({ name, ...otherProps }) => {
             render={({ field }) => (
                 <TextField
                     label='Standard'
-                    variant='standard'
+                    variant='outlined'
                     fullWidth
+                    focused
+                    color={field.value && !error ? 'success' : 'primary'}
                     {...otherProps}
                     {...field}
-                    value={field.value ?? otherProps.value ?? ''}
+                    value={field.value ?? ''}
                     error={!!errors[name]}
-                    helperText={error ? error.message : ''}
+                    helperText={error ? error.message : !!errors[name]}
+                    onChange={(event) => {
+                        setValue(name, event.target.value, {
+                            shouldValidate: true,
+                        })
+                        trigger(name)
+                    }}
+                    onBlur={() => {
+                        trigger(name)
+                    }}
                 />
             )}
         />

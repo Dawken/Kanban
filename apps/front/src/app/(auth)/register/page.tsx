@@ -1,30 +1,54 @@
 import React from 'react'
-import RegisterForm from '@src/app/(auth)/register/registerForm'
+import RegisterForm from '@src/app/(auth)/register/registerForm/registerForm'
+import Image from 'next/image'
+import SignUpPhoto from '../../../../public/assets/signUpPhoto.png'
+import Logo from '../../../../public/assets/logo.png'
+import Link from 'next/link'
 
 const Register = () => {
     return (
-        <div
-            className='bg-cover bg-bottom bg-no-repeat bg-fixed overflow-x-hidden h-screen text-white font-raleway flex justify-center items-center'
-            style={{
-                backgroundImage: "url('../../../../assets/RegisterImage.jpg')",
-            }}
-        >
-            <div className='h-3/5 bg-[linear-gradient(135deg,_rgba(255,_255,_255,_0.1),_rgba(255,255,255,0))] backdrop-filter backdrop-blur-[10px] rounded-xl border-[1px] border-[rgba(255,255,255,0)] [box-shadow:0_8px_32px_0_rgba(0,_0,_0,_0.37)] relative overflow-hidden'>
-                <div className='top-0 absolute w-full h-4'>
-                    <svg
-                        xmlns='http://www.w3.org/2000/svg'
-                        viewBox='0 0 1440 320'
-                    >
-                        <path
-                            fill='#5000ca'
-                            d='M0,96L30,122.7C60,149,120,203,180,192C240,181,300,107,360,112C420,117,480,203,540,250.7C600,299,660,309,720,282.7C780,256,840,192,900,170.7C960,149,1020,171,1080,170.7C1140,171,1200,149,1260,128C1320,107,1380,85,1410,74.7L1440,64L1440,0L1410,0C1380,0,1320,0,1260,0C1200,0,1140,0,1080,0C1020,0,960,0,900,0C840,0,780,0,720,0C660,0,600,0,540,0C480,0,420,0,360,0C300,0,240,0,180,0C120,0,60,0,30,0L0,0Z'
-                        ></path>
-                    </svg>
+        <div className='min-h-screen text-white font-raleway flex justify-center items-center bg-black'>
+            <Image
+                src={Logo}
+                alt={'logo'}
+                className='absolute z-10 left-1 top-1'
+                width={60}
+                quality={100}
+            />
+            <div className='md:w-3/4 m-5 bg-gradient-to-br from-[#6A00FF] flex to-[#a64aff] items-center rounded-2xl border-[rgba(255,255,255,0)] [box-shadow:0_8px_32px_0_rgba(0,_0,_0,_0.37)] overflow-hidden relative'>
+                <div className='hidden md:flex justify-center items-start w-1/3'>
+                    <div className='text-4xl text-start absolute top-10 m-10'>
+                        Memorize your tasks with Kanban
+                    </div>
+                    <Image
+                        src={SignUpPhoto}
+                        alt={'diamonds'}
+                        className='absolute w-[35vw] left-1 bottom-1'
+                        quality={100}
+                    />
                 </div>
-                <div className='text-white text-4xl flex justify-center items-center mt-24'>
-                    Sign Up
+                <div className='flex flex-col items-end bg-[#141414] w-full md:w-2/3 ml-auto rounded-2xl'>
+                    <div className='m-10 md:w-4/5'>
+                        <div className='text-4xl md:m-5 max-md:text-center m-3'>
+                            Create Account
+                        </div>
+                        <RegisterForm />
+                        <div className='m-5 flex justify-around items-center gap-2'>
+                            <hr className='my-4 border-t border-white w-full' />
+                            or
+                            <hr className=' w-full my-4 border-t border-white' />
+                        </div>
+                        <div className='flex justify-center items-center m-5'>
+                            <Link
+                                href='/login'
+                                className='text-purple-600 font-bold underline mr-2'
+                            >
+                                Login
+                            </Link>
+                            with an existing account
+                        </div>
+                    </div>
                 </div>
-                <RegisterForm />
             </div>
         </div>
     )
