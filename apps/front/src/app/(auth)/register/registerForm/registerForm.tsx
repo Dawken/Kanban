@@ -16,6 +16,7 @@ const RegisterForm = () => {
         handleClickShowPassword,
         handleMouseDownPassword,
         password,
+        addUser,
     } = useRegister()
 
     return (
@@ -23,9 +24,7 @@ const RegisterForm = () => {
             <ThemeProvider theme={darkTheme}>
                 <form
                     className='flex flex-col items-center gap-5 m-5 mt-10'
-                    onSubmit={methods.handleSubmit((formv) =>
-                        console.log(formv)
-                    )}
+                    onSubmit={methods.handleSubmit((formv) => addUser(formv))}
                 >
                     <div className='max-md:space-y-10 w-full gap-10 md:flex'>
                         <FormInput
@@ -75,11 +74,9 @@ const RegisterForm = () => {
                         type={showPassword ? 'text' : 'password'}
                         className='h-[7vh]'
                     />
-                    <div className='flex justify-center items-center w-full m-5'>
-                        <button className='w-full h-12 border-[none] rounded text-center uppercase [transition:0.5s] [background-size:220%_auto] bg-[linear-gradient(to_right,_#6A00FF_0%,_#a64aff_51%,_#ffb1ff_100%)] hover:bg-[right_center]'>
-                            Sign up
-                        </button>
-                    </div>
+                    <button className='w-full m-5 text-center text-black font-bold h-12 border-[none] rounded uppercase [transition:0.5s] [background-size:220%_auto] bg-[linear-gradient(to_right,_#00dffc_0%,_#00ff82_51%,_#00dffc_100%)] hover:bg-[right_center]'>
+                        Sign up
+                    </button>
                 </form>
             </ThemeProvider>
         </FormProvider>

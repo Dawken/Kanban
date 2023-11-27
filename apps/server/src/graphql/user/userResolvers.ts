@@ -15,6 +15,15 @@ type LoginType = {
 }
 
 const userResolvers = {
+    Query: {
+        users: async () => {
+            try {
+                return await prisma.user.findMany()
+            } catch (error) {
+                throw new Error('Failed to fetch users')
+            }
+        },
+    },
     Mutation: {
         loginUser: async (
             _: unknown,
@@ -72,7 +81,7 @@ const userResolvers = {
                 })
 
                 if (existingUser) {
-                    throw new Error('Username already exists')
+                    throw new Error('user-exist')
                 } else {
                     const hashedPassword = bcrypt.hashSync(password, 10)
 

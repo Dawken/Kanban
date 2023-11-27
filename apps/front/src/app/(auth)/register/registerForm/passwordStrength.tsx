@@ -10,7 +10,7 @@ const PasswordStrength = ({ password }: { password: string }) => {
 
     const getActiveColor = () => {
         if (progress === 100) {
-            return '#00ee40'
+            return '#00ff82'
         } else if (progress < 100 && progress > 25) {
             return '#ffd600'
         } else {
