@@ -23,7 +23,7 @@ const Register = () => {
                     <Image
                         src={SignUpPhoto}
                         alt='Register Form Photo'
-                        className='absolute w-[30vw] left-10 bottom-5'
+                        className='absolute w-[28vw] left-10 bottom-5'
                         quality={100}
                     />
                 </div>

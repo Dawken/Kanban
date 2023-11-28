@@ -17,7 +17,7 @@ const useRegisterForm = () => {
     const client = getClient()
     const router = useRouter()
 
-    const [createUser] = useMutation(CREATE_USER, {
+    const [createUser, { loading, error }] = useMutation(CREATE_USER, {
         client,
         onCompleted: () => {
             toast.success('Register succeed')
@@ -60,6 +60,8 @@ const useRegisterForm = () => {
         handleMouseDownPassword,
         password,
         addUser,
+        loading,
+        error,
     }
 }
 

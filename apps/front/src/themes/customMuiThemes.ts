@@ -6,6 +6,18 @@ const darkTheme = createTheme({
         primary: {
             main: '#8a8a8a',
         },
+        success: {
+            main: '#00ff82',
+        },
+    },
+    components: {
+        MuiCircularProgress: {
+            styleOverrides: {
+                colorPrimary: {
+                    color: 'black',
+                },
+            },
+        },
     },
 })
 export { darkTheme }
