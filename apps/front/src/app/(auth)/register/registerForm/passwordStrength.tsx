@@ -38,7 +38,7 @@ const PasswordStrength = ({ password }: { password: string }) => {
 
     return (
         <div
-            className='w-full h-1 max-md:mt-2 text-white rounded-tl-[0] rounded-br-[0.2rem] rounded-tr-[0] rounded-bl-[0.2rem]'
+            className='w-full h-1 text-white rounded-tl-[0] rounded-br-[0.2rem] rounded-tr-[0] rounded-bl-[0.2rem]'
             ref={setAnchor}
         >
             <div

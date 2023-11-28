@@ -15,7 +15,7 @@ const Register = () => {
                 width={60}
                 quality={100}
             />
-            <div className='md:w-3/4 m-5 bg-gradient-to-br from-[#00dffc] flex to-[#00ff82] items-center rounded-2xl border-[rgba(255,255,255,0)] [box-shadow:0_8px_32px_0_rgba(0,_0,_0,_0.37)] relative'>
+            <div className='md:w-3/4 m-5 bg-gradient-to-br from-[#00dffc] flex to-[#00ff82] items-center rounded-2xl border-[rgba(255,255,255,0)] [box-shadow:0px_0px_31px_9px_rgba(0,_0,_0,_1)] relative'>
                 <div className='hidden md:flex justify-center items-start w-1/3'>
                     <div className='text-4xl text-black text-start absolute top-10 m-10'>
                         Memorize your tasks with Kanban

@@ -8,7 +8,7 @@ interface Register {
 }
 
 export class RegisterDTO implements Register {
-    @Length(3, 16)
+    @Length(3)
     @IsString()
     login: string
 

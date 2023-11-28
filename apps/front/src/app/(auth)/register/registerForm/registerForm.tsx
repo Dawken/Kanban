@@ -26,57 +26,47 @@ const RegisterForm = () => {
         <FormProvider {...methods}>
             <ThemeProvider theme={darkTheme}>
                 <form
-                    className='flex flex-col items-center gap-5 m-5 mt-10'
+                    className='flex flex-col items-center space-y-10 m-5 mt-10'
                     onSubmit={methods.handleSubmit((formv) => addUser(formv))}
                 >
                     <div className='max-md:space-y-10 w-full gap-10 md:flex'>
+                        <FormInput name='name' label='Name' />
+                        <FormInput name='lastName' label='Last name' />
+                    </div>
+                    <FormInput name='login' label='Login' />
+                    <div className='w-full space-y-5'>
                         <FormInput
-                            name='name'
-                            label='Name'
-                            className='h-[7vh]'
+                            name='password'
+                            label='Password'
+                            type={showPassword ? 'text' : 'password'}
+                            InputProps={{
+                                endAdornment: (
+                                    <InputAdornment position='start'>
+                                        <IconButton
+                                            aria-label='toggle password visibility'
+                                            onClick={handleClickShowPassword}
+                                            onMouseDown={
+                                                handleMouseDownPassword
+                                            }
+                                            edge='end'
+                                        >
+                                            {showPassword ? (
+                                                <VisibilityOff />
+                                            ) : (
+                                                <Visibility />
+                                            )}
+                                        </IconButton>
+                                    </InputAdornment>
+                                ),
+                            }}
                         />
+                        <PasswordStrength password={password} />
                         <FormInput
-                            name='lastName'
-                            label='Last name'
-                            className='h-[7vh]'
+                            name='repeatPassword'
+                            label='Repeat password'
+                            type={showPassword ? 'text' : 'password'}
                         />
                     </div>
-                    <FormInput
-                        name='login'
-                        label='Login'
-                        className='m-5 h-[7vh]'
-                    />
-                    <FormInput
-                        name='password'
-                        label='Password'
-                        type={showPassword ? 'text' : 'password'}
-                        className='h-[7vh]'
-                        InputProps={{
-                            endAdornment: (
-                                <InputAdornment position='start'>
-                                    <IconButton
-                                        aria-label='toggle password visibility'
-                                        onClick={handleClickShowPassword}
-                                        onMouseDown={handleMouseDownPassword}
-                                        edge='end'
-                                    >
-                                        {showPassword ? (
-                                            <VisibilityOff />
-                                        ) : (
-                                            <Visibility />
-                                        )}
-                                    </IconButton>
-                                </InputAdornment>
-                            ),
-                        }}
-                    />
-                    <PasswordStrength password={password} />
-                    <FormInput
-                        name='repeatPassword'
-                        label='Repeat password'
-                        type={showPassword ? 'text' : 'password'}
-                        className='h-[7vh]'
-                    />
                     <button className='w-full m-5 flex justify-center items-center text-black font-bold h-12 border-[none] rounded uppercase [transition:0.5s] [background-size:220%_auto] bg-[linear-gradient(to_right,_#00dffc_0%,_#00ff82_51%,_#00dffc_100%)] hover:bg-[right_center]'>
                         {loading ? (
                             <CircularProgress size={25} />
