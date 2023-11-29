@@ -23,7 +23,6 @@ const FormInput: FC<FormInputProps> = ({ name, ...otherProps }) => {
             render={({ field }) => (
                 <TextField
                     className='h-[7vh]'
-                    label='Standard'
                     variant='outlined'
                     fullWidth
                     focused
