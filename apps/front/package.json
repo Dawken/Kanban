@@ -15,14 +15,16 @@
         "@mui/material": "5.14.17",
         "next": "14.0.1",
         "react": "18",
+        "react-copy-to-clipboard": "5.1.0",
         "react-dom": "18",
         "react-hook-form": "7.48.2",
-        "zod": "3.22.4",
-        "react-toastify": "9.1.1"
+        "react-toastify": "9.1.1",
+        "zod": "3.22.4"
     },
     "devDependencies": {
         "@types/node": "20",
         "@types/react": "18",
+        "@types/react-copy-to-clipboard": "5.0.7",
         "@types/react-dom": "18",
         "autoprefixer": "10.0.1",
         "eslint": "8",

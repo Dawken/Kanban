@@ -2,7 +2,8 @@
 import React from 'react'
 import { darkTheme } from '@src/themes/customMuiThemes'
 import { ThemeProvider } from '@mui/material/styles'
-import { TextField } from '@mui/material'
+import { InputAdornment, TextField } from '@mui/material'
+import ClipBoardCopy from '@src/components/ui/copyToClipboard'
 
 const TestAccount = () => {
     return (
@@ -16,6 +17,14 @@ const TestAccount = () => {
                     fullWidth
                     focused
                     value={'Test'}
+                    disabled
+                    InputProps={{
+                        endAdornment: (
+                            <InputAdornment position='end'>
+                                <ClipBoardCopy text={'Test'} />
+                            </InputAdornment>
+                        ),
+                    }}
                 />
                 <TextField
                     className='h-[7vh]'
@@ -24,6 +33,14 @@ const TestAccount = () => {
                     fullWidth
                     focused
                     value={'Test123!'}
+                    disabled
+                    InputProps={{
+                        endAdornment: (
+                            <InputAdornment position='end'>
+                                <ClipBoardCopy text={'Test123!'} />
+                            </InputAdornment>
+                        ),
+                    }}
                 />
             </ThemeProvider>
         </div>
