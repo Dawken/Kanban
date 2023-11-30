@@ -16,9 +16,9 @@ const Login = () => {
                 width={60}
                 quality={100}
             />
-            <div className='w-2/3 m-5 bg-gradient-to-br from-[#00dffc] flex to-[#00ff82] items-center rounded-2xl border-[rgba(255,255,255,0)] [box-shadow:0px_0px_31px_9px_rgba(0,_0,_0,_1)] overflow-hidden relative'>
-                <div className='flex flex-col items-start bg-[#141414] w-full md:w-2/3 mr-auto rounded-2xl'>
-                    <div className='mx-5 my-10 md:w-4/5'>
+            <div className='lg:w-2/3 m-5 bg-gradient-to-br from-[#00dffc] flex to-[#00ff82] items-center rounded-2xl border-[rgba(255,255,255,0)] [box-shadow:0px_0px_31px_9px_rgba(0,_0,_0,_1)] overflow-hidden relative'>
+                <div className='flex flex-col  bg-[#141414] w-full lg:w-2/3 mr-auto rounded-2xl'>
+                    <div className='mx-5 my-10 lg:w-3/5'>
                         <div className='text-4xl md:m-5 text-center m-3'>
                             Login
                         </div>
@@ -40,7 +40,7 @@ const Login = () => {
                         <TestAccount />
                     </div>
                 </div>
-                <div className='hidden md:flex justify-center items-start w-2/3'>
+                <div className='hidden lg:flex justify-center items-start w-1/3'>
                     <Image
                         src={SignInPhoto}
                         alt='Sign In Form Photo'
