@@ -5,7 +5,8 @@ import { bodyValidator } from '../../shared/bodyValidator'
 import { UserAccount } from '../../types/UserAccount'
 import { LoginDTO } from './loginDTO'
 import generateAccessToken from '../../accessToken'
-import { Response } from 'express'
+import { Response, Request } from 'express'
+import checkAuth from '../../middlewares/checkAuth'
 
 const prisma = new PrismaClient()
 
@@ -16,13 +17,13 @@ type LoginType = {
 
 const userResolvers = {
     Query: {
-        users: async () => {
+        users: checkAuth(async () => {
             try {
                 return await prisma.user.findMany()
             } catch (error) {
                 throw new Error('Failed to fetch users')
             }
-        },
+        }),
     },
     Mutation: {
         loginUser: async (
