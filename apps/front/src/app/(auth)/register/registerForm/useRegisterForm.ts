@@ -18,7 +18,7 @@ const useRegisterForm = () => {
     const [createUser, { loading, error }] = useMutation(CREATE_USER, {
         onCompleted: () => {
             toast.success('Register succeed')
-            router.push('/')
+            router.push('/login')
         },
         onError: (error) => {
             if (error.message === 'user-exist') {
@@ -35,8 +35,9 @@ const useRegisterForm = () => {
         })
     }
 
-    const handleClickShowPassword = () =>
+    const handleClickShowPassword = () => {
         setShowPassword((prevState) => !prevState)
+    }
 
     const handleMouseDownPassword = (
         event: React.MouseEvent<HTMLButtonElement>

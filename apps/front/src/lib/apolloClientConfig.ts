@@ -1,11 +1,15 @@
-import { ApolloClient, InMemoryCache } from '@apollo/client'
+import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client'
 
 const authGateway = process.env.NEXT_PUBLIC_AUTH_GATEWAY
 
+const link = createHttpLink({
+    uri: authGateway,
+    credentials: 'include',
+})
 const createApolloClient = () => {
     return new ApolloClient({
-        uri: authGateway,
         cache: new InMemoryCache(),
+        link,
     })
 }
 
