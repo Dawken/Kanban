@@ -1,11 +1,16 @@
 'use client'
-import React from 'react'
+import React, { useState } from 'react'
 import { darkTheme } from '@src/themes/customMuiThemes'
 import { ThemeProvider } from '@mui/material/styles'
 import { InputAdornment, TextField } from '@mui/material'
 import ClipBoardCopy from '@src/components/ui/copyToClipboard'
 
 const TestAccount = () => {
+    const [account] = useState({
+        login: 'Test',
+        password: 'Test123!',
+    })
+
     return (
         <div className='m-5 space-y-10'>
             <ThemeProvider theme={darkTheme}>
@@ -16,12 +21,12 @@ const TestAccount = () => {
                     variant='outlined'
                     fullWidth
                     focused
-                    value={'Test'}
+                    value={account.login}
                     disabled
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position='end'>
-                                <ClipBoardCopy text={'Test'} />
+                                <ClipBoardCopy text={account.login} />
                             </InputAdornment>
                         ),
                     }}
@@ -32,12 +37,12 @@ const TestAccount = () => {
                     variant='outlined'
                     fullWidth
                     focused
-                    value={'Test123!'}
+                    value={account.password}
                     disabled
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position='end'>
-                                <ClipBoardCopy text={'Test123!'} />
+                                <ClipBoardCopy text={account.password} />
                             </InputAdornment>
                         ),
                     }}

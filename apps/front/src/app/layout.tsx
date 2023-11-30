@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import '@src/styles/global.css'
 import { ReactNode } from 'react'
-import Toast from '@src/components/ui/toast'
+import ClientProvider from '@src/shared/clientProvider'
 
 export const metadata: Metadata = {
     title: 'Create Next App',
@@ -12,10 +12,7 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
     return (
         <html lang='en'>
             <body className='bg-black'>
-                <main>
-                    {children}
-                    <Toast />
-                </main>
+                <ClientProvider>{children}</ClientProvider>
             </body>
         </html>
     )

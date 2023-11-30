@@ -3,7 +3,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { TypeOf } from 'zod'
 import registerSchema from './registerSchema'
 import React, { useState } from 'react'
-import { getClient } from '@src/lib/apolloClientConfig'
 import { useMutation } from '@apollo/client'
 import { CREATE_USER } from '@src/graphQL/auth/mutations'
 import { toast } from 'react-toastify'
@@ -14,11 +13,9 @@ const useRegisterForm = () => {
 
     const [showPassword, setShowPassword] = useState(false)
 
-    const client = getClient()
     const router = useRouter()
 
     const [createUser, { loading, error }] = useMutation(CREATE_USER, {
-        client,
         onCompleted: () => {
             toast.success('Register succeed')
             router.push('/')

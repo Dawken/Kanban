@@ -20,10 +20,10 @@ const Login = () => {
                 <div className='flex flex-col items-start bg-[#141414] w-full md:w-2/3 mr-auto rounded-2xl'>
                     <div className='mx-5 my-10 md:w-4/5'>
                         <div className='text-4xl md:m-5 text-center m-3'>
-                            Sign In
+                            Login
                         </div>
                         <LoginForm />
-                        <div className='flex justify-center items-center m-5'>
+                        <div className='flex justify-center m-5'>
                             Create new account
                             <Link
                                 href='/register'
@@ -44,7 +44,7 @@ const Login = () => {
                     <Image
                         src={SignInPhoto}
                         alt='Sign In Form Photo'
-                        className='absolute w-[40vw] right-0 bottom-0'
+                        className='absolute w-[37vw] right-0 bottom-0'
                         quality={100}
                     />
                 </div>
