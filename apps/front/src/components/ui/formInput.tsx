@@ -25,7 +25,7 @@ const FormInput: FC<FormInputProps> = ({ name, ...otherProps }) => {
                     className='h-[7vh]'
                     variant='outlined'
                     fullWidth
-                    focused
+                    focused={field.value}
                     color={field.value && !error ? 'success' : 'primary'}
                     {...otherProps}
                     {...field}
