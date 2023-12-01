@@ -1,5 +1,5 @@
 import { TextField, TextFieldProps } from '@mui/material'
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import { Controller, useFormContext, get } from 'react-hook-form'
 
 type FormInputProps = {
@@ -16,6 +16,8 @@ const FormInput: FC<FormInputProps> = ({ name, ...otherProps }) => {
 
     const error = get(errors, name)
 
+    const [isFocused, setIsFocused] = useState(false)
+
     return (
         <Controller
             control={control}
@@ -25,7 +27,7 @@ const FormInput: FC<FormInputProps> = ({ name, ...otherProps }) => {
                     className='h-[7vh]'
                     variant='outlined'
                     fullWidth
-                    focused={field.value && true}
+                    focused={isFocused}
                     color={field.value && !error ? 'success' : 'primary'}
                     {...otherProps}
                     {...field}
@@ -40,6 +42,9 @@ const FormInput: FC<FormInputProps> = ({ name, ...otherProps }) => {
                     }}
                     onBlur={() => {
                         trigger(name)
+                    }}
+                    onFocus={() => {
+                        setIsFocused(true)
                     }}
                 />
             )}

@@ -5,9 +5,13 @@ import { LOGIN_USER } from '@src/graphQL/auth/mutations'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/navigation'
 import { LoginCredentials } from '@src/types/LoginCredentials'
+import { useDispatch } from 'react-redux'
+import { getClientResponse } from '@src/context/redux/user'
 
 const useLoginForm = () => {
     const router = useRouter()
+
+    const dispatch = useDispatch()
 
     const [showPassword, setShowPassword] = useState(false)
 
@@ -23,11 +27,11 @@ const useLoginForm = () => {
 
     const [loginUser, { loading, error }] = useMutation(LOGIN_USER, {
         onCompleted: () => {
+            dispatch(getClientResponse({ isLoggedIn: true }))
             toast.success('Login succeed')
             router.push('/')
         },
-        onError: (error) => {
-            console.log(error)
+        onError: () => {
             toast.error('Login failed')
         },
     })

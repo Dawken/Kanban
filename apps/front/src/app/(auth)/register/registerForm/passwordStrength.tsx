@@ -61,6 +61,8 @@ const PasswordStrength = ({ password }: { password: string }) => {
                             <br />
                             • 1 capital letter
                             <br />
+                            • 1 lowercase letter
+                            <br />
                             • 1 special symbol(!,@,#,$,%,^,&,*)
                             <br />
                             • 1 number
