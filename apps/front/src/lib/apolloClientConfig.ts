@@ -18,7 +18,7 @@ const httpLink = createHttpLink({
 const errorLink = onError(({ graphQLErrors }) => {
     if (graphQLErrors) {
         graphQLErrors.find((error) => {
-            if (error.message === 'Unauthorized') {
+            if (error.message === 'unauthorized') {
                 store.dispatch(getClientResponse({ isLoggedIn: false }))
             }
         })
