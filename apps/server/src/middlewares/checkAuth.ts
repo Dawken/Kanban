@@ -8,7 +8,7 @@ const checkAuth = (resolver: Resolver) => {
         { req }: { req: Request }
     ) => {
         if (!req.user) {
-            throw new Error('unauthorized')
+            throw new Error('Unauthorized')
         }
 
         return resolver(_parent, _args, req)
