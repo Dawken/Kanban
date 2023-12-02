@@ -14,6 +14,7 @@ const useLoginForm = () => {
     const dispatch = useDispatch()
 
     const [showPassword, setShowPassword] = useState(false)
+    const [isCredentialsInvalid, setIsCredentialsInvalid] = useState(false)
 
     const handleClickShowPassword = () => {
         setShowPassword((prevState) => !prevState)
@@ -31,7 +32,10 @@ const useLoginForm = () => {
             toast.success('Login succeed')
             router.push('/')
         },
-        onError: () => {
+        onError: (error) => {
+            if (error.message === 'authentication-failed') {
+                setIsCredentialsInvalid(true)
+            }
             toast.error('Login failed')
         },
     })
@@ -52,6 +56,7 @@ const useLoginForm = () => {
         login,
         loading,
         error,
+        isCredentialsInvalid,
     }
 }
 

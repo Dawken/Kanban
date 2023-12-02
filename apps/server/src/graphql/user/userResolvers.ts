@@ -43,7 +43,7 @@ const userResolvers = {
                     where: { login: login },
                 })
                 if (!user) {
-                    throw new Error()
+                    throw new Error('authentication-failed')
                 } else if (bcrypt.compareSync(password, user.password)) {
                     const token = generateAccessToken(user)
                     const expires = new Date(Date.now() + 3600 * 1000)
@@ -52,7 +52,7 @@ const userResolvers = {
                         `AuthToken=${token}; Max-Age=3600; Path=/; Expires=${expires.toUTCString()}; HttpOnly; Secure; SameSite=None;`
                     )
                 } else {
-                    throw new Error('incorrect-password')
+                    throw new Error('authentication-failed')
                 }
             } catch (error: unknown) {
                 if (error instanceof Error) {

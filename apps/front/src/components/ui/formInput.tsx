@@ -32,8 +32,11 @@ const FormInput: FC<FormInputProps> = ({ name, ...otherProps }) => {
                     {...otherProps}
                     {...field}
                     value={field.value ?? ''}
-                    error={!!errors[name]}
-                    helperText={error ? error.message : !!errors[name]}
+                    error={otherProps.error ?? !!errors[name]}
+                    helperText={
+                        otherProps.helperText ??
+                        (error ? error.message : !!errors[name])
+                    }
                     onChange={(event) => {
                         setValue(name, event.target.value, {
                             shouldValidate: true,

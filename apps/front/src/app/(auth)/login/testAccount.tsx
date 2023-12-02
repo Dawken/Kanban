@@ -12,7 +12,7 @@ const TestAccount = () => {
     })
 
     return (
-        <div className='m-5 space-y-10'>
+        <div className='m-5 space-y-8'>
             <ThemeProvider theme={darkTheme}>
                 <div className='text-center font-bold'>Try test account</div>
                 <TextField

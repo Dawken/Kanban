@@ -16,18 +16,31 @@ const LoginForm = () => {
         login,
         loading,
         error,
+        isCredentialsInvalid,
     } = useLoginForm()
 
     return (
         <FormProvider {...methods}>
             <form
-                className='flex flex-col items-center space-y-10 m-5 mt-10'
+                className='flex flex-col items-center space-y-8 m-5 mt-10'
                 onSubmit={methods.handleSubmit((formv) => login(formv))}
             >
-                <FormInput name='login' label='Login' />
+                <FormInput
+                    name='login'
+                    label='Login'
+                    color='primary'
+                    error={isCredentialsInvalid}
+                    required
+                />
                 <FormInput
                     name='password'
                     label='Password'
+                    color='primary'
+                    error={isCredentialsInvalid}
+                    required
+                    helperText={
+                        isCredentialsInvalid && 'Invalid login or password'
+                    }
                     type={showPassword ? 'text' : 'password'}
                     InputProps={{
                         endAdornment: (
