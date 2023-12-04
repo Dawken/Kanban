@@ -4,7 +4,10 @@ import { RegisterDTO } from './registerDTO'
 import { bodyValidator } from '../../shared/bodyValidator'
 import { UserAccount } from '../../types/UserAccount'
 import { LoginDTO } from './loginDTO'
-import { generateAccessToken, generateRefreshToken } from '../../tokens'
+import {
+    generateAccessToken,
+    generateRefreshToken,
+} from '../../utils/generateToken'
 import { Response, Request } from 'express'
 import checkAuth from '../../middlewares/checkAuth'
 import jwt, { JwtPayload } from 'jsonwebtoken'
