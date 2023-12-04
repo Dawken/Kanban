@@ -31,4 +31,12 @@ const LOGIN_USER = gql`
     }
 `
 
-export { CREATE_USER, LOGIN_USER }
+const UPDATE_COOKIE = gql`
+    mutation UpdateCookie {
+        updateCookie {
+            id
+        }
+    }
+`
+
+export { CREATE_USER, LOGIN_USER, UPDATE_COOKIE }

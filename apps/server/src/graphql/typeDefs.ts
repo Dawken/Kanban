@@ -21,6 +21,7 @@ const typeDefs = gql`
             lastName: String!
         ): User
         loginUser(login: String!, password: String): User
+        updateCookie: User
     }
 `
 export default typeDefs

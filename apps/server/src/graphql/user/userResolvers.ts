@@ -4,9 +4,10 @@ import { RegisterDTO } from './registerDTO'
 import { bodyValidator } from '../../shared/bodyValidator'
 import { UserAccount } from '../../types/UserAccount'
 import { LoginDTO } from './loginDTO'
-import generateAccessToken from '../../accessToken'
+import { generateAccessToken, generateRefreshToken } from '../../tokens'
 import { Response, Request } from 'express'
 import checkAuth from '../../middlewares/checkAuth'
+import jwt, { JwtPayload } from 'jsonwebtoken'
 
 const prisma = new PrismaClient()
 
@@ -27,7 +28,7 @@ const userResolvers = {
     },
     Mutation: {
         loginUser: async (
-            _: unknown,
+            _parent: unknown,
             { login, password }: LoginType,
             { req, res }: { req: Request; res: Response }
         ) => {
@@ -46,11 +47,15 @@ const userResolvers = {
                     throw new Error('authentication-failed')
                 } else if (bcrypt.compareSync(password, user.password)) {
                     const token = generateAccessToken(user)
-                    const expires = new Date(Date.now() + 3600 * 1000)
-                    res.setHeader(
-                        'Set-Cookie',
-                        `AuthToken=${token}; Max-Age=3600; Path=/; Expires=${expires.toUTCString()}; HttpOnly; Secure; SameSite=None;`
+                    const refreshToken = generateRefreshToken(user)
+                    const expires = new Date(Date.now() + 5)
+                    const expiresRefreshToken = new Date(
+                        Date.now() + 3600 * 1000
                     )
+                    res.setHeader('Set-Cookie', [
+                        `AuthToken=${token}; Max-Age=5; Path=/; Expires=${expires.toUTCString()}; HttpOnly; Secure; SameSite=None;`,
+                        `RefreshToken=${refreshToken}; Max-Age=3600; Path=/; Expires=${expiresRefreshToken.toUTCString()}; HttpOnly; Secure; SameSite=None;`,
+                    ])
                 } else {
                     throw new Error('authentication-failed')
                 }
@@ -60,8 +65,43 @@ const userResolvers = {
                 }
             }
         },
+        updateCookie: async (
+            _parent: unknown,
+            _args: unknown,
+            { req, res }: { req: Request; res: Response }
+        ) => {
+            if (!req.cookies.AuthToken) {
+                if (req.cookies.RefreshToken) {
+                    const decodedToken = jwt.verify(
+                        req.cookies.RefreshToken,
+                        process.env.TOKEN_SECRET
+                    )
+
+                    const user = await prisma.user.findUnique({
+                        where: { id: (decodedToken as JwtPayload).id },
+                    })
+
+                    try {
+                        const token = generateAccessToken(user)
+                        const refreshToken = generateRefreshToken(user)
+                        const expires = new Date(Date.now() + 15)
+                        const expiresRefreshToken = new Date(
+                            Date.now() + 3600 * 1000
+                        )
+                        res.setHeader('Set-Cookie', [
+                            `AuthToken=${token}; Max-Age=15; Path=/; Expires=${expires.toUTCString()}; HttpOnly; Secure; SameSite=None;`,
+                            `RefreshToken=${refreshToken}; Max-Age=3600; Path=/; Expires=${expiresRefreshToken.toUTCString()}; HttpOnly; Secure; SameSite=None;`,
+                        ])
+                    } catch (error) {
+                        throw new Error(error.message)
+                    }
+                } else {
+                    throw new Error('refresh-token-required')
+                }
+            }
+        },
         createUser: async (
-            _: unknown,
+            _parent: unknown,
             { login, password, name, lastName }: UserAccount
         ) => {
             try {

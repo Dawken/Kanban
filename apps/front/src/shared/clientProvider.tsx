@@ -5,13 +5,11 @@ import { ThemeProvider } from '@mui/material/styles'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { ApolloProvider } from '@apollo/client'
-import createApolloClient from '@src/lib/apolloClientConfig'
 import { Provider } from 'react-redux'
 import { store } from '@src/context/redux/store'
+import client from '@src/lib/apolloClientConfig'
 
 const ClientProvider = ({ children }: { children: ReactNode }) => {
-    const client = createApolloClient()
-
     return (
         <Provider store={store}>
             <ThemeProvider theme={darkTheme}>
