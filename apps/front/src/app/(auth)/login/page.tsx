@@ -4,7 +4,8 @@ import Logo from '../../../../public/assets/logo.png'
 import SignInPhoto from '../../../../public/assets/signInPhoto.png'
 import Link from 'next/link'
 import LoginForm from '@src/app/(auth)/login/loginForm/loginForm'
-import TestAccount from '@src/app/(auth)/login/testAccount'
+import { InputAdornment, TextField } from '@mui/material'
+import ClipBoardCopy from '@src/components/ui/copyToClipboard'
 
 const Login = () => {
     return (
@@ -37,7 +38,43 @@ const Login = () => {
                             or
                             <hr className=' w-full my-4 border-t border-white' />
                         </div>
-                        <TestAccount />
+                        <div className='m-5 space-y-8'>
+                            <div className='text-center font-bold'>
+                                Try test account
+                            </div>
+                            <TextField
+                                className='h-[7vh]'
+                                label='Login'
+                                variant='outlined'
+                                fullWidth
+                                focused
+                                value='Test'
+                                disabled
+                                InputProps={{
+                                    endAdornment: (
+                                        <InputAdornment position='end'>
+                                            <ClipBoardCopy text={'Test'} />
+                                        </InputAdornment>
+                                    ),
+                                }}
+                            />
+                            <TextField
+                                className='h-[7vh]'
+                                label='Password'
+                                variant='outlined'
+                                fullWidth
+                                focused
+                                value='Test123!'
+                                disabled
+                                InputProps={{
+                                    endAdornment: (
+                                        <InputAdornment position='end'>
+                                            <ClipBoardCopy text={'Test123!'} />
+                                        </InputAdornment>
+                                    ),
+                                }}
+                            />
+                        </div>
                     </div>
                 </div>
                 <div className='hidden lg:flex justify-center items-start w-1/3'>

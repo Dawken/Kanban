@@ -1,3 +1,4 @@
+'use client'
 import React, { useState } from 'react'
 import { IconButton, Tooltip, Zoom } from '@mui/material'
 import DoneIcon from '@mui/icons-material/Done'
