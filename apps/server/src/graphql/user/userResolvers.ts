@@ -51,13 +51,13 @@ const userResolvers = {
                 } else if (bcrypt.compareSync(password, user.password)) {
                     const token = generateAccessToken(user)
                     const refreshToken = generateRefreshToken(user)
-                    const expires = new Date(Date.now() + 5)
+                    const expiresAuthToken = new Date(Date.now() + 3600 * 1000) // 1 hour
                     const expiresRefreshToken = new Date(
-                        Date.now() + 3600 * 1000
+                        Date.now() + 3600 * 1000 * 24 * 7 // 7 days
                     )
                     res.setHeader('Set-Cookie', [
-                        `AuthToken=${token}; Max-Age=5; Path=/; Expires=${expires.toUTCString()}; HttpOnly; Secure; SameSite=None;`,
-                        `RefreshToken=${refreshToken}; Max-Age=3600; Path=/; Expires=${expiresRefreshToken.toUTCString()}; HttpOnly; Secure; SameSite=None;`,
+                        `AuthToken=${token}; Max-Age=3600; Path=/; Expires=${expiresAuthToken.toUTCString()}; HttpOnly; Secure; SameSite=None;`,
+                        `RefreshToken=${refreshToken}; Max-Age=604800; Path=/; Expires=${expiresRefreshToken.toUTCString()}; HttpOnly; Secure; SameSite=None;`,
                     ])
                 } else {
                     throw new Error('authentication-failed')
@@ -87,13 +87,15 @@ const userResolvers = {
                     try {
                         const token = generateAccessToken(user)
                         const refreshToken = generateRefreshToken(user)
-                        const expires = new Date(Date.now() + 15)
-                        const expiresRefreshToken = new Date(
+                        const expiresAuthToken = new Date(
                             Date.now() + 3600 * 1000
+                        ) // 1 hour
+                        const expiresRefreshToken = new Date(
+                            Date.now() + 3600 * 1000 * 24 * 7 // 7 days
                         )
                         res.setHeader('Set-Cookie', [
-                            `AuthToken=${token}; Max-Age=15; Path=/; Expires=${expires.toUTCString()}; HttpOnly; Secure; SameSite=None;`,
-                            `RefreshToken=${refreshToken}; Max-Age=3600; Path=/; Expires=${expiresRefreshToken.toUTCString()}; HttpOnly; Secure; SameSite=None;`,
+                            `AuthToken=${token}; Max-Age=3600; Path=/; Expires=${expiresAuthToken.toUTCString()}; HttpOnly; Secure; SameSite=None;`,
+                            `RefreshToken=${refreshToken}; Max-Age=604800; Path=/; Expires=${expiresRefreshToken.toUTCString()}; HttpOnly; Secure; SameSite=None;`,
                         ])
                     } catch (error) {
                         throw new Error(error.message)
