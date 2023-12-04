@@ -6,6 +6,7 @@ import { Visibility, VisibilityOff } from '@mui/icons-material'
 import { FormProvider } from 'react-hook-form'
 import useLoginForm from '@src/app/(auth)/login/loginForm/useLoginForm'
 import ClearIcon from '@mui/icons-material/Clear'
+import FormButton from '@src/components/ui/formButton'
 
 const LoginForm = () => {
     const {
@@ -63,15 +64,7 @@ const LoginForm = () => {
                         ),
                     }}
                 />
-                <button className='w-full m-5 flex justify-center items-center text-black font-bold h-12 border-[none] rounded uppercase [transition:0.5s] [background-size:220%_auto] bg-[linear-gradient(to_right,_#00dffc_0%,_#00ff82_51%,_#00dffc_100%)] hover:bg-[right_center]'>
-                    {loading ? (
-                        <CircularProgress size={25} />
-                    ) : !error ? (
-                        'Sign In'
-                    ) : (
-                        <ClearIcon />
-                    )}
-                </button>
+                <FormButton loading={loading} error={error} text={'Sign In'} />
             </form>
         </FormProvider>
     )
