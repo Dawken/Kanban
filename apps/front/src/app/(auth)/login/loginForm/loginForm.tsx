@@ -23,7 +23,9 @@ const LoginForm = () => {
         <FormProvider {...methods}>
             <form
                 className='flex flex-col items-center space-y-8 m-5 mt-10'
-                onSubmit={methods.handleSubmit((formv) => login(formv))}
+                onSubmit={methods.handleSubmit((loginFormData) =>
+                    login(loginFormData)
+                )}
             >
                 <FormInput
                     name='login'

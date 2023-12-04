@@ -24,7 +24,9 @@ const RegisterForm = () => {
         <FormProvider {...methods}>
             <form
                 className='flex flex-col items-center space-y-10 m-5 mt-10'
-                onSubmit={methods.handleSubmit((formv) => addUser(formv))}
+                onSubmit={methods.handleSubmit((registerFormData) =>
+                    addUser(registerFormData)
+                )}
             >
                 <div className='max-md:space-y-10 w-full gap-10 md:flex'>
                     <FormInput name='name' label='Name' />

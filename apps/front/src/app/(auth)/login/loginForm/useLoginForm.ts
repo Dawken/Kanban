@@ -4,10 +4,13 @@ import { useMutation } from '@apollo/client'
 import { LOGIN_USER } from '@src/graphQL/auth/mutations'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/navigation'
-import { LoginCredentials } from '@src/types/LoginCredentials'
 import { useDispatch } from 'react-redux'
 import { getClientResponse } from '@src/context/redux/user'
 
+type LoginCredentials = {
+    login: string
+    password: string
+}
 const useLoginForm = () => {
     const router = useRouter()
 
@@ -40,9 +43,9 @@ const useLoginForm = () => {
         },
     })
 
-    const login = (formData: LoginCredentials) => {
+    const login = (loginFormData: LoginCredentials) => {
         loginUser({
-            variables: formData,
+            variables: loginFormData,
         })
     }
 

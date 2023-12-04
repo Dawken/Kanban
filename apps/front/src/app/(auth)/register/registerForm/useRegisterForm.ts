@@ -29,9 +29,9 @@ const useRegisterForm = () => {
         },
     })
 
-    const addUser = (formData: RegisterInput) => {
+    const addUser = (registerFormData: RegisterInput) => {
         createUser({
-            variables: formData,
+            variables: registerFormData,
         })
     }
 
