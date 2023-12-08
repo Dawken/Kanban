@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useMutation } from '@apollo/client'
 import { LOGIN_USER } from '@src/graphQL/auth/mutations'
@@ -16,18 +16,7 @@ const useLoginForm = () => {
 
     const dispatch = useDispatch()
 
-    const [showPassword, setShowPassword] = useState(false)
     const [isCredentialsInvalid, setIsCredentialsInvalid] = useState(false)
-
-    const handleClickShowPassword = () => {
-        setShowPassword((prevState) => !prevState)
-    }
-
-    const handleMouseDownPassword = (
-        event: React.MouseEvent<HTMLButtonElement>
-    ) => {
-        event.preventDefault()
-    }
 
     const [loginUser, { loading, error }] = useMutation(LOGIN_USER, {
         onCompleted: () => {
@@ -52,9 +41,6 @@ const useLoginForm = () => {
     const methods = useForm<LoginCredentials>()
 
     return {
-        showPassword,
-        handleClickShowPassword,
-        handleMouseDownPassword,
         methods,
         login,
         loading,

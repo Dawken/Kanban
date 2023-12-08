@@ -2,24 +2,12 @@
 import React from 'react'
 import { FormProvider } from 'react-hook-form'
 import useRegister from '@src/app/(auth)/register/registerForm/useRegisterForm'
-import FormInput from '@src/components/ui/formInput'
-import { IconButton, InputAdornment, CircularProgress } from '@mui/material'
-import { Visibility, VisibilityOff } from '@mui/icons-material'
-import ClearIcon from '@mui/icons-material/Clear'
+import FormInput from '@src/components/ui/formInput/formInput'
 import PasswordStrength from '@src/app/(auth)/register/registerForm/passwordStrength'
 import FormButton from '@src/components/ui/formButton'
 
 const RegisterForm = () => {
-    const {
-        methods,
-        showPassword,
-        handleClickShowPassword,
-        handleMouseDownPassword,
-        password,
-        addUser,
-        loading,
-        error,
-    } = useRegister()
+    const { methods, password, addUser, loading, error } = useRegister()
 
     return (
         <FormProvider {...methods}>
@@ -38,31 +26,13 @@ const RegisterForm = () => {
                     <FormInput
                         name='password'
                         label='Password'
-                        type={showPassword ? 'text' : 'password'}
-                        InputProps={{
-                            endAdornment: (
-                                <InputAdornment position='start'>
-                                    <IconButton
-                                        aria-label='toggle password visibility'
-                                        onClick={handleClickShowPassword}
-                                        onMouseDown={handleMouseDownPassword}
-                                        edge='end'
-                                    >
-                                        {showPassword ? (
-                                            <VisibilityOff />
-                                        ) : (
-                                            <Visibility />
-                                        )}
-                                    </IconButton>
-                                </InputAdornment>
-                            ),
-                        }}
+                        isPassword={true}
                     />
                     <PasswordStrength password={password} />
                     <FormInput
                         name='repeatPassword'
                         label='Repeat password'
-                        type={showPassword ? 'text' : 'password'}
+                        isPassword={true}
                     />
                 </div>
                 <FormButton loading={loading} error={error} text={'Sign Up'} />
