@@ -57,7 +57,7 @@ const FormInput: FC<FormInputProps> = ({ name, isPassword, ...otherProps }) => {
                         })
                         trigger(name)
                     }}
-                    type={showPassword ? 'text' : 'password'}
+                    type={showPassword || !isPassword ? 'text' : 'password'}
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position='start'>
