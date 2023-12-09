@@ -12,17 +12,17 @@ const RegisterForm = () => {
     return (
         <FormProvider {...methods}>
             <form
-                className='flex flex-col items-center space-y-10 m-5 mt-10'
+                className='max-sm:space-y-14 flex flex-col items-center space-y-10 m-5 mt-10'
                 onSubmit={methods.handleSubmit((registerFormData) =>
                     addUser(registerFormData)
                 )}
             >
-                <div className='max-md:space-y-10 w-full gap-10 md:flex'>
+                <div className='max-sm:space-y-14 w-full gap-10 md:flex'>
                     <FormInput name='name' label='Name' />
                     <FormInput name='lastName' label='Last name' />
                 </div>
                 <FormInput name='login' label='Login' />
-                <div className='w-full space-y-5'>
+                <div className='max-sm:space-y-7 w-full space-y-5'>
                     <FormInput
                         name='password'
                         label='Password'
