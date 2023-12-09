@@ -31,7 +31,7 @@ const LoginForm = () => {
                     error={isCredentialsInvalid}
                     required
                     helperText={
-                        isCredentialsInvalid && 'Invalid login or password'
+                        isCredentialsInvalid && 'Incorrect login or password'
                     }
                     isPassword={true}
                 />

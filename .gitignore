@@ -1,5 +1,4 @@
 .idea
-/apps/server/src/prisma/migrations
 # dependencies
 node_modules
 .pnp
