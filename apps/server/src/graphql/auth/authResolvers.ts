@@ -25,7 +25,7 @@ const authResolvers = {
             try {
                 return await prisma.user.findMany()
             } catch (error) {
-                throw new Error('Failed to fetch users')
+                throw new Error('failed-users-fetch')
             }
         }),
     },
@@ -127,7 +127,7 @@ const authResolvers = {
                 })
 
                 if (existingUser) {
-                    throw new Error('auth-exist')
+                    throw new Error('user-exist')
                 } else {
                     const hashedPassword = bcrypt.hashSync(password, 10)
 

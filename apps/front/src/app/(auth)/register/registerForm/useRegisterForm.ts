@@ -18,7 +18,7 @@ const useRegisterForm = () => {
             router.push('/login')
         },
         onError: (error) => {
-            if (error.message === 'auth-exist') {
+            if (error.message === 'user-exist') {
                 toast.error('User already exist')
             } else {
                 toast.error('Register failed')
