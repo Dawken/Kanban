@@ -1,7 +1,7 @@
 import typeDefs from './graphql/typeDefs'
 import { ApolloServer } from 'apollo-server-express'
 import express from 'express'
-import userResolvers from './graphql/user/userResolvers'
+import authResolvers from './graphql/auth/authResolvers'
 import { UserAccount } from './types/UserAccount'
 import cookieParser from 'cookie-parser'
 import jwt from 'jsonwebtoken'
@@ -19,7 +19,7 @@ const server = async () => {
 
     const server = new ApolloServer({
         typeDefs,
-        resolvers: userResolvers,
+        resolvers: authResolvers,
         context: ({ req, res }) => {
             const { AuthToken } = req.cookies
 

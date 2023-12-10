@@ -19,7 +19,7 @@ type LoginType = {
     password: string
 }
 
-const userResolvers = {
+const authResolvers = {
     Query: {
         users: checkAuth(async () => {
             try {
@@ -127,7 +127,7 @@ const userResolvers = {
                 })
 
                 if (existingUser) {
-                    throw new Error('user-exist')
+                    throw new Error('auth-exist')
                 } else {
                     const hashedPassword = bcrypt.hashSync(password, 10)
 
@@ -149,4 +149,4 @@ const userResolvers = {
     },
 }
 
-export default userResolvers
+export default authResolvers
