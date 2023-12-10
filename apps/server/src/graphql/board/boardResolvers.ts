@@ -3,7 +3,7 @@ import checkAuth from '../../middlewares/checkAuth'
 
 const prisma = new PrismaClient()
 
-const authResolvers = {
+const boardResolvers = {
     Query: {
         boards: checkAuth(async (_parent, _args, req) => {
             try {
@@ -32,7 +32,24 @@ const authResolvers = {
                 throw new Error('failed-board-create')
             }
         }),
+        deleteBoard: checkAuth(async (_parent, { boardId }) => {
+            try {
+                const board = await prisma.board.findUnique({
+                    where: { id: boardId },
+                })
+
+                if (!board) {
+                    throw new Error('board-not-found')
+                } else {
+                    return await prisma.board.delete({
+                        where: { id: boardId },
+                    })
+                }
+            } catch {
+                throw new Error('failed-board-delete')
+            }
+        }),
     },
 }
 
-export default authResolvers
+export default boardResolvers

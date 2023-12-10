@@ -23,6 +23,7 @@ const typeDefs = gql`
     }
 
     type Mutation {
+        #Auth
         createUser(
             login: String!
             password: String!
@@ -30,8 +31,11 @@ const typeDefs = gql`
             lastName: String!
         ): User
         loginUser(login: String!, password: String): User
-        createBoard(boardName: String!): Board
         updateCookie: User
+
+        #Boards
+        createBoard(boardName: String!): Board
+        deleteBoard(boardId: String!): Board
     }
 `
 export default typeDefs
