@@ -18,8 +18,16 @@ const typeDefs = gql`
     type Board {
         id: String!
         boardName: String!
-        user: User
         userId: String!
+        user: User
+        status: [Status]
+    }
+
+    type Status {
+        id: String!
+        statusName: String!
+        boardId: String!
+        board: Board
     }
 
     type Mutation {
@@ -34,7 +42,7 @@ const typeDefs = gql`
         updateCookie: User
 
         #Boards
-        createBoard(boardName: String!): Board
+        createBoard(boardName: String!, status: [String!]!): Board
         deleteBoard(boardId: String!): Board
     }
 `

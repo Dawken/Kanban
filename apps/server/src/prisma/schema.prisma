@@ -13,12 +13,20 @@ model User {
   password String
   name     String
   lastName String
-  Board    Board[]
+  board    Board[]
 }
 
 model Board {
-  id        String @id @default(cuid())
+  id        String   @id @default(cuid())
   boardName String
-  user      User   @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
   userId    String
+  status    Status[]
+}
+
+model Status {
+  id         String @id @default(cuid())
+  statusName String
+  board      Board  @relation(fields: [boardId], references: [id], onDelete: Cascade)
+  boardId    String
 }
