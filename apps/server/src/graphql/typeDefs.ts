@@ -38,11 +38,12 @@ const typeDefs = gql`
             name: String!
             lastName: String!
         ): User
-        loginUser(login: String!, password: String): User
+        loginUser(login: String!, password: String!): User
         updateCookie: User
 
         #Boards
-        createBoard(boardName: String!, status: [String!]!): Board
+        createBoard(boardName: String!, status: [String]): Board
+        updateBoard(boardId: String!, boardName: String): Board
         deleteBoard(boardId: String!): Board
     }
 `

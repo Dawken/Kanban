@@ -31,15 +31,36 @@ const boardResolvers = {
                                 id: req.user.id,
                             },
                         },
-                        status: {
-                            create: status.map((statusName: string) => ({
-                                statusName,
-                            })),
-                        },
+                        status: status
+                            ? {
+                                  create: status.map((statusName: string) => ({
+                                      statusName,
+                                  })),
+                              }
+                            : undefined,
                     },
                 })
-            } catch (error) {
+            } catch {
                 throw new Error('failed-board-create')
+            }
+        }),
+        updateBoard: checkAuth(async (_parent, { boardId, boardName }) => {
+            try {
+                const board = await prisma.board.findUnique({
+                    where: { id: boardId },
+                })
+                if (!board) {
+                    throw new Error('board-not-found')
+                } else {
+                    return await prisma.board.update({
+                        where: { id: boardId },
+                        data: {
+                            boardName: boardName ?? board.boardName,
+                        },
+                    })
+                }
+            } catch (error) {
+                throw new Error('failed-board-update')
             }
         }),
         deleteBoard: checkAuth(async (_parent, { boardId }) => {
@@ -57,8 +78,8 @@ const boardResolvers = {
                         },
                     })
                 }
-            } catch (error) {
-                throw new Error(error.message)
+            } catch {
+                throw new Error('failed-board-delete')
             }
         }),
     },
