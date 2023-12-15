@@ -1,6 +1,7 @@
 import { useRouter } from 'next/navigation'
 import { useAppSelector } from '@src/context/redux/store'
-import { ComponentType } from 'react'
+import React, { ComponentType } from 'react'
+import SidebarMenu from '@src/layout/sidebarMenu/sidebarMenu'
 
 const PrivateRoutes = (Component: ComponentType) => {
     return function IsAuthenticated() {
@@ -13,7 +14,12 @@ const PrivateRoutes = (Component: ComponentType) => {
             return null
         }
 
-        return <Component />
+        return (
+            <div className='flex'>
+                <SidebarMenu />
+                <Component />
+            </div>
+        )
     }
 }
 
