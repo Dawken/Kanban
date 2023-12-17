@@ -1,4 +1,5 @@
 export type BoardType = {
     boardName: string
-    id: string
+    status: string[]
+    id?: string
 }
