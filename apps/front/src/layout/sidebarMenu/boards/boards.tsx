@@ -12,7 +12,7 @@ const Boards = ({ expanded }: ExpandedType) => {
 
     return (
         <div className='flex flex-col items-center m-3'>
-            <div className='w-full h-10 bg-zinc-900 rounded flex justify-center items-center hover:bg-[#353535] cursor-pointer'>
+            <div className='w-full h-10 bg-zinc-900 rounded flex justify-center items-center cursor-pointer hover:bg-[#353535] transition-color duration-500 ease-in-out'>
                 <AddBoard expanded={expanded} />
             </div>
             <div

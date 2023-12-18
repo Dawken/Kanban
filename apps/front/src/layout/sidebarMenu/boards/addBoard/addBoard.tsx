@@ -8,6 +8,7 @@ import FormButton from '@src/components/ui/formButton'
 import useAddBoard from '@src/layout/sidebarMenu/boards/addBoard/useAddBoard'
 import useToggleOpen from '@src/hooks/useToogleOpen'
 import { ExpandedType } from '@src/types/expandedType'
+import ToolTip from '@src/components/ui/toolTip'
 
 const AddBoard = ({ expanded }: ExpandedType) => {
     const {
@@ -26,17 +27,19 @@ const AddBoard = ({ expanded }: ExpandedType) => {
 
     return (
         <>
-            <button
-                className='w-full space-x-1 text-sm font-bold whitespace-nowrap overflow-hidden'
-                onClick={handleOpen}
-            >
-                <span>
-                    <AddIcon />
-                </span>
-                {expanded && (
-                    <span className='overflow-ellipsis'>Add new Board</span>
-                )}
-            </button>
+            <ToolTip name={'Add new board'}>
+                <button
+                    className='w-full space-x-1 text-sm font-bold whitespace-nowrap overflow-hidden'
+                    onClick={handleOpen}
+                >
+                    <span>
+                        <AddIcon />
+                    </span>
+                    {expanded && (
+                        <span className='overflow-ellipsis'>Add new Board</span>
+                    )}
+                </button>
+            </ToolTip>
             <Dialog onClose={handleClose} open={open} fullWidth>
                 <div className='m-3'>
                     <DialogTitle className='text-2xl font-bold'>
