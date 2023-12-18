@@ -7,8 +7,9 @@ import ClearIcon from '@mui/icons-material/Clear'
 import FormButton from '@src/components/ui/formButton'
 import useAddBoard from '@src/layout/sidebarMenu/boards/addBoard/useAddBoard'
 import useToggleOpen from '@src/hooks/useToogleOpen'
+import { ExpandedType } from '@src/types/expandedType'
 
-const AddBoard = () => {
+const AddBoard = ({ expanded }: ExpandedType) => {
     const {
         methods,
         register,
@@ -26,13 +27,15 @@ const AddBoard = () => {
     return (
         <>
             <button
-                className='w-full m-5 space-x-1 text-sm font-bold'
+                className='w-full space-x-1 text-sm font-bold whitespace-nowrap overflow-hidden'
                 onClick={handleOpen}
             >
                 <span>
                     <AddIcon />
                 </span>
-                <span>Add new Board</span>
+                {expanded && (
+                    <span className='overflow-ellipsis'>Add new Board</span>
+                )}
             </button>
             <Dialog onClose={handleClose} open={open} fullWidth>
                 <div className='m-3'>

@@ -5,30 +5,37 @@ import arrayFrom from '@src/utils/arrayFrom'
 import Skeleton from '@mui/material/Skeleton'
 import Board from '@src/layout/sidebarMenu/boards/board/board'
 import AddBoard from '@src/layout/sidebarMenu/boards/addBoard/addBoard'
+import { ExpandedType } from '@src/types/expandedType'
 
-const Boards = () => {
+const Boards = ({ expanded }: ExpandedType) => {
     const { data, loading } = useBoards()
 
     return (
         <div className='flex flex-col items-center m-3'>
             <div className='w-full h-10 bg-zinc-900 rounded flex justify-center items-center hover:bg-[#353535] cursor-pointer'>
-                <AddBoard />
+                <AddBoard expanded={expanded} />
             </div>
-            <div className='text-left m-5 font-bold w-full'>
+            <div
+                className={`${
+                    expanded ? 'text-left' : 'text-center'
+                } m-5 font-bold w-full whitespace-nowrap overflow-hidden`}
+            >
                 {loading ? (
                     <Skeleton
                         variant='rounded'
-                        width={110}
+                        width={expanded ? 110 : 55}
                         height={20}
                         animation='wave'
                     />
+                ) : expanded ? (
+                    `ALL BOARDS ( ${data.boards.length} )`
                 ) : (
-                    `ALL BOARDS ( ${data?.boards.length} )`
+                    data.boards.length
                 )}
             </div>
             {loading
                 ? arrayFrom(
-                      3,
+                      5,
                       <Skeleton
                           className='m-1 w-full'
                           height={40}
@@ -37,7 +44,13 @@ const Boards = () => {
                       />
                   )
                 : data?.boards.map((board: BoardType) => {
-                      return <Board board={board} key={board.id} />
+                      return (
+                          <Board
+                              board={board}
+                              key={board.id}
+                              expanded={expanded}
+                          />
+                      )
                   })}
         </div>
     )
