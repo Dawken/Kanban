@@ -1,9 +1,10 @@
 'use client'
 import React from 'react'
-import FormInput from '@src/components/ui/formInput/formInput'
+import FormInput from '@src/components/ui/formInput'
 import { FormProvider } from 'react-hook-form'
 import useLoginForm from '@src/app/(auth)/login/loginForm/useLoginForm'
 import FormButton from '@src/components/ui/formButton'
+import FormInputPassword from '@src/components/ui/formInputPassword'
 
 const LoginForm = () => {
     const { methods, login, loading, error, isCredentialsInvalid } =
@@ -24,7 +25,7 @@ const LoginForm = () => {
                     error={isCredentialsInvalid}
                     required
                 />
-                <FormInput
+                <FormInputPassword
                     name='password'
                     label='Password'
                     color='primary'
@@ -33,7 +34,6 @@ const LoginForm = () => {
                     helperText={
                         isCredentialsInvalid && 'Incorrect login or password'
                     }
-                    isPassword={true}
                 />
                 <FormButton loading={loading} error={error} text={'Sign In'} />
             </form>
