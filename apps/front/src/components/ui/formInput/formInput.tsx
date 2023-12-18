@@ -16,7 +16,6 @@ type FormInputProps = {
 
 const FormInput: FC<FormInputProps> = ({ name, isPassword, ...otherProps }) => {
     const {
-        control,
         formState: { errors },
         trigger,
         setValue,
@@ -34,7 +33,6 @@ const FormInput: FC<FormInputProps> = ({ name, isPassword, ...otherProps }) => {
 
     return (
         <Controller
-            control={control}
             name={name}
             render={({ field }) => (
                 <TextField
