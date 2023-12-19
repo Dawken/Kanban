@@ -1,41 +1,36 @@
 import { TextField } from '@mui/material'
 import React, { FC, useState } from 'react'
-import { Controller, get, useFormContext } from 'react-hook-form'
+import { Controller, useFormContext } from 'react-hook-form'
 import { FormInputProps } from '@src/types/formInputProps'
 
 const FormInput: FC<FormInputProps> = ({ name, ...otherProps }) => {
     const [isFocused, setIsFocused] = useState(false)
 
-    const {
-        formState: { errors },
-        trigger,
-        setValue,
-    } = useFormContext()
-
-    const error = get(errors, name)
+    const { trigger } = useFormContext()
 
     return (
         <Controller
             name={name}
-            render={({ field }) => (
+            render={({ field, fieldState }) => (
                 <TextField
                     className='h-[7vh]'
                     variant='outlined'
                     fullWidth
                     focused={isFocused}
-                    color={field.value && !error ? 'success' : 'primary'}
+                    color={
+                        field.value && !fieldState.error?.message
+                            ? 'success'
+                            : 'primary'
+                    }
                     {...otherProps}
                     {...field}
                     value={field.value ?? ''}
-                    error={otherProps.error ?? !!errors[name]}
+                    error={otherProps.error ?? !!fieldState.error}
                     helperText={
-                        otherProps.helperText ??
-                        (error ? error.message : !!errors[name])
+                        otherProps.helperText ?? fieldState.error?.message
                     }
                     onChange={(event) => {
-                        setValue(name, event.target.value, {
-                            shouldValidate: true,
-                        })
+                        field.onChange(event.target.value)
                         trigger(name)
                     }}
                     onBlur={() => {
