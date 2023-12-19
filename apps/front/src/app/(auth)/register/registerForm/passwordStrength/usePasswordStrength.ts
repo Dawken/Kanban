@@ -1,17 +1,18 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 const usePasswordStrength = (password: string) => {
     const [progress, setProgress] = useState(0)
+    const [activeColor, setActiveColor] = useState('')
 
-    const getActiveColor = () => {
+    const getActiveColor = useCallback(() => {
         if (progress === 100) {
-            return '#00ff82'
+            setActiveColor('#00ff82')
         } else if (progress < 100 && progress > 25) {
-            return '#ffd600'
+            setActiveColor('#ffd600')
         } else {
-            return '#ff0000'
+            setActiveColor('#ff0000')
         }
-    }
+    }, [progress])
 
     useEffect(() => {
         const strengthCheck = {
@@ -26,14 +27,15 @@ const usePasswordStrength = (password: string) => {
             (value) => value
         )
 
+        getActiveColor()
         setProgress((verifiedList.length / 5) * 100)
-    }, [password])
+    }, [password, getActiveColor])
 
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
 
     return {
         progress,
-        getActiveColor,
+        activeColor,
         anchorEl,
         setAnchorEl,
     }

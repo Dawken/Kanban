@@ -2,7 +2,7 @@ import { Fade, Paper, Popper, Typography } from '@mui/material'
 import usePasswordStrength from '@src/app/(auth)/register/registerForm/passwordStrength/usePasswordStrength'
 
 const PasswordStrength = ({ password }: { password: string }) => {
-    const { progress, getActiveColor, anchorEl, setAnchorEl } =
+    const { progress, activeColor, anchorEl, setAnchorEl } =
         usePasswordStrength(password)
 
     return (
@@ -14,7 +14,7 @@ const PasswordStrength = ({ password }: { password: string }) => {
                 className='h-1 rounded-tl-[0] rounded-br-[0.2rem] rounded-tr-[0] rounded-bl-[0.2rem] [transition:all_0.5s_ease-out]'
                 style={{
                     width: `${progress}%`,
-                    backgroundColor: getActiveColor(),
+                    backgroundColor: activeColor,
                 }}
             />
 
