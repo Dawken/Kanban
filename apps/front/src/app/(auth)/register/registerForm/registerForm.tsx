@@ -31,7 +31,11 @@ const RegisterForm = () => {
                         label='Repeat password'
                     />
                 </div>
-                <FormButton loading={loading} error={error} text={'Sign Up'} />
+                <FormButton
+                    loading={loading}
+                    isError={error}
+                    text={'Sign Up'}
+                />
             </form>
         </FormProvider>
     )

@@ -35,7 +35,11 @@ const LoginForm = () => {
                         isCredentialsInvalid && 'Incorrect login or password'
                     }
                 />
-                <FormButton loading={loading} error={error} text={'Sign In'} />
+                <FormButton
+                    loading={loading}
+                    isError={error}
+                    text={'Sign In'}
+                />
             </form>
         </FormProvider>
     )

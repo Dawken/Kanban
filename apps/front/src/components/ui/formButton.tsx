@@ -5,15 +5,15 @@ import { ApolloError } from '@apollo/client'
 
 type FormButtonType = {
     loading: boolean
-    error?: ApolloError
+    isError?: boolean | ApolloError
     text: string
 }
-const FormButton = ({ loading, error, text }: FormButtonType) => {
+const FormButton = ({ loading, isError, text }: FormButtonType) => {
     return (
         <button className='w-full m-5 flex justify-center items-center text-black font-bold h-12 border-none rounded uppercase bg-gradient-to-r from-#00dffc to-#00ff82'>
             {loading ? (
                 <CircularProgress size={25} />
-            ) : !error ? (
+            ) : !isError ? (
                 text
             ) : (
                 <ClearIcon />
