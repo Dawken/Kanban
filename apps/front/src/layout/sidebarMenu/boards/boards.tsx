@@ -28,7 +28,7 @@ const Boards = ({ expanded }: ExpandedType) => {
                         animation='wave'
                     />
                 ) : expanded ? (
-                    `ALL BOARDS ( ${data.boards.length} )`
+                    `ALL BOARDS ( ${data?.boards.length} )`
                 ) : (
                     data.boards.length
                 )}

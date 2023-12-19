@@ -3,6 +3,7 @@ import { useMutation } from '@apollo/client'
 import { CREATE_BOARD } from '@src/graphQL/boards/mutations'
 import { toast } from 'react-toastify'
 import { BoardType } from '@src/types/boardType'
+import GET_BOARDS from '@src/graphQL/boards/queries'
 
 type BoardCredentials = {
     boardName: string
@@ -48,6 +49,7 @@ const useAddBoard = () => {
     const addBoard = (boardData: BoardType) => {
         createBoard({
             variables: boardData,
+            refetchQueries: [{ query: GET_BOARDS }],
         })
     }
 
