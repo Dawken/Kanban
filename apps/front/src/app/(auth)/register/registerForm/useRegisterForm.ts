@@ -6,7 +6,6 @@ import { useMutation } from '@apollo/client'
 import { CREATE_USER } from '@src/graphQL/auth/mutations'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/navigation'
-import { FormEvent } from 'react'
 
 const useRegisterForm = () => {
     type RegisterInput = TypeOf<typeof registerSchema>

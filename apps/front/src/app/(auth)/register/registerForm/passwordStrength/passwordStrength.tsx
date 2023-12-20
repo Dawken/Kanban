@@ -28,7 +28,7 @@ const PasswordStrength = ({ password }: { password: string }) => {
                 {({ TransitionProps }) => (
                     <Fade {...TransitionProps} timeout={350}>
                         <Paper>
-                            <Typography sx={{ p: 2 }}>
+                            <Typography className='p-3'>
                                 Password requires:
                                 <br />
                                 • 1 Capital letter
