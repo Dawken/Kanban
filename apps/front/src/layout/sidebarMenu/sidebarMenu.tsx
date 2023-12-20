@@ -11,7 +11,7 @@ const SidebarMenu = () => {
     return (
         <aside
             className={`${
-                expanded ? 'w-72' : 'w-20'
+                expanded ? 'w-72' : 'w-24'
             } transition-all duration-500 h-screen bg-[#0e0e0e] border-r border-[#00dffc] border-opacity-50 text-gray-400 text-sm`}
         >
             <div className='w-full flex place-content-around items-center h-24'>

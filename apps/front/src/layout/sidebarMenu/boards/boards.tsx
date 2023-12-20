@@ -30,28 +30,30 @@ const Boards = ({ expanded }: ExpandedType) => {
                 ) : expanded ? (
                     `ALL BOARDS ( ${data?.boards.length} )`
                 ) : (
-                    data.boards.length
+                    data?.boards.length
                 )}
             </div>
-            {loading
-                ? arrayFrom(
-                      5,
-                      <Skeleton
-                          className='m-1 w-full'
-                          height={40}
-                          variant='rounded'
-                          animation='wave'
-                      />
-                  )
-                : data?.boards.map((board: BoardType) => {
-                      return (
-                          <Board
-                              board={board}
-                              key={board.id}
-                              expanded={expanded}
+            <div className='w-full max-h-[75vh] overscroll-auto space-y-3 custom-scrollbar pr-3'>
+                {loading
+                    ? arrayFrom(
+                          5,
+                          <Skeleton
+                              className='w-full'
+                              height={40}
+                              variant='rounded'
+                              animation='wave'
                           />
                       )
-                  })}
+                    : data?.boards.map((board: BoardType) => {
+                          return (
+                              <Board
+                                  board={board}
+                                  key={board.id}
+                                  expanded={expanded}
+                              />
+                          )
+                      })}
+            </div>
         </div>
     )
 }

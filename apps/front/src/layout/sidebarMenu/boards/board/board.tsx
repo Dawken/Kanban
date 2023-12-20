@@ -13,12 +13,12 @@ const Board = ({ board, expanded }: PropsType) => {
         <ToolTip name={board.boardName}>
             <Link
                 href={`/boards/${board.id}`}
-                className='w-full h-10 bg-zinc-900 rounded m-1 flex items-center font-bold hover:bg-[#353535] transition-color duration-500 ease-in-out'
+                className='w-full h-10 bg-zinc-900 rounded flex items-center font-bold hover:bg-[#353535] transition-color duration-500 ease-in-out'
             >
-                <div className='w-full h-full space-x-3 text-sm flex ml-4 justify-start items-center whitespace-nowrap overflow-hidden'>
+                <div className='w-full h-full space-x-3 text-sm flex mx-4 justify-start items-center whitespace-nowrap overflow-hidden'>
                     <DashboardIcon />
                     {expanded && (
-                        <div className='overflow-hidden overflow-ellipsis pr-3'>
+                        <div className='overflow-hidden overflow-ellipsis'>
                             {board.boardName}
                         </div>
                     )}
