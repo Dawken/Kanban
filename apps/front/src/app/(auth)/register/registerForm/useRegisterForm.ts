@@ -1,15 +1,12 @@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { TypeOf } from 'zod'
-import registerSchema from './registerSchema'
+import registerSchema, { RegisterInput } from './registerSchema'
 import { useMutation } from '@apollo/client'
 import { CREATE_USER } from '@src/graphQL/auth/mutations'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/navigation'
 
 const useRegisterForm = () => {
-    type RegisterInput = TypeOf<typeof registerSchema>
-
     const router = useRouter()
 
     const [createUser, { loading, error }] = useMutation(CREATE_USER, {
