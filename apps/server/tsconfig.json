@@ -1,9 +1,22 @@
 {
-  "extends": "tsconfig/server.json",
-  "compilerOptions": {
-    "rootDir": ".",
-    "outDir": "dist"
-  },
-  "include": ["src/"],
-  "exclude": ["node_modules", ".turbo", "coverage", "dist"]
+    "compilerOptions": {
+        "outDir": "./dist",
+        "baseUrl": "./",
+        "target": "es2017",
+        "esModuleInterop": true,
+        "alwaysStrict": true,
+        "noImplicitAny": true,
+        "useUnknownInCatchVariables": false,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "moduleResolution": "node",
+        "module": "CommonJS",
+        "typeRoots": ["./node_modules/@types", "./src/@types"]
+    },
+    "ts-node": {
+        "files": true
+    },
+    "include": ["src"],
+    "exclude": ["node_modules", ".turbo", "coverage", "dist"],
+    "files": ["src/server.ts", "./src/@types/express.d.ts"]
 }
