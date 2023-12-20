@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { IconButton, Tooltip, Zoom } from '@mui/material'
 import DoneIcon from '@mui/icons-material/Done'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
@@ -7,6 +7,14 @@ import { CopyToClipboard } from 'react-copy-to-clipboard'
 
 const ClipBoardCopy = ({ text }: { text: string }) => {
     const [copied, setCopied] = useState(false)
+
+    useEffect(() => {
+        if (copied) {
+            setTimeout(() => {
+                setCopied(false)
+            }, 2000)
+        }
+    }, [copied])
 
     return (
         <Tooltip
@@ -16,11 +24,8 @@ const ClipBoardCopy = ({ text }: { text: string }) => {
         >
             <IconButton
                 edge='end'
-                onClick={() => setCopied(true)}
-                onMouseLeave={() => {
-                    setTimeout(() => {
-                        setCopied(false)
-                    }, 1000)
+                onClick={() => {
+                    setCopied(true)
                 }}
             >
                 <CopyToClipboard text={text}>
