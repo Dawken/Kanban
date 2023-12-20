@@ -32,10 +32,12 @@ const useLoginForm = () => {
         },
     })
 
-    const login = (loginFormData: LoginCredentials) => {
-        loginUser({
-            variables: loginFormData,
-        })
+    const login = () => {
+        return methods.handleSubmit((loginFormData) =>
+            loginUser({
+                variables: loginFormData,
+            })
+        )
     }
 
     const methods = useForm<LoginCredentials>()
