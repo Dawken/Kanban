@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation'
 import { useDispatch } from 'react-redux'
 import { getClientResponse } from '@src/context/redux/user'
 
-type LoginCredentials = {
+type LoginCredentialsProps = {
     login: string
     password: string
 }
@@ -40,7 +40,7 @@ const useLoginForm = () => {
         )
     }
 
-    const methods = useForm<LoginCredentials>()
+    const methods = useForm<LoginCredentialsProps>()
 
     return {
         methods,
