@@ -44,7 +44,7 @@ const boardResolvers = {
                 throw new Error('failed-board-create')
             }
         }),
-        updateBoard: checkAuth(async (_parent, { boardId, boardName }) => {
+        editBoard: checkAuth(async (_parent, { boardId, boardName }) => {
             try {
                 const board = await prisma.board.findUnique({
                     where: { id: boardId },
@@ -60,7 +60,7 @@ const boardResolvers = {
                     })
                 }
             } catch (error) {
-                throw new Error('failed-board-update')
+                throw new Error('failed-board-edit')
             }
         }),
         deleteBoard: checkAuth(async (_parent, { boardId }) => {

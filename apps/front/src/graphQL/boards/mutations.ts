@@ -7,5 +7,13 @@ const CREATE_BOARD = gql`
         }
     }
 `
+const EDIT_BOARD = gql`
+    mutation EditBoard($boardId: String!, $boardName: String) {
+        editBoard(boardId: $boardId, boardName: $boardName) {
+            boardName
+            id
+        }
+    }
+`
 
-export { CREATE_BOARD }
+export { CREATE_BOARD, EDIT_BOARD }

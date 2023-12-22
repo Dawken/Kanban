@@ -5,6 +5,10 @@ const GET_BOARDS = gql`
         boards {
             boardName
             id
+            status {
+                statusName
+                id
+            }
         }
     }
 `

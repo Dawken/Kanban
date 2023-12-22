@@ -1,35 +1,23 @@
 import React from 'react'
-import { Dialog, DialogTitle } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
-import { FormProvider } from 'react-hook-form'
-import DialogInput from '@src/components/ui/dialogInput'
-import ClearIcon from '@mui/icons-material/Clear'
-import FormButton from '@src/components/ui/formButton'
 import useAddBoard from '@src/layout/sidebarMenu/boards/addBoard/useAddBoard'
 import useToggleOpen from '@src/hooks/useToogleOpen'
-import { ExpandedType } from '@src/types/expandedType'
+import { ExpandedProps } from '@src/types/expandedProps'
 import ToolTip from '@src/components/ui/toolTip'
+import BoardForm from '@src/components/ui/boardForm'
+import { Dialog, DialogTitle } from '@mui/material'
+import FormButton from '@src/components/ui/formButton'
 
-const AddBoard = ({ expanded }: ExpandedType) => {
-    const {
-        methods,
-        register,
-        defaultValues,
-        remove,
-        append,
-        loading,
-        error,
-        transformBoardData,
-        addBoard,
-    } = useAddBoard()
+const AddBoard = ({ expanded }: ExpandedProps) => {
+    const { methods, loading, error, addBoard } = useAddBoard()
 
-    const { open, handleOpen, handleClose } = useToggleOpen()
+    const { handleOpen, open, handleClose } = useToggleOpen()
 
     return (
         <>
             <ToolTip name={'Add new board'}>
                 <button
-                    className='w-full space-x-1 text-sm font-bold whitespace-nowrap overflow-hidden'
+                    className='w-full h-full space-x-1 text-sm font-bold whitespace-nowrap overflow-hidden'
                     onClick={handleOpen}
                 >
                     <span>
@@ -43,51 +31,19 @@ const AddBoard = ({ expanded }: ExpandedType) => {
             <Dialog onClose={handleClose} open={open} fullWidth>
                 <div className='m-3'>
                     <DialogTitle className='text-2xl font-bold'>
-                        Add new board
+                        Create new Board
                     </DialogTitle>
-                    <FormProvider {...methods}>
-                        <form
-                            className='m-5 space-y-5'
-                            onSubmit={methods.handleSubmit((data) => {
-                                const boardData = transformBoardData(data)
-                                addBoard(boardData)
-                            })}
-                        >
-                            <div className='font-bold'>Board Name</div>
-                            <DialogInput name='boardName' />
-                            <div className='font-bold'>Board Columns</div>
-                            {defaultValues.status.map((board, index) => {
-                                return (
-                                    <div
-                                        className='flex justify-center items-center gap-3'
-                                        key={index}
-                                    >
-                                        <DialogInput
-                                            {...register(
-                                                `status.${index}.value`
-                                            )}
-                                        />
-                                        <ClearIcon
-                                            className='cursor-pointer text-3xl'
-                                            onClick={() => remove(index)}
-                                        />
-                                    </div>
-                                )
-                            })}
-                            <div
-                                className='w-full flex justify-center items-center font-bold h-12 border-none rounded uppercase bg-[#000000] text-white cursor-pointer'
-                                onClick={() => append({ value: '' })}
-                            >
-                                <AddIcon />
-                                Add new column
-                            </div>
+                    <BoardForm
+                        methods={methods}
+                        submitAction={addBoard()}
+                        ActionButton={
                             <FormButton
+                                text={'Create new Board'}
                                 loading={loading}
                                 error={error}
-                                text={'Create new board'}
                             />
-                        </form>
-                    </FormProvider>
+                        }
+                    />
                 </div>
             </Dialog>
         </>

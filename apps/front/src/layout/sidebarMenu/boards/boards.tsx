@@ -1,13 +1,13 @@
 import React from 'react'
 import useBoards from '@src/layout/sidebarMenu/boards/useBoards'
-import { BoardType } from '@src/types/boardType'
+import { BoardProps } from '@src/types/boardProps'
 import arrayFrom from '@src/utils/arrayFrom'
 import Skeleton from '@mui/material/Skeleton'
 import Board from '@src/layout/sidebarMenu/boards/board/board'
 import AddBoard from '@src/layout/sidebarMenu/boards/addBoard/addBoard'
-import { ExpandedType } from '@src/types/expandedType'
+import { ExpandedProps } from '@src/types/expandedProps'
 
-const Boards = ({ expanded }: ExpandedType) => {
+const Boards = ({ expanded }: ExpandedProps) => {
     const { data, loading } = useBoards()
 
     return (
@@ -44,7 +44,7 @@ const Boards = ({ expanded }: ExpandedType) => {
                               animation='wave'
                           />
                       )
-                    : data?.boards.map((board: BoardType) => {
+                    : data?.boards.map((board: BoardProps) => {
                           return (
                               <Board
                                   board={board}

@@ -14,10 +14,10 @@ const SidebarMenu = () => {
                 expanded ? 'w-72' : 'w-24'
             } transition-all duration-500 h-screen bg-[#0e0e0e] border-r border-[#00dffc] border-opacity-50 text-gray-400 text-sm`}
         >
-            <div className='w-full flex place-content-around items-center h-24'>
+            <div className='w-full flex place-content-around items-center h-24 gap-32'>
                 {expanded ? (
                     <>
-                        <div className='lg:flex justify-center items-start w-16 m-5'>
+                        <div className='lg:flex justify-center items-start w-16'>
                             <Image
                                 src={Logo}
                                 alt='Kanban logo'

@@ -43,7 +43,7 @@ const typeDefs = gql`
 
         #Boards
         createBoard(boardName: String!, status: [String]): Board
-        updateBoard(boardId: String!, boardName: String): Board
+        editBoard(boardId: String!, boardName: String): Board
         deleteBoard(boardId: String!): Board
     }
 `
