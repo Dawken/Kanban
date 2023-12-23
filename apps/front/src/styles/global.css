@@ -4,28 +4,21 @@
 @import '../../node_modules/tailwindcss/utilities.css';
 
 .custom-scrollbar {
-    height: 100%;
-    width: 100%;
     overflow-y: scroll;
     overflow-x: hidden;
 }
-@media screen and (-webkit-min-device-pixel-ratio: 0) {
-    .custom-scrollbar {
-        background-color: transparent;
-        -webkit-background-clip: text;
-        transition: background-color 0.8s;
+
+.custom-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+
+.custom-scrollbar:hover {
+    &::-webkit-scrollbar-thumb {
+        background-color: #444444;
     }
-    .custom-scrollbar:hover {
-        background-color: #4d4d4d;
-    }
-    .custom-scrollbar::-webkit-scrollbar {
-        width: 5px;
-    }
-    .custom-scrollbar::-webkit-scrollbar-track {
-        display: none;
-    }
-    .custom-scrollbar::-webkit-scrollbar-thumb {
-        border-radius: 10px;
-        background-color: inherit;
-    }
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    border-radius: 8px;
 }
