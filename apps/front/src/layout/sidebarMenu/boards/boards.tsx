@@ -12,13 +12,13 @@ const Boards = ({ expanded }: ExpandedProps) => {
 
     return (
         <div className='flex flex-col items-center m-3'>
-            <div className='w-full h-10 bg-zinc-900 rounded flex justify-center items-center cursor-pointer hover:bg-[#353535] transition-color duration-500 ease-in-out'>
+            <div className='w-full h-12 px-1'>
                 <AddBoard expanded={expanded} />
             </div>
             <div
                 className={`${
                     expanded ? 'text-left' : 'text-center'
-                } m-5 font-bold w-full whitespace-nowrap overflow-hidden`}
+                } my-5 px-2 font-bold w-full whitespace-nowrap overflow-hidden`}
             >
                 {loading ? (
                     <Skeleton
@@ -33,7 +33,7 @@ const Boards = ({ expanded }: ExpandedProps) => {
                     data?.boards.length
                 )}
             </div>
-            <div className='w-full max-h-[75vh] overscroll-auto space-y-3 custom-scrollbar pr-3'>
+            <div className='w-full max-h-[75vh] overscroll-auto space-y-3 custom-scrollbar'>
                 {loading
                     ? arrayFrom(
                           5,

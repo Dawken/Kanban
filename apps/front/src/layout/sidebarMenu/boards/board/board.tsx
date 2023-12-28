@@ -26,15 +26,17 @@ const Board = ({ board, expanded }: BoardsProps) => {
         <>
             <ToolTip name={board.boardName}>
                 <div
-                    className='w-full h-10 bg-zinc-900 rounded flex items-center font-bold hover:bg-[#353535] transition-all duration-500 ease-in-out'
+                    className='w-full h-12 bg-zinc-900 rounded flex items-center font-bold hover:bg-gradient-to-br from-[#00dffc] to-[#00ff82] transition-all duration-500 ease-in-out hover:text-black'
                     onMouseEnter={handleHover}
                     onMouseLeave={handleUnhover}
                 >
                     <Link
                         href={`/boards/${board.id}`}
-                        className='w-full h-full text-sm flex ml-4 justify-start items-center whitespace-nowrap overflow-hidden'
+                        className={
+                            'justify-start ml-5 w-full h-full text-sm flex items-center whitespace-nowrap overflow-hidden'
+                        }
                     >
-                        <DashboardIcon />
+                        <DashboardIcon className='text-2xl' />
                         {expanded && (
                             <div className='overflow-hidden overflow-ellipsis mx-2'>
                                 {board.boardName}
@@ -47,7 +49,7 @@ const Board = ({ board, expanded }: BoardsProps) => {
                                 <EditIcon
                                     className={`${
                                         isHover ? 'opacity-100' : 'opacity-0'
-                                    } transition-opacity duration-300 ease-in-out text-lg`}
+                                    } transition-opacity duration-300 ease-in-out text-lg text-black`}
                                 />
                             </IconButton>
                         </div>
