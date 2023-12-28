@@ -39,6 +39,7 @@ const typeDefs = gql`
             lastName: String!
         ): User
         loginUser(login: String!, password: String!): User
+        logoutUser: User
         updateCookie: User
 
         #Boards

@@ -68,6 +68,22 @@ const authResolvers = {
                 }
             }
         },
+        logoutUser: async (
+            _parent: unknown,
+            _args: unknown,
+            { req, res }: { req: Request; res: Response }
+        ) => {
+            try {
+                res.clearCookie('AuthToken', {
+                    httpOnly: true,
+                })
+                res.clearCookie('RefreshToken', {
+                    httpOnly: true,
+                })
+            } catch (error) {
+                throw new Error(error.message)
+            }
+        },
         updateCookie: async (
             _parent: unknown,
             _args: unknown,

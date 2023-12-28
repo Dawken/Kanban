@@ -1,5 +1,4 @@
 import { BoardProps } from '@src/types/boardProps'
-import DashboardIcon from '@mui/icons-material/Dashboard'
 import React from 'react'
 import Link from 'next/link'
 import ToolTip from '@src/components/ui/toolTip'
@@ -10,6 +9,7 @@ import FormButton from '@src/components/ui/formButton'
 import EditIcon from '@mui/icons-material/Edit'
 import useToggleHover from '@src/hooks/useToogleHover'
 import useBoard from '@src/layout/sidebarMenu/boards/board/useBoard'
+import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded'
 
 type BoardsProps = {
     board: BoardProps
@@ -26,17 +26,17 @@ const Board = ({ board, expanded }: BoardsProps) => {
         <>
             <ToolTip name={board.boardName}>
                 <div
-                    className='w-full h-12 bg-zinc-900 rounded flex items-center font-bold hover:bg-gradient-to-br from-[#00dffc] to-[#00ff82] transition-all duration-500 ease-in-out hover:text-black'
+                    className='w-full h-12 bg-zinc-900 rounded-md flex items-center font-bold hover:bg-gradient-to-br from-[#00dffc] to-[#00ff82] hover:text-black'
                     onMouseEnter={handleHover}
                     onMouseLeave={handleUnhover}
                 >
                     <Link
                         href={`/boards/${board.id}`}
                         className={
-                            'justify-start ml-5 w-full h-full text-sm flex items-center whitespace-nowrap overflow-hidden'
+                            'ml-[1.15rem] w-full h-full text-sm flex justify-start items-center whitespace-nowrap overflow-hidden'
                         }
                     >
-                        <DashboardIcon className='text-2xl' />
+                        <DashboardRoundedIcon className='text-2xl' />
                         {expanded && (
                             <div className='overflow-hidden overflow-ellipsis mx-2'>
                                 {board.boardName}

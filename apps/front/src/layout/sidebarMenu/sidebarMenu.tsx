@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Boards from '@src/layout/sidebarMenu/boards/boards'
 import MenuIcon from '@mui/icons-material/Menu'
 import FirstPageIcon from '@mui/icons-material/FirstPage'
+import Logout from '@src/layout/sidebarMenu/logout/logout'
 
 const SidebarMenu = () => {
     const [expanded, setExpanded] = useState(false)
@@ -12,7 +13,7 @@ const SidebarMenu = () => {
         <aside
             className={`${
                 expanded ? 'w-72' : 'w-24'
-            } transition-all duration-500 h-screen bg-[#0e0e0e] border-r border-[#00dffc] border-opacity-50 text-gray-400 text-sm`}
+            } transition-all duration-500 h-screen bg-[#0e0e0e] border-r border-[#00dffc] border-opacity-50 text-gray-400 text-sm relative`}
         >
             <div className='w-full flex place-content-around items-center h-24 gap-32'>
                 {expanded ? (
@@ -42,6 +43,7 @@ const SidebarMenu = () => {
                 )}
             </div>
             <Boards expanded={expanded} />
+            <Logout expanded={expanded} />
         </aside>
     )
 }

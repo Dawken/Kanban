@@ -33,13 +33,13 @@ const Boards = ({ expanded }: ExpandedProps) => {
                     data?.boards.length
                 )}
             </div>
-            <div className='w-full max-h-[75vh] overscroll-auto space-y-3 custom-scrollbar'>
+            <div className='w-full max-h-[63vh] overscroll-auto space-y-3 custom-scrollbar'>
                 {loading
                     ? arrayFrom(
                           5,
                           <Skeleton
                               className='w-full'
-                              height={40}
+                              height={48}
                               variant='rounded'
                               animation='wave'
                           />

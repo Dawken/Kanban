@@ -17,12 +17,10 @@ const AddBoard = ({ expanded }: ExpandedProps) => {
         <>
             <ToolTip name={'Add new board'}>
                 <button
-                    className='w-full h-12 bg-zinc-900 rounded flex justify-center items-center font-bold hover:bg-gradient-to-br from-[#00dffc] to-[#00ff82] transition-all duration-500 ease-in-out hover:text-black'
+                    className='w-full h-12 bg-zinc-900 rounded-md whitespace-nowrap overflow-hidden flex justify-center items-center font-bold hover:bg-gradient-to-br from-[#00dffc] to-[#00ff82] hover:text-black'
                     onClick={handleOpen}
                 >
-                    <span>
-                        <AddIcon />
-                    </span>
+                    <AddIcon />
                     {expanded && (
                         <span className='overflow-ellipsis'>Add new Board</span>
                     )}
