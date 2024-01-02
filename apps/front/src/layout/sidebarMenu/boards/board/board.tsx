@@ -3,13 +3,14 @@ import React from 'react'
 import Link from 'next/link'
 import ToolTip from '@src/components/ui/toolTip'
 import useToggleOpen from '@src/hooks/useToogleOpen'
-import { Dialog, DialogTitle, IconButton } from '@mui/material'
+import { Dialog, IconButton } from '@mui/material'
 import BoardForm from '@src/components/ui/boardForm'
 import FormButton from '@src/components/ui/formButton'
 import EditIcon from '@mui/icons-material/Edit'
 import useToggleHover from '@src/hooks/useToogleHover'
 import useBoard from '@src/layout/sidebarMenu/boards/board/useBoard'
 import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded'
+import DeleteBoard from '@src/layout/sidebarMenu/boards/board/deleteBoard/deleteBoard'
 
 type BoardsProps = {
     board: BoardProps
@@ -58,9 +59,10 @@ const Board = ({ board, expanded }: BoardsProps) => {
             </ToolTip>
             <Dialog onClose={handleClose} open={open} fullWidth>
                 <div className='m-3'>
-                    <DialogTitle className='text-2xl font-bold'>
-                        Edit Board
-                    </DialogTitle>
+                    <div className='m-6 flex justify-between items-center'>
+                        <div className='text-2xl font-bold'>Edit Board</div>
+                        <DeleteBoard boardId={board.id} />
+                    </div>
                     <BoardForm
                         methods={methods}
                         submitAction={updateBoard()}

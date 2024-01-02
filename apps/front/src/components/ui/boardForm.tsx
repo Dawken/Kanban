@@ -27,7 +27,7 @@ const BoardForm = ({
 
     return (
         <FormProvider {...methods}>
-            <form className='m-5 space-y-5' onSubmit={submitAction}>
+            <form className='m-6 space-y-5' onSubmit={submitAction}>
                 <div className='font-bold'>Board Name</div>
                 <DialogInput name='boardName' />
                 <div className='font-bold'>Board Columns</div>

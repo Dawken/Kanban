@@ -16,4 +16,12 @@ const EDIT_BOARD = gql`
     }
 `
 
-export { CREATE_BOARD, EDIT_BOARD }
+const DELETE_BOARD = gql`
+    mutation DeleteBoard($boardId: String!) {
+        deleteBoard(boardId: $boardId) {
+            id
+        }
+    }
+`
+
+export { CREATE_BOARD, EDIT_BOARD, DELETE_BOARD }
