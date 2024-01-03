@@ -20,10 +20,7 @@ const DeleteBoard = ({ boardId }: DeleteBoardProps) => {
                 onClick={handleOpen}
             >
                 <div className='m-1 flex justify-center items-center text-sm font-bold'>
-                    <div className='flex justify-center items-center my-1 mx-3'>
-                        <DeleteIcon className='text-xl' />
-                        <div>Delete Board</div>
-                    </div>
+                    <DeleteIcon className='text-xl my-1 mx-2' />
                 </div>
             </button>
             <Dialog onClose={handleClose} open={open}>
