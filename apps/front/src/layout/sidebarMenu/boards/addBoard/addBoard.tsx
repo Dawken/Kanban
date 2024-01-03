@@ -1,7 +1,7 @@
 import React from 'react'
 import AddIcon from '@mui/icons-material/Add'
 import useAddBoard from '@src/layout/sidebarMenu/boards/addBoard/useAddBoard'
-import useToggleOpen from '@src/hooks/useToogleOpen'
+import useToggleOpen from '@src/hooks/useToggleOpen'
 import { ExpandedProps } from '@src/types/expandedProps'
 import ToolTip from '@src/components/ui/toolTip'
 import BoardForm from '@src/components/ui/boardForm'

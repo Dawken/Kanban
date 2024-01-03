@@ -1,7 +1,7 @@
 import React from 'react'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { Dialog } from '@mui/material'
-import useToggleOpen from '@src/hooks/useToogleOpen'
+import useToggleOpen from '@src/hooks/useToggleOpen'
 import useDeleteBoard from '@src/layout/sidebarMenu/boards/board/deleteBoard/useDeleteBoard'
 import DeleteDialogButtons from '@src/components/ui/deleteDialogButtons'
 

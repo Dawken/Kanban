@@ -1,13 +1,14 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Logo from '../../../public/assets/logo.png'
 import Image from 'next/image'
 import Boards from '@src/layout/sidebarMenu/boards/boards'
 import MenuIcon from '@mui/icons-material/Menu'
 import FirstPageIcon from '@mui/icons-material/FirstPage'
 import Logout from '@src/layout/sidebarMenu/logout/logout'
+import useSidebarMenu from '@src/layout/sidebarMenu/useSidebarMenu'
 
 const SidebarMenu = () => {
-    const [expanded, setExpanded] = useState(false)
+    const { expanded, toggleExpanded } = useSidebarMenu()
 
     return (
         <aside
@@ -29,16 +30,14 @@ const SidebarMenu = () => {
                         <FirstPageIcon
                             fontSize='large'
                             className='cursor-pointer'
-                            onClick={() =>
-                                setExpanded((prevState) => !prevState)
-                            }
+                            onClick={() => toggleExpanded()}
                         />
                     </>
                 ) : (
                     <MenuIcon
                         fontSize='large'
                         className='cursor-pointer'
-                        onClick={() => setExpanded((prevState) => !prevState)}
+                        onClick={() => toggleExpanded()}
                     />
                 )}
             </div>
