@@ -34,10 +34,10 @@ const Board = ({ board, expanded }: BoardsProps) => {
                     <Link
                         href={`/boards/${board.id}`}
                         className={
-                            'ml-[1.15rem] w-full h-full text-sm flex justify-start items-center whitespace-nowrap overflow-hidden'
+                            'w-full h-full text-sm flex justify-start items-center whitespace-nowrap overflow-hidden'
                         }
                     >
-                        <DashboardRoundedIcon className='text-2xl' />
+                        <DashboardRoundedIcon className='text-2xl ml-[1.15rem] ' />
                         {expanded && (
                             <div className='overflow-hidden overflow-ellipsis mx-2'>
                                 {board.boardName}
