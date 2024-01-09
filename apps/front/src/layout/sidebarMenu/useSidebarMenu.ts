@@ -1,28 +1,12 @@
-import { useEffect, useState } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { cookies } from 'next/headers'
 
 const useSidebarMenu = () => {
-    const router = useRouter()
+    const isSidebarExpanded = cookies().get('isSidebarExpanded')?.value
 
-    const searchParams = useSearchParams()
-
-    const isSidebarExpanded = searchParams.get('sidebar')
-
-    const [expanded, setExpanded] = useState(
-        (isSidebarExpanded && JSON.parse(isSidebarExpanded)) || false
-    )
-
-    useEffect(() => {
-        router.push(`?sidebar=${expanded}`)
-    }, [router, expanded])
-
-    const toggleExpanded = () => {
-        setExpanded((prevState: boolean) => !prevState)
-    }
+    const expanded = isSidebarExpanded ? JSON.parse(isSidebarExpanded) : true
 
     return {
         expanded,
-        toggleExpanded,
     }
 }
 

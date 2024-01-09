@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import useBoards from '@src/layout/sidebarMenu/boards/useBoards'
 import { BoardProps } from '@src/types/boardProps'

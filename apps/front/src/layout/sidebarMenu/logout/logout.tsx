@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import useLogout from '@src/layout/sidebarMenu/logout/useLogout'
 import LogoutIcon from '@mui/icons-material/Logout'

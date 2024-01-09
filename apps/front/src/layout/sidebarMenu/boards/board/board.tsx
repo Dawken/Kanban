@@ -11,6 +11,7 @@ import useToggleHover from '@src/hooks/useToggleHover'
 import useBoard from '@src/layout/sidebarMenu/boards/board/useBoard'
 import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded'
 import DeleteBoard from '@src/layout/sidebarMenu/boards/board/deleteBoard/deleteBoard'
+import { useParams } from 'next/navigation'
 
 type BoardsProps = {
     board: BoardProps
@@ -23,16 +24,22 @@ const Board = ({ board, expanded }: BoardsProps) => {
 
     const { methods, loading, error, updateBoard } = useBoard({ board })
 
+    const params = useParams()
+
     return (
         <>
             <ToolTip name={board.boardName}>
                 <div
-                    className='w-full h-12 bg-zinc-900 rounded-md flex items-center font-bold hover:bg-gradient-to-br from-[#00dffc] to-[#00ff82] hover:text-black'
+                    className={`${
+                        params.id === board.id
+                            ? 'bg-gradient-to-br from-[#00dffc] to-[#00ff82] text-black'
+                            : 'bg-zinc-900'
+                    } w-full h-12 rounded-md flex items-center font-bold hover:bg-gradient-to-br from-[#00dffc] to-[#00ff82] hover:text-black shadow-2xl`}
                     onMouseEnter={handleHover}
                     onMouseLeave={handleUnhover}
                 >
                     <Link
-                        href={`/boards/${board.id}`}
+                        href={`/boards/${board.id}?`}
                         className={
                             'w-full h-full text-sm flex justify-start items-center whitespace-nowrap overflow-hidden'
                         }

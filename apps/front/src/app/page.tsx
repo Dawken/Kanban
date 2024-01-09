@@ -1,9 +1,12 @@
-'use client'
 import React from 'react'
-import PrivateRoutes from '@src/components/routes/privateRoutes'
+import Layout from '@src/layout/layout'
 
 const Home = () => {
-    return <div className='text-white'>Home</div>
+    return (
+        <div className='text-white flex'>
+            <div>Home</div>
+        </div>
+    )
 }
 
-export default PrivateRoutes(Home)
+export default Layout(Home)
