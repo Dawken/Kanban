@@ -1,15 +1,22 @@
 'use client'
 import React from 'react'
 import useBoards from '@src/layout/sidebarMenu/boards/useBoards'
-import { BoardProps } from '@src/types/boardProps'
 import arrayFrom from '@src/utils/arrayFrom'
 import Skeleton from '@mui/material/Skeleton'
 import Board from '@src/layout/sidebarMenu/boards/board/board'
 import AddBoard from '@src/layout/sidebarMenu/boards/addBoard/addBoard'
 import { ExpandedProps } from '@src/types/expandedProps'
+import { BoardProps } from '@src/types/boardProps'
+import { Draggable } from '@src/components/ui/drag/draggable'
+import DntContext from '@src/components/ui/drag/dntContext/dntContext'
+import { DragOverlay } from '@dnd-kit/core'
+import { SortableContext } from '@dnd-kit/sortable'
+import useDragHandler from '@src/hooks/useDragHandler'
 
 const Boards = ({ expanded }: ExpandedProps) => {
-    const { data, loading } = useBoards()
+    const { dragId, onDragStart, onDragCancel } = useDragHandler()
+
+    const { loading, boards, setBoards, draggedBoard } = useBoards(dragId)
 
     return (
         <div className='flex flex-col items-center m-3'>
@@ -29,32 +36,51 @@ const Boards = ({ expanded }: ExpandedProps) => {
                         animation='wave'
                     />
                 ) : expanded ? (
-                    `ALL BOARDS ( ${data?.boards.length} )`
+                    `ALL BOARDS ( ${boards.length} )`
                 ) : (
-                    data?.boards.length
+                    boards.length
                 )}
             </div>
-            <div className='w-full max-h-[63vh] overscroll-auto space-y-3 custom-scrollbar'>
-                {loading
-                    ? arrayFrom(
-                          5,
-                          <Skeleton
-                              className='w-full'
-                              height={48}
-                              variant='rounded'
-                              animation='wave'
-                          />
-                      )
-                    : data?.boards.map((board: BoardProps) => {
-                          return (
-                              <Board
-                                  board={board}
-                                  key={board.id}
-                                  expanded={expanded}
-                              />
-                          )
-                      })}
-            </div>
+            <DntContext
+                setItems={setBoards}
+                onDragStart={onDragStart}
+                onDragCancel={onDragCancel}
+            >
+                <SortableContext items={boards}>
+                    <div className='w-full max-h-[63vh] overscroll-auto space-y-3 custom-scrollbar'>
+                        {loading
+                            ? arrayFrom(
+                                  5,
+                                  <Skeleton
+                                      className='w-full'
+                                      height={48}
+                                      variant='rounded'
+                                      animation='wave'
+                                  />
+                              )
+                            : boards.map((board: BoardProps) => {
+                                  return (
+                                      <Draggable id={board.id} key={board.id}>
+                                          <Board
+                                              board={board}
+                                              expanded={expanded}
+                                          />
+                                      </Draggable>
+                                  )
+                              })}
+                    </div>
+                </SortableContext>
+                <DragOverlay>
+                    {draggedBoard ? (
+                        <Board
+                            key={draggedBoard.id}
+                            board={draggedBoard}
+                            expanded={expanded}
+                            dragId={dragId}
+                        />
+                    ) : null}
+                </DragOverlay>
+            </DntContext>
         </div>
     )
 }

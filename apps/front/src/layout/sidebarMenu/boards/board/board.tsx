@@ -12,12 +12,15 @@ import useBoard from '@src/layout/sidebarMenu/boards/board/useBoard'
 import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded'
 import DeleteBoard from '@src/layout/sidebarMenu/boards/board/deleteBoard/deleteBoard'
 import { useParams } from 'next/navigation'
+import { DragIdProps } from '@src/types/dragIdProps'
 
 type BoardsProps = {
     board: BoardProps
     expanded: boolean
+    dragId?: DragIdProps
 }
-const Board = ({ board, expanded }: BoardsProps) => {
+
+const Board = ({ board, expanded, dragId }: BoardsProps) => {
     const { open, handleOpen, handleClose } = useToggleOpen()
 
     const { isHover, handleHover, handleUnhover } = useToggleHover()
@@ -28,7 +31,7 @@ const Board = ({ board, expanded }: BoardsProps) => {
 
     return (
         <>
-            <ToolTip name={board.boardName}>
+            <ToolTip name={dragId ? '' : board.boardName}>
                 <div
                     className={`${
                         params.id === board.id
@@ -39,7 +42,7 @@ const Board = ({ board, expanded }: BoardsProps) => {
                     onMouseLeave={handleUnhover}
                 >
                     <Link
-                        href={`/boards/${board.id}?`}
+                        href={`/boards/${board.id}`}
                         className={
                             'w-full h-full text-sm flex justify-start items-center whitespace-nowrap overflow-hidden'
                         }
