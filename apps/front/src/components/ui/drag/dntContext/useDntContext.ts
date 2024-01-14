@@ -1,10 +1,15 @@
-import { DragEndEvent, MouseSensor, useSensor, useSensors } from '@dnd-kit/core'
+import {
+    DragEndEvent,
+    PointerSensor,
+    useSensor,
+    useSensors,
+} from '@dnd-kit/core'
 import { arrayMove } from '@dnd-kit/sortable'
 import { SetItemsAction } from '@src/types/setItemsProps'
 
 const useDntContext = (setItems: SetItemsAction) => {
     const sensors = useSensors(
-        useSensor(MouseSensor, {
+        useSensor(PointerSensor, {
             activationConstraint: {
                 distance: 5,
             },
