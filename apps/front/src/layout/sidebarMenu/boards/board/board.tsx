@@ -10,6 +10,7 @@ import EditIcon from '@mui/icons-material/Edit'
 import useToggleHover from '@src/hooks/useToggleHover'
 import useBoard from '@src/layout/sidebarMenu/boards/board/useBoard'
 import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded'
+import DragIndicatorIcon from '@mui/icons-material/DragIndicator'
 import DeleteBoard from '@src/layout/sidebarMenu/boards/board/deleteBoard/deleteBoard'
 import { useParams } from 'next/navigation'
 import { DragIdProps } from '@src/types/dragIdProps'
@@ -55,14 +56,16 @@ const Board = ({ board, expanded, dragId }: BoardsProps) => {
                         )}
                     </Link>
                     {expanded && (
-                        <div className='ml-auto mr-1'>
-                            <IconButton onClick={handleOpen}>
-                                <EditIcon
-                                    className={`${
-                                        isHover ? 'opacity-100' : 'opacity-0'
-                                    } transition-opacity duration-300 ease-in-out text-lg text-black`}
-                                />
-                            </IconButton>
+                        <div
+                            className={`flex items-center ml-auto mr-1  transition-opacity duration-300 ease-in-out text-black gap-1 ${
+                                isHover ? 'opacity-100' : 'opacity-0'
+                            }`}
+                        >
+                            <EditIcon
+                                className={'text-lg'}
+                                onClick={handleOpen}
+                            />
+                            <DragIndicatorIcon />
                         </div>
                     )}
                 </div>
