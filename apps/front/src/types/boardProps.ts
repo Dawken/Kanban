@@ -4,4 +4,5 @@ export type BoardProps = {
     boardName: string
     status: StatusProps[]
     id: string
+    order: number
 }

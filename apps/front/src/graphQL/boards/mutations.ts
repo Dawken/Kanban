@@ -24,4 +24,12 @@ const DELETE_BOARD = gql`
     }
 `
 
-export { CREATE_BOARD, EDIT_BOARD, DELETE_BOARD }
+const UPDATE_BOARDS_ORDER = gql`
+    mutation UpdateBoardsOrder($newBoardOrder: [BoardOrderInput!]!) {
+        updateBoardsOrder(newBoardOrder: $newBoardOrder) {
+            id
+        }
+    }
+`
+
+export { CREATE_BOARD, EDIT_BOARD, DELETE_BOARD, UPDATE_BOARDS_ORDER }

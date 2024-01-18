@@ -21,6 +21,7 @@ const typeDefs = gql`
         userId: String!
         user: User
         status: [Status]
+        order: Int
     }
 
     type Status {
@@ -30,6 +31,18 @@ const typeDefs = gql`
         board: Board
     }
 
+    input StatusInput {
+        id: String
+        statusName: String
+        boardId: String
+    }
+
+    input BoardOrderInput {
+        id: String!
+        boardName: String!
+        order: Int!
+        status: [StatusInput]
+    }
     type Mutation {
         #Auth
         createUser(
@@ -46,6 +59,7 @@ const typeDefs = gql`
         createBoard(boardName: String!, status: [String]): Board
         editBoard(boardId: String!, boardName: String): Board
         deleteBoard(boardId: String!): Board
+        updateBoardsOrder(newBoardOrder: [BoardOrderInput!]!): [Board]
     }
 `
 export default typeDefs

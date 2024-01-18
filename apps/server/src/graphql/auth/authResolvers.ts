@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client'
 import bcrypt from 'bcrypt'
 import { RegisterDTO } from './registerDTO'
 import { bodyValidator } from '../../shared/bodyValidator'
-import { UserAccount } from '../../types/UserAccount'
+import { UserAccountProps } from '../../types/userAccount'
 import { LoginDTO } from './loginDTO'
 import {
     generateAccessToken,
@@ -11,13 +11,9 @@ import {
 import { Response, Request } from 'express'
 import checkAuth from '../../middlewares/checkAuth'
 import jwt, { JwtPayload } from 'jsonwebtoken'
+import { LoginProps } from '../../types/loginProps'
 
 const prisma = new PrismaClient()
-
-type LoginType = {
-    login: string
-    password: string
-}
 
 const authResolvers = {
     Query: {
@@ -32,7 +28,7 @@ const authResolvers = {
     Mutation: {
         loginUser: async (
             _parent: unknown,
-            { login, password }: LoginType,
+            { login, password }: LoginProps,
             { req, res }: { req: Request; res: Response }
         ) => {
             try {
@@ -89,41 +85,37 @@ const authResolvers = {
             _args: unknown,
             { req, res }: { req: Request; res: Response }
         ) => {
-            if (!req.cookies.AuthToken) {
-                if (req.cookies.RefreshToken) {
-                    const decodedToken = jwt.verify(
-                        req.cookies.RefreshToken,
-                        process.env.TOKEN_SECRET
+            if (req.cookies.RefreshToken) {
+                const decodedToken = jwt.verify(
+                    req.cookies.RefreshToken,
+                    process.env.TOKEN_SECRET
+                )
+
+                const user = await prisma.user.findUnique({
+                    where: { id: (decodedToken as JwtPayload).id },
+                })
+
+                try {
+                    const token = generateAccessToken(user)
+                    const refreshToken = generateRefreshToken(user)
+                    const expiresAuthToken = new Date(Date.now() + 3600 * 1000) // 1 hour
+                    const expiresRefreshToken = new Date(
+                        Date.now() + 3600 * 1000 * 24 * 7 // 7 days
                     )
-
-                    const user = await prisma.user.findUnique({
-                        where: { id: (decodedToken as JwtPayload).id },
-                    })
-
-                    try {
-                        const token = generateAccessToken(user)
-                        const refreshToken = generateRefreshToken(user)
-                        const expiresAuthToken = new Date(
-                            Date.now() + 3600 * 1000
-                        ) // 1 hour
-                        const expiresRefreshToken = new Date(
-                            Date.now() + 3600 * 1000 * 24 * 7 // 7 days
-                        )
-                        res.setHeader('Set-Cookie', [
-                            `AuthToken=${token}; Max-Age=3600; Path=/; Expires=${expiresAuthToken.toUTCString()}; HttpOnly; Secure; SameSite=None;`,
-                            `RefreshToken=${refreshToken}; Max-Age=604800; Path=/; Expires=${expiresRefreshToken.toUTCString()}; HttpOnly; Secure; SameSite=None;`,
-                        ])
-                    } catch (error) {
-                        throw new Error(error.message)
-                    }
-                } else {
-                    throw new Error('refresh-token-required')
+                    res.setHeader('Set-Cookie', [
+                        `AuthToken=${token}; Max-Age=3600; Path=/; Expires=${expiresAuthToken.toUTCString()}; HttpOnly; Secure; SameSite=None;`,
+                        `RefreshToken=${refreshToken}; Max-Age=604800; Path=/; Expires=${expiresRefreshToken.toUTCString()}; HttpOnly; Secure; SameSite=None;`,
+                    ])
+                } catch (error) {
+                    throw new Error(error.message)
                 }
+            } else {
+                throw new Error('refresh-token-required')
             }
         },
         createUser: async (
             _parent: unknown,
-            { login, password, name, lastName }: UserAccount
+            { login, password, name, lastName }: UserAccountProps
         ) => {
             try {
                 await bodyValidator(RegisterDTO, {

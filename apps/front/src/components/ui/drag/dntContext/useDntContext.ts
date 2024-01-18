@@ -21,7 +21,6 @@ const useDntContext = (setItems: SetItemsAction) => {
 
         if (over) {
             if (active.id === over.id) return
-
             setItems((prevState) => {
                 const oldIndex = prevState.findIndex(
                     (item) => item.id === active.id
@@ -29,7 +28,14 @@ const useDntContext = (setItems: SetItemsAction) => {
                 const newIndex = prevState.findIndex(
                     (item) => item.id === over.id
                 )
-                return arrayMove(prevState, oldIndex, newIndex)
+                const sortedArray = arrayMove(prevState, oldIndex, newIndex)
+
+                return sortedArray.map((item, index) => {
+                    return {
+                        ...item,
+                        order: index + 1,
+                    }
+                })
             })
         }
     }

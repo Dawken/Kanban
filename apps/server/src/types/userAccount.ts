@@ -1,4 +1,4 @@
-export type UserAccount = {
+export type UserAccountProps = {
     id: string
     login: string
     password: string

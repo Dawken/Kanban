@@ -14,6 +14,9 @@ const boardResolvers = {
                     include: {
                         status: true,
                     },
+                    orderBy: {
+                        order: 'asc',
+                    },
                 })
             } catch (error) {
                 throw new Error('failed-boards-fetch')
@@ -23,6 +26,9 @@ const boardResolvers = {
     Mutation: {
         createBoard: checkAuth(async (_parent, { boardName, status }, req) => {
             try {
+                const existingBoardsCount = await prisma.board.count({
+                    where: { userId: req.user.id },
+                })
                 return await prisma.board.create({
                     data: {
                         boardName,
@@ -38,6 +44,7 @@ const boardResolvers = {
                                   })),
                               }
                             : undefined,
+                        order: existingBoardsCount + 1,
                     },
                 })
             } catch {
@@ -71,15 +78,39 @@ const boardResolvers = {
                 if (!board) {
                     throw new Error('board-not-found')
                 } else {
-                    return await prisma.board.delete({
+                    const deletedBoard = await prisma.board.delete({
                         where: { id: boardId },
                         include: {
                             status: true,
                         },
                     })
+                    await prisma.board.updateMany({
+                        where: {
+                            userId: board.userId,
+                            order: { gt: board.order },
+                        },
+                        data: {
+                            order: {
+                                decrement: 1,
+                            },
+                        },
+                    })
+                    return deletedBoard
                 }
             } catch {
                 throw new Error('failed-board-delete')
+            }
+        }),
+        updateBoardsOrder: checkAuth(async (_parent, { newBoardOrder }) => {
+            try {
+                for (const updatedBoard of newBoardOrder) {
+                    await prisma.board.update({
+                        where: { id: updatedBoard.id },
+                        data: { order: updatedBoard.order },
+                    })
+                }
+            } catch (error) {
+                throw new Error('failed-board-update')
             }
         }),
     },
