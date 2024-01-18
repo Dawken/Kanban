@@ -2,7 +2,7 @@ import typeDefs from './graphql/typeDefs'
 import { ApolloServer } from 'apollo-server-express'
 import express from 'express'
 import authResolvers from './graphql/auth/authResolvers'
-import { UserAccount } from './types/userAccount'
+import { UserAccountProps } from './types/userAccount'
 import cookieParser from 'cookie-parser'
 import jwt from 'jsonwebtoken'
 import { config } from 'dotenv'
@@ -30,7 +30,7 @@ const server = async () => {
             jwt.verify(
                 AuthToken,
                 process.env.TOKEN_SECRET,
-                (err: Error, user: UserAccount) => {
+                (err: Error, user: UserAccountProps) => {
                     req.user = user
                 }
             )
