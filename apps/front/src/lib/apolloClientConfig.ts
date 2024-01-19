@@ -8,8 +8,11 @@ import { onError } from '@apollo/client/link/error'
 import { store } from '@src/context/redux/store'
 import { getClientResponse } from '@src/context/redux/user'
 import { UPDATE_COOKIE } from '@src/graphQL/auth/mutations'
+import { removeTypenameFromVariables } from '@apollo/client/link/remove-typename'
 
 const authGateway = process.env.NEXT_PUBLIC_AUTH_GATEWAY
+
+const removeTypenameLink = removeTypenameFromVariables()
 
 const httpLink = createHttpLink({
     uri: authGateway,
@@ -44,7 +47,7 @@ const errorLink = onError(({ graphQLErrors, operation, forward }) => {
     }
 })
 
-const link = ApolloLink.from([errorLink, httpLink])
+const link = ApolloLink.from([removeTypenameLink, errorLink, httpLink])
 
 const client = new ApolloClient({
     cache: new InMemoryCache(),

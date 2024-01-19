@@ -2,3 +2,24 @@
 @import '../../node_modules/tailwindcss/base.css';
 @import '../../node_modules/tailwindcss/components.css';
 @import '../../node_modules/tailwindcss/utilities.css';
+
+.custom-scrollbar {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding-left: 5px;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+
+.custom-scrollbar:hover {
+    &::-webkit-scrollbar-thumb {
+        background-color: #444444;
+    }
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    border-radius: 8px;
+}

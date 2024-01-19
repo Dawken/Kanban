@@ -10,7 +10,7 @@ type FormButtonProps = {
 }
 const FormButton = ({ loading, isError, text }: FormButtonProps) => {
     return (
-        <button className='w-full m-5 flex justify-center items-center text-black font-bold h-12 border-none rounded uppercase bg-gradient-to-r from-#00dffc to-#00ff82'>
+        <button className='w-full flex justify-center items-center text-black font-bold h-12 border-none rounded uppercase bg-gradient-to-r from-[#00dffc] to-[#00ff82]'>
             {loading ? (
                 <CircularProgress size={25} />
             ) : !isError ? (

@@ -18,6 +18,13 @@ const darkTheme = createTheme({
                 },
             },
         },
+        MuiDialog: {
+            styleOverrides: {
+                paper: {
+                    backgroundColor: 'black',
+                },
+            },
+        },
     },
 })
 export { darkTheme }

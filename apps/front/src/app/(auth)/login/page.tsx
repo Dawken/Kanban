@@ -34,9 +34,9 @@ const Login = () => {
                             </Link>
                         </div>
                         <div className='m-5 flex justify-around items-center gap-2'>
-                            <hr className='my-4 border-t border-white w-full' />
+                            <hr className='my-4 border-t border-[#474747] w-full' />
                             or
-                            <hr className=' w-full my-4 border-t border-white' />
+                            <hr className='my-4 border-t border-[#474747] w-full' />
                         </div>
                         <div className='m-5 space-y-8'>
                             <div className='text-center font-bold'>
