@@ -1,4 +1,4 @@
-import { object, string } from 'zod'
+import { object, string, TypeOf } from 'zod'
 
 const registerSchema = object({
     login: string()
@@ -25,5 +25,7 @@ const registerSchema = object({
     path: ['repeatPassword'],
     message: 'Passwords do not match',
 })
+
+export type RegisterInput = TypeOf<typeof registerSchema>
 
 export default registerSchema

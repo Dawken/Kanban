@@ -7,7 +7,7 @@ import Link from 'next/link'
 
 const Register = () => {
     return (
-        <div className='min-h-screen text-white font-raleway flex justify-center items-center bg-black'>
+        <div className='min-h-screen flex justify-center items-center'>
             <Image
                 src={Logo}
                 alt='Kanban logo'
