@@ -28,7 +28,7 @@ const Register = () => {
                     />
                 </div>
                 <div className='flex flex-col items-end bg-[#141414] w-full md:w-2/3 ml-auto rounded-2xl'>
-                    <div className='mx-5 my-10 md:w-4/5'>
+                    <div className='mx-5 my-10 md:w-4/5 text-white'>
                         <div className='text-4xl md:m-5 max-md:text-center m-3'>
                             Create Account
                         </div>
