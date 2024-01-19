@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import '@src/styles/global.css'
 import { ReactNode } from 'react'
 import ClientProvider from '@src/shared/clientProvider'
+import NextTopLoader from 'nextjs-toploader'
 
 export const metadata: Metadata = {
     title: 'Create Next App',
@@ -12,6 +13,7 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
     return (
         <html lang='en'>
             <body className='bg-black w-screen h-screen font-raleway overflow-x-hidden overflow-y-hidden'>
+                <NextTopLoader color={'#00ff82'} />
                 <ClientProvider>{children}</ClientProvider>
             </body>
         </html>
