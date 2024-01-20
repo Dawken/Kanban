@@ -3,9 +3,7 @@ import React from 'react'
 import Link from 'next/link'
 import ToolTip from '@src/components/ui/toolTip'
 import useToggleOpen from '@src/hooks/useToggleOpen'
-import { Dialog } from '@mui/material'
-import BoardForm from '@src/components/ui/boardForm'
-import FormButton from '@src/components/ui/formButton'
+import { CircularProgress, Dialog, TextField } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit'
 import useToggleHover from '@src/hooks/useToggleHover'
 import useBoard from '@src/layout/sidebarMenu/boards/board/useBoard'
@@ -14,6 +12,9 @@ import DragIndicatorIcon from '@mui/icons-material/DragIndicator'
 import DeleteBoard from '@src/layout/sidebarMenu/boards/board/deleteBoard/deleteBoard'
 import { useParams } from 'next/navigation'
 import { DragIdProps } from '@src/types/dragIdProps'
+import ClearIcon from '@mui/icons-material/Clear'
+import DoneIcon from '@mui/icons-material/Done'
+import { StatusProps } from '@src/types/statusProps'
 
 type BoardsProps = {
     board: BoardProps
@@ -26,7 +27,9 @@ const Board = ({ board, expanded, dragId }: BoardsProps) => {
 
     const { isHover, handleHover, handleUnhover } = useToggleHover()
 
-    const { methods, loading, error, updateBoard } = useBoard({ board })
+    const { loading, editBoardName, boardName, handleChange } = useBoard({
+        board,
+    })
 
     const params = useParams()
 
@@ -71,22 +74,48 @@ const Board = ({ board, expanded, dragId }: BoardsProps) => {
                 </div>
             </ToolTip>
             <Dialog onClose={handleClose} open={open} fullWidth>
-                <div className='m-3'>
+                <div className='m-3 custom-scrollbar'>
                     <div className='m-6 flex justify-between items-center'>
                         <div className='text-2xl font-bold'>Edit Board</div>
                         <DeleteBoard boardId={board.id} />
                     </div>
-                    <BoardForm
-                        methods={methods}
-                        submitAction={updateBoard()}
-                        ActionButton={
-                            <FormButton
-                                text={'Edit Board'}
-                                loading={loading}
-                                error={error}
+                    <div className='m-6 space-y-5'>
+                        <div className='font-bold'>Board Name</div>
+                        <div className='flex items-center gap-3'>
+                            <TextField
+                                value={boardName}
+                                onChange={(event) =>
+                                    handleChange(event.target.value)
+                                }
+                                fullWidth
                             />
-                        }
-                    />
+                            {loading ? (
+                                <div className='w-8'>
+                                    <CircularProgress size={30} />
+                                </div>
+                            ) : (
+                                <DoneIcon
+                                    className='cursor-pointer text-3xl'
+                                    onClick={editBoardName}
+                                />
+                            )}
+                        </div>
+                        <div className='font-bold'>Board Columns</div>
+                        {board.status.map((status: StatusProps) => {
+                            return (
+                                <div
+                                    className='flex justify-center items-center gap-3'
+                                    key={status.id}
+                                >
+                                    <TextField
+                                        fullWidth
+                                        value={status.statusName}
+                                    />
+                                    <ClearIcon className='cursor-pointer text-3xl' />
+                                </div>
+                            )
+                        })}
+                    </div>
                 </div>
             </Dialog>
         </>

@@ -1,46 +1,43 @@
-import { useForm } from 'react-hook-form'
-import { BoardCredentialsProps } from '@src/types/boardCredentialsProps'
-import { StatusProps } from '@src/types/statusProps'
 import { useMutation } from '@apollo/client'
-import { EDIT_BOARD } from '@src/graphQL/boards/mutations'
+import { UPDATE_BOARD_NAME } from '@src/graphQL/boards/mutations'
 import { toast } from 'react-toastify'
 import { BoardProps } from '@src/types/boardProps'
+import { useState } from 'react'
 
 const useBoard = ({ board }: { board: BoardProps }) => {
-    const methods = useForm<BoardCredentialsProps>({
-        defaultValues: {
-            boardName: board.boardName,
-            status: board.status.map((status: StatusProps) => ({
-                value: status.statusName,
-            })),
-        },
-    })
+    const [boardName, setBoardName] = useState(board.boardName)
 
-    const [editBoard, { loading, error }] = useMutation(EDIT_BOARD, {
+    const [updateBoardName, { loading }] = useMutation(UPDATE_BOARD_NAME, {
         onCompleted: () => {
-            toast.success('Board updated')
+            toast.success('Board name updated')
         },
         onError: () => {
-            toast.error('Board update failed')
+            toast.error('Board name update failed')
         },
     })
 
-    const updateBoard = () => {
-        return methods.handleSubmit((boardData) => {
-            editBoard({
+    console.log(boardName)
+    const handleChange = (value: string) => {
+        setBoardName(value)
+    }
+    const editBoardName = () => {
+        if (boardName.length < 1) {
+            return toast.error('Board name cannot be empty')
+        } else {
+            updateBoardName({
                 variables: {
-                    ...boardData,
+                    boardName: boardName,
                     boardId: board.id,
                 },
             })
-        })
+        }
     }
 
     return {
-        methods,
         loading,
-        error,
-        updateBoard,
+        editBoardName,
+        boardName,
+        handleChange,
     }
 }
 

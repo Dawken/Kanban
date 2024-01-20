@@ -7,9 +7,9 @@ const CREATE_BOARD = gql`
         }
     }
 `
-const EDIT_BOARD = gql`
-    mutation EditBoard($boardId: String!, $boardName: String) {
-        editBoard(boardId: $boardId, boardName: $boardName) {
+const UPDATE_BOARD_NAME = gql`
+    mutation UpdateBoardName($boardId: String!, $boardName: String!) {
+        updateBoardName(boardId: $boardId, boardName: $boardName) {
             boardName
             id
         }
@@ -32,4 +32,4 @@ const UPDATE_BOARDS_ORDER = gql`
     }
 `
 
-export { CREATE_BOARD, EDIT_BOARD, DELETE_BOARD, UPDATE_BOARDS_ORDER }
+export { CREATE_BOARD, UPDATE_BOARD_NAME, DELETE_BOARD, UPDATE_BOARDS_ORDER }
