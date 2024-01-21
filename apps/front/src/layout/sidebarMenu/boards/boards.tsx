@@ -7,7 +7,6 @@ import Board from '@src/layout/sidebarMenu/boards/board/board'
 import AddBoard from '@src/layout/sidebarMenu/boards/addBoard/addBoard'
 import { ExpandedProps } from '@src/types/expandedProps'
 import { BoardProps } from '@src/types/boardProps'
-import { Draggable } from '@src/components/ui/drag/draggable'
 import DntContext from '@src/components/ui/drag/dntContext/dntContext'
 import { DragOverlay } from '@dnd-kit/core'
 import { SortableContext } from '@dnd-kit/sortable'
@@ -60,12 +59,11 @@ const Boards = ({ expanded }: ExpandedProps) => {
                               )
                             : boards.map((board: BoardProps) => {
                                   return (
-                                      <Draggable id={board.id} key={board.id}>
-                                          <Board
-                                              board={board}
-                                              expanded={expanded}
-                                          />
-                                      </Draggable>
+                                      <Board
+                                          board={board}
+                                          expanded={expanded}
+                                          key={board.id}
+                                      />
                                   )
                               })}
                     </div>

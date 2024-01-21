@@ -16,7 +16,6 @@ const useBoard = ({ board }: { board: BoardProps }) => {
         },
     })
 
-    console.log(boardName)
     const handleChange = (value: string) => {
         setBoardName(value)
     }

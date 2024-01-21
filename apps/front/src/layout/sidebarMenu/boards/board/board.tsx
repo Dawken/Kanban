@@ -15,6 +15,7 @@ import { DragIdProps } from '@src/types/dragIdProps'
 import ClearIcon from '@mui/icons-material/Clear'
 import DoneIcon from '@mui/icons-material/Done'
 import { StatusProps } from '@src/types/statusProps'
+import { Draggable } from '@src/components/ui/drag/draggable'
 
 type BoardsProps = {
     board: BoardProps
@@ -34,7 +35,7 @@ const Board = ({ board, expanded, dragId }: BoardsProps) => {
     const params = useParams()
 
     return (
-        <>
+        <Draggable id={board.id} disabled={open}>
             <ToolTip name={dragId ? '' : board.boardName}>
                 <div
                     className={`${
@@ -118,7 +119,7 @@ const Board = ({ board, expanded, dragId }: BoardsProps) => {
                     </div>
                 </div>
             </Dialog>
-        </>
+        </Draggable>
     )
 }
 export default Board
