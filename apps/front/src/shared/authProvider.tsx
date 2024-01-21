@@ -14,7 +14,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
         }
     }, [isLoggedIn, router])
 
-    return isLoggedIn ? <>{children}</> : null
+    return <>{children}</>
 }
 
 export default AuthProvider
