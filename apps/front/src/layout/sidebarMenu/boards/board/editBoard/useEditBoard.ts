@@ -4,7 +4,7 @@ import { toast } from 'react-toastify'
 import { BoardProps } from '@src/types/boardProps'
 import { useState } from 'react'
 
-const useBoard = ({ board }: { board: BoardProps }) => {
+const useEditBoard = ({ board }: { board: BoardProps }) => {
     const [boardName, setBoardName] = useState(board.boardName)
 
     const [updateBoardName, { loading }] = useMutation(UPDATE_BOARD_NAME, {
@@ -40,4 +40,4 @@ const useBoard = ({ board }: { board: BoardProps }) => {
     }
 }
 
-export default useBoard
+export default useEditBoard
