@@ -4,7 +4,7 @@ import { DELETE_STATUS } from '@src/graphQL/status/mutations'
 import { toast } from 'react-toastify'
 
 const useDeleteStatus = () => {
-    const [deleteStatus, { loading: isDeletingStatus }] = useMutation(
+    const [deleteStatus, { loading: isStatusRemoving }] = useMutation(
         DELETE_STATUS,
         {
             onCompleted: () => {
@@ -25,7 +25,7 @@ const useDeleteStatus = () => {
         })
     }
 
-    return { removeStatus, isDeletingStatus }
+    return { removeStatus, isStatusRemoving }
 }
 
 export default useDeleteStatus
