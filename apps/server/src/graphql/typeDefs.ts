@@ -60,6 +60,9 @@ const typeDefs = gql`
         updateBoardName(boardId: String!, boardName: String!): Board
         deleteBoard(boardId: String!): Board
         updateBoardsOrder(newBoardOrder: [BoardOrderInput!]!): [Board]
+
+        #Status
+        deleteStatus(statusId: String!): Status
     }
 `
 export default typeDefs

@@ -1,11 +1,13 @@
 import React from 'react'
 import DeleteBoard from '@src/layout/sidebarMenu/boards/board/deleteBoard/deleteBoard'
-import { CircularProgress, Dialog, TextField } from '@mui/material'
+import { Dialog, TextField } from '@mui/material'
 import DoneIcon from '@mui/icons-material/Done'
 import { StatusProps } from '@src/types/statusProps'
-import ClearIcon from '@mui/icons-material/Clear'
 import useEditBoard from '@src/layout/sidebarMenu/boards/board/editBoard/useEditBoard'
 import { BoardProps } from '@src/types/boardProps'
+import MuiCircularProgress from '@src/components/ui/animations/muiCircularProgress'
+import useUpdateBoardName from '@src/hooks/board/useUpdateBoardName'
+import BoardStatus from '@src/layout/sidebarMenu/boards/board/editBoard/boardStatus/boardStatus'
 
 type EditBoardProps = {
     board: BoardProps
@@ -13,9 +15,12 @@ type EditBoardProps = {
     handleClose: () => void
 }
 const EditBoard = ({ board, open, handleClose }: EditBoardProps) => {
-    const { loading, editBoardName, boardName, handleChange } = useEditBoard({
-        board,
-    })
+    const { boardName, handleChange } = useEditBoard({ board })
+
+    const { isBoardNameUpdating, editBoardName } = useUpdateBoardName(
+        boardName,
+        board.id
+    )
 
     return (
         <Dialog onClose={handleClose} open={open} fullWidth>
@@ -34,10 +39,8 @@ const EditBoard = ({ board, open, handleClose }: EditBoardProps) => {
                             }
                             fullWidth
                         />
-                        {loading ? (
-                            <div className='w-8'>
-                                <CircularProgress size={30} />
-                            </div>
+                        {isBoardNameUpdating ? (
+                            <MuiCircularProgress />
                         ) : (
                             <DoneIcon
                                 className='cursor-pointer text-3xl'
@@ -45,20 +48,9 @@ const EditBoard = ({ board, open, handleClose }: EditBoardProps) => {
                             />
                         )}
                     </div>
-                    <div className='font-bold'>Board Columns</div>
+                    <div className='font-bold'>Board Statuses</div>
                     {board.status.map((status: StatusProps) => {
-                        return (
-                            <div
-                                className='flex justify-center items-center gap-3'
-                                key={status.id}
-                            >
-                                <TextField
-                                    fullWidth
-                                    value={status.statusName}
-                                />
-                                <ClearIcon className='cursor-pointer text-3xl' />
-                            </div>
-                        )
+                        return <BoardStatus status={status} key={status.id} />
                     })}
                 </div>
             </div>

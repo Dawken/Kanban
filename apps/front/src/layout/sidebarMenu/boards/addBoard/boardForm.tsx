@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import { FormProvider, useFieldArray, UseFormReturn } from 'react-hook-form'
-import DialogInput from '@src/components/ui/dialogInput'
+import DialogInput from '@src/components/ui/dialog/dialogInput'
 import ClearIcon from '@mui/icons-material/Clear'
 import AddIcon from '@mui/icons-material/Add'
 import { BoardCredentialsProps } from '@src/types/boardCredentialsProps'

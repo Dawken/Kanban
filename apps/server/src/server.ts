@@ -1,13 +1,14 @@
 import typeDefs from './graphql/typeDefs'
 import { ApolloServer } from 'apollo-server-express'
 import express from 'express'
-import authResolvers from './graphql/auth/authResolvers'
 import { UserAccountProps } from './types/userAccount'
 import cookieParser from 'cookie-parser'
 import jwt from 'jsonwebtoken'
 import { config } from 'dotenv'
-import boardResolvers from './graphql/board/boardResolvers'
 import { mergeResolvers } from '@graphql-tools/merge'
+import authResolvers from './graphql/auth/authResolvers'
+import boardResolvers from './graphql/board/boardResolvers'
+import statusResolvers from './graphql/status/statusResolvers'
 
 config()
 
@@ -16,7 +17,11 @@ const corsOptions = {
     origin: process.env.ORIGIN,
 }
 
-const resolvers = mergeResolvers([authResolvers, boardResolvers])
+const resolvers = mergeResolvers([
+    authResolvers,
+    boardResolvers,
+    statusResolvers,
+])
 const server = async () => {
     const app = express()
     app.use(cookieParser())
