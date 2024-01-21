@@ -20,6 +20,7 @@ const useBoards = (dragId: DragIdProps) => {
     const updateBoards = () => {
         updateBoardOrder({
             variables: { newBoardOrder: boards },
+            refetchQueries: [{ query: GET_BOARDS }],
         })
     }
 
