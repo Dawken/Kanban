@@ -1,5 +1,5 @@
 import React from 'react'
-import DeleteBoard from '@src/layout/sidebarMenu/boards/board/deleteBoard/deleteBoard'
+import DeleteBoard from '@src/layout/sidebarMenu/boards/board/editBoard/deleteBoard/deleteBoard'
 import { Dialog, TextField } from '@mui/material'
 import DoneIcon from '@mui/icons-material/Done'
 import { StatusProps } from '@src/types/statusProps'

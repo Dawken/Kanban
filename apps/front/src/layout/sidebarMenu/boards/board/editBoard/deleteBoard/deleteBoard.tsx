@@ -1,11 +1,11 @@
 import React from 'react'
 import DeleteIcon from '@mui/icons-material/Delete'
 import useToggleOpen from '@src/hooks/useToggleOpen'
-import useDeleteBoard from '@src/layout/sidebarMenu/boards/board/deleteBoard/useDeleteBoard'
+import useDeleteBoard from '@src/layout/sidebarMenu/boards/board/editBoard/deleteBoard/useDeleteBoard'
 import DeleteContentDialog from '@src/components/ui/dialog/deleteContentDialog'
 
 type DeleteBoardProps = {
-    boardId?: string
+    boardId: string
 }
 const DeleteBoard = ({ boardId }: DeleteBoardProps) => {
     const { open, handleOpen, handleClose } = useToggleOpen()

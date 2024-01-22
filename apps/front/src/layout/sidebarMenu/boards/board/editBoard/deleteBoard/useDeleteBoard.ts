@@ -3,7 +3,7 @@ import { DELETE_BOARD } from '@src/graphQL/boards/mutations'
 import { toast } from 'react-toastify'
 import GET_BOARDS from '@src/graphQL/boards/queries'
 
-const useDeleteBoard = (boardId?: string) => {
+const useDeleteBoard = (boardId: string) => {
     const [deleteBoard, { loading: isBoardRemoving }] = useMutation(
         DELETE_BOARD,
         {
