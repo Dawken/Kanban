@@ -1,8 +1,8 @@
 import React from 'react'
 import DeleteIcon from '@mui/icons-material/Delete'
 import useToggleOpen from '@src/hooks/useToggleOpen'
-import useDeleteBoard from '@src/layout/sidebarMenu/boards/board/editBoard/deleteBoard/useDeleteBoard'
 import DeleteContentDialog from '@src/components/ui/dialog/deleteContentDialog'
+import useDeleteBoard from '@src/components/ui/dialog/editBoard/deleteBoard/useDeleteBoard'
 
 type DeleteBoardProps = {
     boardId: string

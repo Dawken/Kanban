@@ -1,13 +1,13 @@
 import React from 'react'
-import DeleteBoard from '@src/layout/sidebarMenu/boards/board/editBoard/deleteBoard/deleteBoard'
 import { Dialog, TextField } from '@mui/material'
 import DoneIcon from '@mui/icons-material/Done'
 import { StatusProps } from '@src/types/statusProps'
-import useEditBoard from '@src/layout/sidebarMenu/boards/board/editBoard/useEditBoard'
 import { BoardProps } from '@src/types/boardProps'
 import MuiCircularProgress from '@src/components/ui/animations/muiCircularProgress'
 import useUpdateBoardName from '@src/hooks/board/useUpdateBoardName'
-import BoardStatus from '@src/layout/sidebarMenu/boards/board/editBoard/boardStatus/boardStatus'
+import BoardStatus from '@src/components/ui/dialog/editBoard/boardStatus/boardStatus'
+import useEditBoard from '@src/components/ui/dialog/editBoard/useEditBoard'
+import DeleteBoard from '@src/components/ui/dialog/editBoard/deleteBoard/deleteBoard'
 
 type EditBoardProps = {
     board: BoardProps

@@ -1,11 +1,6 @@
 import { gql } from 'apollo-server'
 
 const typeDefs = gql`
-    type Query {
-        users: [User]
-        boards: [Board]
-    }
-
     type User {
         id: String!
         login: String!
@@ -43,6 +38,13 @@ const typeDefs = gql`
         order: Int!
         status: [StatusInput]
     }
+
+    type Query {
+        users: [User]
+        boards: [Board]
+        board(boardId: String!): Board
+    }
+
     type Mutation {
         #Auth
         createUser(

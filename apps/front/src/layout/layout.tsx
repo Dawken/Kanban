@@ -8,7 +8,9 @@ const Layout = (Component: ComponentType) => {
             <div className='flex'>
                 <SidebarMenu />
                 <AuthProvider>
-                    <Component />
+                    <div className='overflow-hidden flex-1 ml-20'>
+                        <Component />
+                    </div>
                 </AuthProvider>
             </div>
         )

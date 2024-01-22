@@ -5,6 +5,16 @@ const prisma = new PrismaClient()
 
 const boardResolvers = {
     Query: {
+        board: checkAuth(async (_parent, { boardId }) => {
+            try {
+                return await prisma.board.findUnique({
+                    where: { id: boardId },
+                    include: { status: true },
+                })
+            } catch (error) {
+                throw new Error('failed-board-fetch')
+            }
+        }),
         boards: checkAuth(async (_parent, _args, req) => {
             try {
                 return await prisma.board.findMany({

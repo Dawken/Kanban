@@ -1,4 +1,4 @@
-import GET_BOARDS from '@src/graphQL/boards/queries'
+import { GET_BOARDS } from '@src/graphQL/boards/queries'
 import { useMutation } from '@apollo/client'
 import { DELETE_STATUS } from '@src/graphQL/status/mutations'
 import { toast } from 'react-toastify'
