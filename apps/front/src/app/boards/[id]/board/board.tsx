@@ -5,6 +5,9 @@ import Skeleton from '@mui/material/Skeleton'
 import EditIcon from '@mui/icons-material/Edit'
 import EditBoard from '@src/components/ui/dialog/editBoard/editBoard'
 import useToggleOpen from '@src/hooks/useToggleOpen'
+import Image from 'next/image'
+import BoardPhoto from '../../../../../public/assets/boardImage.png'
+
 const Board = () => {
     const { open, handleOpen, handleClose } = useToggleOpen()
 
@@ -14,19 +17,33 @@ const Board = () => {
         <>
             <div className='text-gray-200 mt-10 text-xl font-bold w-[40vw]'>
                 {loading ? (
-                    <Skeleton
-                        className='w-2/3'
-                        height={32}
-                        variant='rounded'
-                        animation='wave'
-                    />
+                    <div className='flex items-center gap-3'>
+                        <Skeleton
+                            width={44}
+                            height={44}
+                            variant='rounded'
+                            animation='wave'
+                        />
+                        <Skeleton
+                            className='w-1/3'
+                            height={32}
+                            variant='rounded'
+                            animation='wave'
+                        />
+                    </div>
                 ) : (
                     <div className='flex items-center gap-3'>
+                        <Image
+                            src={BoardPhoto}
+                            alt='board image'
+                            width={44}
+                            className='rounded object-cover'
+                        />
                         <div className='overflow-hidden overflow-ellipsis whitespace-nowrap'>
                             {data?.board.boardName}
                         </div>
                         <EditIcon
-                            className='text-gray-400 cursor-pointer'
+                            className='text-gray-400 cursor-pointer text-lg'
                             onClick={() => handleOpen()}
                         />
                     </div>
