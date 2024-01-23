@@ -2,7 +2,7 @@ import React from 'react'
 import { TextField } from '@mui/material'
 import ClearIcon from '@mui/icons-material/Clear'
 import useDeleteStatus from '@src/hooks/status/useDeleteStatus'
-import { StatusProps } from '@src/types/statusProps'
+import { StatusProps } from '@src/types/status/statusProps'
 import DeleteContentDialog from '@src/components/ui/dialog/deleteContentDialog'
 import useToggleOpen from '@src/hooks/useToggleOpen'
 

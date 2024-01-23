@@ -5,6 +5,22 @@ const prisma = new PrismaClient()
 
 const statusResolvers = {
     Mutation: {
+        createStatus: checkAuth(async (_parent, { statusName, boardId }) => {
+            try {
+                return prisma.status.create({
+                    data: {
+                        statusName,
+                        board: {
+                            connect: {
+                                id: boardId,
+                            },
+                        },
+                    },
+                })
+            } catch {
+                throw new Error('failed-status-create')
+            }
+        }),
         deleteStatus: checkAuth(async (_parent, { statusId }) => {
             try {
                 const status = await prisma.status.findUnique({
