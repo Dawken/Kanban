@@ -7,6 +7,8 @@ import EditBoard from '@src/components/ui/dialog/editBoard/editBoard'
 import useToggleOpen from '@src/hooks/useToggleOpen'
 import Image from 'next/image'
 import BoardPhoto from '../../../../../public/assets/boardImage.png'
+import Status from '@src/app/boards/[id]/board/status/status'
+import { StatusProps } from '@src/types/status/statusProps'
 
 const Board = () => {
     const { open, handleOpen, handleClose } = useToggleOpen()
@@ -56,6 +58,12 @@ const Board = () => {
                     handleClose={handleClose}
                 />
             )}
+            <div className='flex space-x-5 mt-20'>
+                {data?.board.status &&
+                    data.board.status.map((status: StatusProps) => {
+                        return <Status status={status} key={status.id} />
+                    })}
+            </div>
         </>
     )
 }
