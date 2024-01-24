@@ -1,4 +1,4 @@
-import { BoardProps } from '@src/types/boardProps'
+import { BoardProps } from '@src/types/board/boardProps'
 import React from 'react'
 import Link from 'next/link'
 import ToolTip from '@src/components/ui/toolTip'

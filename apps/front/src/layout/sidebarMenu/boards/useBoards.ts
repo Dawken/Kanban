@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from '@apollo/client'
 import { GET_BOARDS } from '@src/graphQL/boards/queries'
 import { useEffect, useState } from 'react'
-import { BoardProps } from '@src/types/boardProps'
+import { BoardProps } from '@src/types/board/boardProps'
 import { DragIdProps } from '@src/types/dragIdProps'
 import { UPDATE_BOARDS_ORDER } from '@src/graphQL/boards/mutations'
 

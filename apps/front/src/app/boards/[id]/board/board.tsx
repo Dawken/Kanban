@@ -15,7 +15,7 @@ const Board = () => {
 
     return (
         <>
-            <div className='text-gray-200 mt-10 text-xl font-bold w-[40vw]'>
+            <div className='text-gray-200 mt-10 text-xl font-bold md:w-[40vw]'>
                 {loading ? (
                     <div className='flex items-center gap-3'>
                         <Skeleton
