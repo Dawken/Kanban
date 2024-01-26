@@ -46,7 +46,7 @@ const Boards = ({ expanded }: ExpandedProps) => {
                 onDragCancel={onDragCancel}
             >
                 <SortableContext items={boards}>
-                    <div className='w-full max-h-[63vh] overscroll-auto space-y-3 custom-scrollbar'>
+                    <div className='w-full max-h-[63vh] overscroll-auto space-y-3 boardsVerticalScrollbar'>
                         {loading
                             ? arrayFrom(
                                   5,
