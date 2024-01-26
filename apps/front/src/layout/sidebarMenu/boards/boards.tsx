@@ -32,7 +32,6 @@ const Boards = ({ expanded }: ExpandedProps) => {
                         variant='rounded'
                         width={expanded ? 110 : 55}
                         height={20}
-                        animation='wave'
                     />
                 ) : expanded ? (
                     `ALL BOARDS ( ${boards.length} )`
@@ -46,16 +45,11 @@ const Boards = ({ expanded }: ExpandedProps) => {
                 onDragCancel={onDragCancel}
             >
                 <SortableContext items={boards}>
-                    <div className='w-full max-h-[63vh] overscroll-auto space-y-3 boardsVerticalScrollbar'>
+                    <div className='w-full max-h-[63vh] overscroll-auto flex flex-col gap-3 boardsVerticalScrollbar'>
                         {loading
                             ? arrayFrom(
                                   5,
-                                  <Skeleton
-                                      className='w-full'
-                                      height={48}
-                                      variant='rounded'
-                                      animation='wave'
-                                  />
+                                  <Skeleton height={48} variant='rounded' />
                               )
                             : boards.map((board: BoardProps) => {
                                   return (
