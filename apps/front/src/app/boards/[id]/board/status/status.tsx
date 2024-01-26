@@ -8,9 +8,9 @@ const Status = ({ status }: { status: StatusProps }) => {
         <div className='min-w-[250px] max-w-[250px] h-[220px] max-sm:min-h-[220px] bg-neutral-900 rounded text-gray-400 statusesScrollbar'>
             <div className='w-full h-12'>
                 <div className='m-3 flex items-center justify-between'>
-                    <div className='flex items-center justify-between'>
+                    <div className='flex items-center justify-between overflow-hidden'>
                         <DragIndicatorIcon className='text-xl' />
-                        <div className='ml-2 font-bold text-sm'>
+                        <div className='ml-2 font-bold text-xs overflow-hidden overflow-ellipsis whitespace-nowrap'>
                             {status.statusName}
                         </div>
                     </div>
