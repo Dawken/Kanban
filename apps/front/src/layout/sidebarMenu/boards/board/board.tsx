@@ -9,7 +9,7 @@ import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded'
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator'
 import { useParams } from 'next/navigation'
 import { DragIdProps } from '@src/types/dragIdProps'
-import { Draggable } from '@src/components/ui/drag/draggable'
+import Draggable from '@src/components/ui/drag/draggable'
 import EditBoard from '@src/components/ui/dialog/editBoard/editBoard'
 
 type BoardsProps = {

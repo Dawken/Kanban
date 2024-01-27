@@ -10,11 +10,22 @@ import BoardPhoto from '../../../../../public/assets/boardImage.png'
 import Status from '@src/app/boards/[id]/board/status/status'
 import { StatusProps } from '@src/types/status/statusProps'
 import arrayFrom from '@src/utils/arrayFrom'
+import { SortableContext } from '@dnd-kit/sortable'
+import DntContext from '@src/components/ui/drag/dntContext'
+import useDragHandler from '@src/hooks/useDragHandler'
+import { DragOverlay } from '@dnd-kit/core'
 
 const Board = () => {
     const { open, handleOpen, handleClose } = useToggleOpen()
 
-    const { data, loading } = useBoard()
+    const { data, loading, statuses, setStatuses } = useBoard()
+
+    const {
+        onDragStart,
+        onDragCancel,
+        handleOnDragEnd,
+        draggedItem: draggedStatus,
+    } = useDragHandler(statuses)
 
     return (
         <div className='sm:ml-10 h-full'>
@@ -42,7 +53,7 @@ const Board = () => {
                                 className='rounded object-cover'
                             />
                             <div className='overflow-hidden overflow-ellipsis whitespace-nowrap'>
-                                {data?.board.boardName}
+                                {data?.board && data.board.boardName}
                             </div>
                             <EditIcon
                                 className='text-gray-400 cursor-pointer text-lg'
@@ -59,23 +70,43 @@ const Board = () => {
                     )}
                 </div>
             </div>
-            <div className='flex max-sm:flex-col max-sm:items-center max-sm:h-[75vh] h-4/5 gap-5 mt-12 overflow-auto statusesScrollbar'>
-                {loading
-                    ? arrayFrom(
-                          4,
-                          <div>
-                              <Skeleton
-                                  height={220}
-                                  width={250}
-                                  variant='rounded'
-                              />
-                          </div>
-                      )
-                    : data?.board.status &&
-                      data.board.status.map((status: StatusProps) => {
-                          return <Status status={status} key={status.id} />
-                      })}
-            </div>
+            <DntContext
+                handleOnDragEnd={(event) =>
+                    handleOnDragEnd<StatusProps>(event, setStatuses)
+                }
+                onDragStart={onDragStart}
+                onDragCancel={onDragCancel}
+            >
+                <SortableContext items={statuses}>
+                    <div className='flex max-sm:flex-col max-sm:items-center max-sm:h-[75vh] h-4/5 gap-5 mt-12 overflow-auto statusesScrollbar'>
+                        {loading
+                            ? arrayFrom(
+                                  4,
+                                  <div>
+                                      <Skeleton
+                                          height={220}
+                                          width={250}
+                                          variant='rounded'
+                                      />
+                                  </div>
+                              )
+                            : statuses &&
+                              statuses.map((status: StatusProps) => {
+                                  return (
+                                      <Status status={status} key={status.id} />
+                                  )
+                              })}
+                    </div>
+                </SortableContext>
+                <DragOverlay>
+                    {draggedStatus ? (
+                        <Status
+                            key={draggedStatus.id}
+                            status={draggedStatus as StatusProps}
+                        />
+                    ) : null}
+                </DragOverlay>
+            </DntContext>
         </div>
     )
 }

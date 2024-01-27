@@ -34,4 +34,4 @@ const Draggable = ({ children, id }: DraggableProps) => {
     )
 }
 
-export { Draggable }
+export default Draggable

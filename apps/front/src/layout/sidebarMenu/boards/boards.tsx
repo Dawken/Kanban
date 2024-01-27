@@ -7,15 +7,21 @@ import Board from '@src/layout/sidebarMenu/boards/board/board'
 import AddBoard from '@src/layout/sidebarMenu/boards/addBoard/addBoard'
 import { ExpandedProps } from '@src/types/expandedProps'
 import { BoardProps } from '@src/types/board/boardProps'
-import DntContext from '@src/components/ui/drag/dntContext/dntContext'
+import DntContext from '@src/components/ui/drag/dntContext'
 import { DragOverlay } from '@dnd-kit/core'
 import { SortableContext } from '@dnd-kit/sortable'
 import useDragHandler from '@src/hooks/useDragHandler'
 
 const Boards = ({ expanded }: ExpandedProps) => {
-    const { dragId, onDragStart, onDragCancel } = useDragHandler()
+    const { loading, boards, setBoards } = useBoards()
 
-    const { loading, boards, setBoards, draggedBoard } = useBoards(dragId)
+    const {
+        dragId,
+        onDragStart,
+        onDragCancel,
+        handleOnDragEnd,
+        draggedItem: draggedBoard,
+    } = useDragHandler(boards)
 
     return (
         <div className='flex flex-col items-center m-3'>
@@ -40,7 +46,9 @@ const Boards = ({ expanded }: ExpandedProps) => {
                 )}
             </div>
             <DntContext
-                setItems={setBoards}
+                handleOnDragEnd={(event) =>
+                    handleOnDragEnd<BoardProps>(event, setBoards)
+                }
                 onDragStart={onDragStart}
                 onDragCancel={onDragCancel}
             >
@@ -66,7 +74,7 @@ const Boards = ({ expanded }: ExpandedProps) => {
                     {draggedBoard ? (
                         <Board
                             key={draggedBoard.id}
-                            board={draggedBoard}
+                            board={draggedBoard as BoardProps}
                             expanded={expanded}
                             dragId={dragId}
                         />
