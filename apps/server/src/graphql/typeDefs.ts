@@ -31,6 +31,7 @@ const typeDefs = gql`
         id: String
         statusName: String
         boardId: String
+        order: Int
     }
 
     input BoardOrderInput {
