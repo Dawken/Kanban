@@ -8,6 +8,7 @@ const GET_BOARD = gql`
             status {
                 statusName
                 id
+                order
             }
         }
     }
@@ -22,6 +23,7 @@ const GET_BOARDS = gql`
             status {
                 statusName
                 id
+                order
             }
         }
     }
