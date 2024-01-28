@@ -14,6 +14,7 @@ import { SortableContext } from '@dnd-kit/sortable'
 import DntContext from '@src/components/ui/drag/dntContext'
 import useDragHandler from '@src/hooks/useDragHandler'
 import { DragOverlay } from '@dnd-kit/core'
+import AddStatus from '@src/app/boards/[id]/board/addStatus/addStatus'
 
 const Board = () => {
     const { open, handleOpen, handleClose } = useToggleOpen()
@@ -28,7 +29,7 @@ const Board = () => {
     } = useDragHandler(statuses)
 
     return (
-        <div className='sm:ml-10 h-full'>
+        <div className='sm:mx-10 h-full'>
             <div className='max-sm:flex justify-center'>
                 <div className='sm:w-4/5 max-sm:w-[250px] text-center text-gray-200 mt-10 text-xl font-bold md:w-[40vw] '>
                     {loading ? (
@@ -78,24 +79,32 @@ const Board = () => {
                 onDragCancel={onDragCancel}
             >
                 <SortableContext items={statuses}>
-                    <div className='flex max-sm:flex-col max-sm:items-center max-sm:h-[75vh] h-4/5 gap-5 mt-12 overflow-auto statusesScrollbar'>
-                        {loading
-                            ? arrayFrom(
-                                  4,
-                                  <div>
-                                      <Skeleton
-                                          height={220}
-                                          width={250}
-                                          variant='rounded'
-                                      />
-                                  </div>
-                              )
-                            : statuses &&
-                              statuses.map((status: StatusProps) => {
-                                  return (
-                                      <Status status={status} key={status.id} />
+                    <div className='statusesScrollbar max-sm:h-[85vh] h-5/6 max-sm:mt-3 mt-12 overflow-auto'>
+                        <section className='flex items-start max-sm:flex-col max-sm:items-center gap-5'>
+                            {loading
+                                ? arrayFrom(
+                                      4,
+                                      <div>
+                                          <Skeleton
+                                              height={220}
+                                              width={250}
+                                              variant='rounded'
+                                          />
+                                      </div>
                                   )
-                              })}
+                                : statuses &&
+                                  statuses.map((status: StatusProps) => {
+                                      return (
+                                          <Status
+                                              status={status}
+                                              key={status.id}
+                                          />
+                                      )
+                                  })}
+                            {data?.board.id && (
+                                <AddStatus boardId={data.board.id} />
+                            )}
+                        </section>
                     </div>
                 </SortableContext>
                 <DragOverlay>

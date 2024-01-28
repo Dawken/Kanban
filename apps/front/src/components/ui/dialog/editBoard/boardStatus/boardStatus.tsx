@@ -14,7 +14,7 @@ const BoardStatus = ({ status }: { status: StatusProps }) => {
     return (
         <>
             <div className='flex justify-center items-center gap-3'>
-                <TextField fullWidth value={status.statusName} disabled />
+                <TextField fullWidth value={status.statusName} />
                 <ClearIcon
                     className='cursor-pointer text-2xl'
                     onClick={handleOpen}
