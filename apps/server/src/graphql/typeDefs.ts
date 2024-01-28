@@ -24,6 +24,7 @@ const typeDefs = gql`
         statusName: String!
         boardId: String!
         board: Board
+        order: Int
     }
 
     input StatusInput {
@@ -37,6 +38,12 @@ const typeDefs = gql`
         boardName: String!
         order: Int!
         status: [StatusInput]
+    }
+
+    input StatusOrderInput {
+        id: String!
+        statusName: String!
+        order: Int!
     }
 
     type Query {
@@ -66,6 +73,7 @@ const typeDefs = gql`
         #Status
         createStatus(statusName: String!, boardId: String!): Status
         deleteStatus(statusId: String!): Status
+        updateStatusOrder(newStatusOrder: [StatusOrderInput!]!): [Status]
     }
 `
 export default typeDefs

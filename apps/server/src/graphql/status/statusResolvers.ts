@@ -32,10 +32,33 @@ const statusResolvers = {
                     const deletedStatus = await prisma.status.delete({
                         where: { id: statusId },
                     })
+                    await prisma.status.updateMany({
+                        where: {
+                            boardId: status.boardId,
+                            order: { gt: status.order },
+                        },
+                        data: {
+                            order: {
+                                decrement: 1,
+                            },
+                        },
+                    })
                     return deletedStatus
                 }
             } catch {
                 throw new Error('failed-status-delete')
+            }
+        }),
+        updateStatusOrder: checkAuth(async (_parent, { newStatusOrder }) => {
+            try {
+                for (const updatedStatus of newStatusOrder) {
+                    await prisma.status.update({
+                        where: { id: updatedStatus.id },
+                        data: { order: updatedStatus.order },
+                    })
+                }
+            } catch (error) {
+                throw new Error('failed-status-update')
             }
         }),
     },

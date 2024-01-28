@@ -14,4 +14,13 @@ const CREATE_STATUS = gql`
         }
     }
 `
-export { DELETE_STATUS, CREATE_STATUS }
+
+const UPDATE_STATUS_ORDER = gql`
+    mutation UpdateStatusOrder($newStatusOrder: [StatusOrderInput!]!) {
+        updateStatusOrder(newStatusOrder: $newStatusOrder) {
+            id
+        }
+    }
+`
+
+export { DELETE_STATUS, CREATE_STATUS, UPDATE_STATUS_ORDER }

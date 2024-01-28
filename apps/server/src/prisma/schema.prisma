@@ -30,4 +30,5 @@ model Status {
   statusName String
   board      Board  @relation(fields: [boardId], references: [id], onDelete: Cascade)
   boardId    String
+  order      Int
 }
