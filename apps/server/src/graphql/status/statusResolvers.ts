@@ -7,6 +7,10 @@ const statusResolvers = {
     Mutation: {
         createStatus: checkAuth(async (_parent, { statusName, boardId }) => {
             try {
+                const existingStatusCount = await prisma.status.count({
+                    where: { boardId: boardId },
+                })
+
                 return prisma.status.create({
                     data: {
                         statusName,
@@ -15,6 +19,7 @@ const statusResolvers = {
                                 id: boardId,
                             },
                         },
+                        order: existingStatusCount + 1,
                     },
                 })
             } catch {
