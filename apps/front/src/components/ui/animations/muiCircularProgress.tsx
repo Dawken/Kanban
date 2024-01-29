@@ -4,7 +4,7 @@ import { CircularProgress } from '@mui/material'
 const MuiCircularProgress = () => {
     return (
         <div className='flex items-center'>
-            <CircularProgress size={30} className='text-white' />
+            <CircularProgress size={24} className='text-white' />
         </div>
     )
 }
