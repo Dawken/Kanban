@@ -26,6 +26,27 @@ const statusResolvers = {
                 throw new Error('failed-status-create')
             }
         }),
+        updateStatusName: checkAuth(
+            async (_parent, { statusId, statusName }) => {
+                try {
+                    const status = await prisma.status.findUnique({
+                        where: { id: statusId },
+                    })
+                    if (!status) {
+                        throw new Error('status-not-found')
+                    } else {
+                        return await prisma.status.update({
+                            where: { id: statusId },
+                            data: {
+                                statusName: statusName,
+                            },
+                        })
+                    }
+                } catch (error) {
+                    throw new Error('failed-status-edit')
+                }
+            }
+        ),
         deleteStatus: checkAuth(async (_parent, { statusId }) => {
             try {
                 const status = await prisma.status.findUnique({
