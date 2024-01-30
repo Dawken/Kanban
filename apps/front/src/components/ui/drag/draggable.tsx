@@ -27,7 +27,9 @@ const Draggable = ({ children, id }: DraggableProps) => {
             {...attributes}
             {...listeners}
             style={style}
-            className={isDragging ? 'invisible' : 'visible touch-none'}
+            className={
+                isDragging ? 'invisible' : 'visible touch-none cursor-grab'
+            }
         >
             {children}
         </div>
