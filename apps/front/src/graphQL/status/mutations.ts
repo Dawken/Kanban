@@ -15,6 +15,15 @@ const CREATE_STATUS = gql`
     }
 `
 
+const UPDATE_STATUS_NAME = gql`
+    mutation UpdateStatusName($statusId: String!, $statusName: String!) {
+        updateStatusName(statusId: $statusId, statusName: $statusName) {
+            statusName
+            id
+        }
+    }
+`
+
 const UPDATE_STATUS_ORDER = gql`
     mutation UpdateStatusOrder($newStatusOrder: [StatusOrderInput!]!) {
         updateStatusOrder(newStatusOrder: $newStatusOrder) {
@@ -23,4 +32,4 @@ const UPDATE_STATUS_ORDER = gql`
     }
 `
 
-export { DELETE_STATUS, CREATE_STATUS, UPDATE_STATUS_ORDER }
+export { DELETE_STATUS, CREATE_STATUS, UPDATE_STATUS_NAME, UPDATE_STATUS_ORDER }
