@@ -21,10 +21,7 @@ type EditBoardProps = {
 const EditBoard = ({ board, open, handleClose }: EditBoardProps) => {
     const { text: boardName, handleChange } = useTextState(board.boardName)
 
-    const { isBoardNameUpdating, editBoardName } = useUpdateBoardName(
-        boardName,
-        board.id
-    )
+    const { isBoardNameUpdating, editBoardName } = useUpdateBoardName()
 
     const {
         open: isNewStatusOpen,
@@ -36,7 +33,7 @@ const EditBoard = ({ board, open, handleClose }: EditBoardProps) => {
 
     return (
         <Dialog onClose={handleClose} open={open} fullWidth>
-            <div className='m-3 custom-scrollbar'>
+            <div className='m-3 boardsVerticalScrollbar'>
                 <div className='m-6 flex justify-between items-center'>
                     <div className='text-2xl font-bold'>Edit Board</div>
                     <DeleteBoard boardId={board.id} />
@@ -56,7 +53,9 @@ const EditBoard = ({ board, open, handleClose }: EditBoardProps) => {
                         ) : (
                             <DoneIcon
                                 className='cursor-pointer text-2xl'
-                                onClick={editBoardName}
+                                onClick={() =>
+                                    editBoardName(boardName, board.id)
+                                }
                             />
                         )}
                     </div>

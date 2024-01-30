@@ -9,14 +9,18 @@ type AddContentTextFieldProps = {
     createContent: (text: string, parentId: string) => void
     parentId: string
     isCreating: boolean
+    defaultText?: string
+    isSmallField?: boolean
 }
 const AddContentTextField = ({
     closeNewStatus,
     createContent,
     parentId,
     isCreating,
+    defaultText,
+    isSmallField,
 }: AddContentTextFieldProps) => {
-    const { text, handleChange } = useTextState()
+    const { text, handleChange } = useTextState(defaultText)
 
     const inputRef = useRef<HTMLInputElement | null>(null)
 
@@ -31,6 +35,12 @@ const AddContentTextField = ({
                 inputRef={inputRef}
                 value={text}
                 onChange={(event) => handleChange(event.target.value)}
+                size={isSmallField ? 'small' : 'medium'}
+                inputProps={{
+                    style: {
+                        fontSize: isSmallField ? 11 : 16,
+                    },
+                }}
             />
             <div className='bg-zinc-900 ml-auto w-fit h-12 flex justify-center items-center gap-2 rounded p-2'>
                 <button
@@ -47,7 +57,7 @@ const AddContentTextField = ({
                     )}
                 </button>
                 <button
-                    className='bg-zinc-800 p-1 rounded w-8 hover:bg-zinc-700'
+                    className='bg-zinc-800 p-1 rounded w-8 h-8 hover:bg-zinc-700'
                     onClick={closeNewStatus}
                 >
                     <CloseIcon className='text-base' />
