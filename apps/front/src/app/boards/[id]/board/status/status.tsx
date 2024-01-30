@@ -9,8 +9,16 @@ import useAnchorEl from '@src/hooks/useAnchorEl'
 import useUpdateStatusName from '@src/hooks/status/useUpdateStatusName'
 import AddContentTextField from '@src/components/ui/addContentTextField'
 import useToggleOpen from '@src/hooks/useToggleOpen'
+import ToolTip from '@src/components/ui/toolTip'
+import { DragIdProps } from '@src/types/dragIdProps'
 
-const Status = ({ status }: { status: StatusProps }) => {
+const Status = ({
+    status,
+    dragId,
+}: {
+    status: StatusProps
+    dragId?: DragIdProps
+}) => {
     const { anchorEl, handleClick, handleClose, open } = useAnchorEl()
 
     const {
@@ -29,7 +37,7 @@ const Status = ({ status }: { status: StatusProps }) => {
                         <div className='p-3 flex items-center justify-between relative'>
                             <div className='flex items-center justify-between overflow-hidden'>
                                 <DragIndicatorIcon className='text-xl' />
-                                <div className='ml-2 font-bold text-xs overflow-hidden overflow-ellipsis whitespace-nowrap'>
+                                <div className='ml-2 font-bold text-xs'>
                                     {isStatusOpen ? (
                                         <ClickAwayListener
                                             onClickAway={handleCloseStatus}
@@ -54,12 +62,19 @@ const Status = ({ status }: { status: StatusProps }) => {
                                             </div>
                                         </ClickAwayListener>
                                     ) : (
-                                        <div
-                                            className='w-36 p-2 hover:bg-blue-600 hover:bg-opacity-5 rounded'
-                                            onClick={handleOpenStatus}
+                                        <ToolTip
+                                            name={
+                                                dragId ? '' : status.statusName
+                                            }
+                                            placement='top'
                                         >
-                                            {status.statusName}
-                                        </div>
+                                            <div
+                                                className='w-36 p-2 hover:bg-blue-600 hover:bg-opacity-5 rounded overflow-hidden overflow-ellipsis whitespace-nowrap'
+                                                onClick={handleOpenStatus}
+                                            >
+                                                {status.statusName}
+                                            </div>
+                                        </ToolTip>
                                     )}
                                 </div>
                             </div>

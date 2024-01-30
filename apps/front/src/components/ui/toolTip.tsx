@@ -4,10 +4,15 @@ import { Tooltip, Zoom } from '@mui/material'
 type ToolTipProps = {
     name: string
     children: ReactElement
+    placement?: 'top'
 }
-const ToolTip = ({ name, children }: ToolTipProps) => {
+const ToolTip = ({ name, children, placement }: ToolTipProps) => {
     return (
-        <Tooltip TransitionComponent={Zoom} title={name} placement='right'>
+        <Tooltip
+            TransitionComponent={Zoom}
+            title={name}
+            placement={placement ?? 'right'}
+        >
             {children}
         </Tooltip>
     )

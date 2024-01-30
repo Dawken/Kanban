@@ -22,6 +22,7 @@ const Board = () => {
     const { data, loading, statuses, setStatuses } = useBoard()
 
     const {
+        dragId,
         onDragStart,
         onDragCancel,
         handleOnDragEnd,
@@ -112,6 +113,7 @@ const Board = () => {
                         <Status
                             key={draggedStatus.id}
                             status={draggedStatus as StatusProps}
+                            dragId={dragId}
                         />
                     ) : null}
                 </DragOverlay>
