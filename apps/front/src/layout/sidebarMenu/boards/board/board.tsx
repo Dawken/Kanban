@@ -1,4 +1,4 @@
-import { BoardProps } from '@src/types/boardProps'
+import { BoardProps } from '@src/types/board/boardProps'
 import React from 'react'
 import Link from 'next/link'
 import ToolTip from '@src/components/ui/toolTip'
@@ -9,8 +9,9 @@ import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded'
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator'
 import { useParams } from 'next/navigation'
 import { DragIdProps } from '@src/types/dragIdProps'
-import { Draggable } from '@src/components/ui/drag/draggable'
-import EditBoard from '@src/layout/sidebarMenu/boards/board/editBoard/editBoard'
+import Draggable from '@src/components/ui/drag/draggable'
+import EditBoard from '@src/components/ui/dialog/editBoard/editBoard'
+import { IconButton } from '@mui/material'
 
 type BoardsProps = {
     board: BoardProps
@@ -27,14 +28,14 @@ const Board = ({ board, expanded, dragId }: BoardsProps) => {
 
     return (
         <>
-            <Draggable id={board.id}>
+            <Draggable id={board.id} disabled={!expanded}>
                 <ToolTip name={dragId ? '' : board.boardName}>
                     <div
                         className={`${
                             params.id === board.id
                                 ? 'bg-gradient-to-br from-[#00dffc] to-[#00ff82] text-black'
                                 : 'bg-zinc-900'
-                        } w-full h-12 rounded-md flex items-center font-bold hover:bg-gradient-to-br from-[#00dffc] to-[#00ff82] hover:text-black shadow-2xl`}
+                        } w-full h-12 rounded-md flex items-center font-bold hover:bg-zinc-800 shadow-2xl`}
                         onMouseEnter={handleHover}
                         onMouseLeave={handleUnhover}
                     >
@@ -53,14 +54,19 @@ const Board = ({ board, expanded, dragId }: BoardsProps) => {
                         </Link>
                         {expanded && (
                             <div
-                                className={`flex items-center ml-auto mr-1  transition-opacity duration-300 ease-in-out text-black gap-1 ${
+                                className={`flex items-center ml-auto mr-1 transition-all duration-300 ease-in-out gap-1 ${
                                     isHover ? 'opacity-100' : 'opacity-0'
                                 }`}
                             >
-                                <EditIcon
-                                    className={'text-lg'}
-                                    onClick={handleOpen}
-                                />
+                                <IconButton onClick={handleOpen}>
+                                    <EditIcon
+                                        className={`${
+                                            params.id === board.id
+                                                ? 'text-black'
+                                                : 'text-white'
+                                        } text-lg`}
+                                    />
+                                </IconButton>
                                 <DragIndicatorIcon />
                             </div>
                         )}

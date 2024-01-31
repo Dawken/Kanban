@@ -2,10 +2,10 @@
 import React from 'react'
 import { FormProvider } from 'react-hook-form'
 import useRegister from '@src/app/(auth)/register/registerForm/useRegisterForm'
-import FormInput from '@src/components/ui/formInput'
+import FormInput from '@src/components/ui/form/formInput'
 import PasswordStrength from '@src/app/(auth)/register/registerForm/passwordStrength/passwordStrength'
-import FormButton from '@src/components/ui/formButton'
-import FormInputPassword from '@src/components/ui/formInputPassword'
+import FormButton from '@src/components/ui/form/formButton'
+import FormInputPassword from '@src/components/ui/form/formInputPassword'
 
 const RegisterForm = () => {
     const { methods, password, addUser, loading, error } = useRegister()

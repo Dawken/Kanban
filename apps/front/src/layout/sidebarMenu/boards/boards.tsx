@@ -6,16 +6,22 @@ import Skeleton from '@mui/material/Skeleton'
 import Board from '@src/layout/sidebarMenu/boards/board/board'
 import AddBoard from '@src/layout/sidebarMenu/boards/addBoard/addBoard'
 import { ExpandedProps } from '@src/types/expandedProps'
-import { BoardProps } from '@src/types/boardProps'
-import DntContext from '@src/components/ui/drag/dntContext/dntContext'
+import { BoardProps } from '@src/types/board/boardProps'
+import DntContext from '@src/components/ui/drag/dntContext'
 import { DragOverlay } from '@dnd-kit/core'
 import { SortableContext } from '@dnd-kit/sortable'
 import useDragHandler from '@src/hooks/useDragHandler'
 
 const Boards = ({ expanded }: ExpandedProps) => {
-    const { dragId, onDragStart, onDragCancel } = useDragHandler()
+    const { loading, boards, setBoards } = useBoards()
 
-    const { loading, boards, setBoards, draggedBoard } = useBoards(dragId)
+    const {
+        dragId,
+        onDragStart,
+        onDragCancel,
+        handleOnDragEnd,
+        draggedItem: draggedBoard,
+    } = useDragHandler(boards)
 
     return (
         <div className='flex flex-col items-center m-3'>
@@ -32,7 +38,6 @@ const Boards = ({ expanded }: ExpandedProps) => {
                         variant='rounded'
                         width={expanded ? 110 : 55}
                         height={20}
-                        animation='wave'
                     />
                 ) : expanded ? (
                     `ALL BOARDS ( ${boards.length} )`
@@ -41,21 +46,18 @@ const Boards = ({ expanded }: ExpandedProps) => {
                 )}
             </div>
             <DntContext
-                setItems={setBoards}
+                handleOnDragEnd={(event) =>
+                    handleOnDragEnd<BoardProps>(event, setBoards)
+                }
                 onDragStart={onDragStart}
                 onDragCancel={onDragCancel}
             >
                 <SortableContext items={boards}>
-                    <div className='w-full max-h-[63vh] overscroll-auto space-y-3 custom-scrollbar'>
+                    <div className='w-full max-h-[63vh] overscroll-auto flex flex-col gap-3 boardsVerticalScrollbar'>
                         {loading
                             ? arrayFrom(
                                   5,
-                                  <Skeleton
-                                      className='w-full'
-                                      height={48}
-                                      variant='rounded'
-                                      animation='wave'
-                                  />
+                                  <Skeleton height={48} variant='rounded' />
                               )
                             : boards.map((board: BoardProps) => {
                                   return (
@@ -72,7 +74,7 @@ const Boards = ({ expanded }: ExpandedProps) => {
                     {draggedBoard ? (
                         <Board
                             key={draggedBoard.id}
-                            board={draggedBoard}
+                            board={draggedBoard as BoardProps}
                             expanded={expanded}
                             dragId={dragId}
                         />

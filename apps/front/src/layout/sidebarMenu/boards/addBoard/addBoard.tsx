@@ -6,12 +6,12 @@ import { ExpandedProps } from '@src/types/expandedProps'
 import ToolTip from '@src/components/ui/toolTip'
 import BoardForm from '@src/layout/sidebarMenu/boards/addBoard/boardForm'
 import { Dialog, DialogTitle } from '@mui/material'
-import FormButton from '@src/components/ui/formButton'
+import FormButton from '@src/components/ui/form/formButton'
 
 const AddBoard = ({ expanded }: ExpandedProps) => {
-    const { methods, loading, error, addBoard } = useAddBoard()
-
     const { handleOpen, open, handleClose } = useToggleOpen()
+
+    const { methods, loading, error, addBoard } = useAddBoard(handleClose)
 
     return (
         <>

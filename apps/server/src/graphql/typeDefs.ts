@@ -1,11 +1,6 @@
 import { gql } from 'apollo-server'
 
 const typeDefs = gql`
-    type Query {
-        users: [User]
-        boards: [Board]
-    }
-
     type User {
         id: String!
         login: String!
@@ -29,12 +24,14 @@ const typeDefs = gql`
         statusName: String!
         boardId: String!
         board: Board
+        order: Int
     }
 
     input StatusInput {
         id: String
         statusName: String
         boardId: String
+        order: Int
     }
 
     input BoardOrderInput {
@@ -43,6 +40,19 @@ const typeDefs = gql`
         order: Int!
         status: [StatusInput]
     }
+
+    input StatusOrderInput {
+        id: String!
+        statusName: String!
+        order: Int!
+    }
+
+    type Query {
+        users: [User]
+        boards: [Board]
+        board(boardId: String!): Board
+    }
+
     type Mutation {
         #Auth
         createUser(
@@ -60,6 +70,12 @@ const typeDefs = gql`
         updateBoardName(boardId: String!, boardName: String!): Board
         deleteBoard(boardId: String!): Board
         updateBoardsOrder(newBoardOrder: [BoardOrderInput!]!): [Board]
+
+        #Status
+        createStatus(statusName: String!, boardId: String!): Status
+        updateStatusName(statusId: String!, statusName: String!): Status
+        deleteStatus(statusId: String!): Status
+        updateStatusOrder(newStatusOrder: [StatusOrderInput!]!): [Status]
     }
 `
 export default typeDefs

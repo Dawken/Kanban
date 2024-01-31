@@ -1,10 +1,10 @@
 'use client'
 import React from 'react'
-import FormInput from '@src/components/ui/formInput'
+import FormInput from '@src/components/ui/form/formInput'
 import { FormProvider } from 'react-hook-form'
 import useLoginForm from '@src/app/(auth)/login/loginForm/useLoginForm'
-import FormButton from '@src/components/ui/formButton'
-import FormInputPassword from '@src/components/ui/formInputPassword'
+import FormButton from '@src/components/ui/form/formButton'
+import FormInputPassword from '@src/components/ui/form/formInputPassword'
 
 const LoginForm = () => {
     const { methods, login, loading, error, isCredentialsInvalid } =

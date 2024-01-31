@@ -5,8 +5,9 @@ import { CSS } from '@dnd-kit/utilities'
 type DraggableProps = {
     children: ReactNode
     id: string
+    disabled?: boolean
 }
-const Draggable = ({ children, id }: DraggableProps) => {
+const Draggable = ({ children, id, disabled }: DraggableProps) => {
     const {
         attributes,
         listeners,
@@ -14,7 +15,7 @@ const Draggable = ({ children, id }: DraggableProps) => {
         transition,
         transform,
         isDragging,
-    } = useSortable({ id: id })
+    } = useSortable({ id: id, disabled: disabled })
 
     const style = {
         transition,
@@ -27,11 +28,13 @@ const Draggable = ({ children, id }: DraggableProps) => {
             {...attributes}
             {...listeners}
             style={style}
-            className={isDragging ? 'invisible' : 'visible touch-none'}
+            className={
+                isDragging ? 'invisible' : 'visible touch-none cursor-grab'
+            }
         >
             {children}
         </div>
     )
 }
 
-export { Draggable }
+export default Draggable

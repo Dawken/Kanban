@@ -1,21 +1,33 @@
 import React, { ReactNode } from 'react'
-import { closestCenter, DndContext, DragStartEvent } from '@dnd-kit/core'
-import useDntContext from '@src/components/ui/drag/dntContext/useDntContext'
-import { SetItemsAction } from '@src/types/setItemsProps'
+import {
+    closestCenter,
+    DndContext,
+    DragEndEvent,
+    DragStartEvent,
+    PointerSensor,
+    useSensor,
+    useSensors,
+} from '@dnd-kit/core'
 
 type DntContextProps = {
     children: ReactNode
-    setItems: SetItemsAction
+    handleOnDragEnd: (event: DragEndEvent) => void
     onDragStart: (event: DragStartEvent) => void
     onDragCancel: () => void
 }
 const DntContext = ({
     children,
-    setItems,
+    handleOnDragEnd,
     onDragStart,
     onDragCancel,
 }: DntContextProps) => {
-    const { sensors, handleOnDragEnd } = useDntContext(setItems)
+    const sensors = useSensors(
+        useSensor(PointerSensor, {
+            activationConstraint: {
+                distance: 5,
+            },
+        })
+    )
 
     return (
         <DndContext

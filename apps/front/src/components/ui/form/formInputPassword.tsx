@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react'
-import FormInput from '@src/components/ui/formInput'
+import FormInput from '@src/components/ui/form/formInput'
 import { IconButton, InputAdornment } from '@mui/material'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import { FormInputProps } from '@src/types/formInputProps'

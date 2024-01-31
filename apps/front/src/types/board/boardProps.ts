@@ -1,4 +1,4 @@
-import { StatusProps } from '@src/types/statusProps'
+import { StatusProps } from '@src/types/status/statusProps'
 
 export type BoardProps = {
     boardName: string

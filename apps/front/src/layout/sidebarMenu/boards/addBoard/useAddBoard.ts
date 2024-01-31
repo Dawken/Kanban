@@ -2,10 +2,10 @@ import { useForm } from 'react-hook-form'
 import { useMutation } from '@apollo/client'
 import { CREATE_BOARD } from '@src/graphQL/boards/mutations'
 import { toast } from 'react-toastify'
-import GET_BOARDS from '@src/graphQL/boards/queries'
-import { BoardCredentialsProps } from '@src/types/boardCredentialsProps'
+import { GET_BOARDS } from '@src/graphQL/boards/queries'
+import { BoardCredentialsProps } from '@src/types/board/boardCredentialsProps'
 
-const useAddBoard = () => {
+const useAddBoard = (handleClose: () => void) => {
     const methods = useForm<BoardCredentialsProps>({
         defaultValues: {
             boardName: 'New Board',
@@ -39,7 +39,7 @@ const useAddBoard = () => {
             createBoard({
                 variables: boardData,
                 refetchQueries: [{ query: GET_BOARDS }],
-            })
+            }).then(() => handleClose())
         })
     }
 

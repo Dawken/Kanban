@@ -1,9 +1,9 @@
 import React, { ReactElement } from 'react'
 import { FormProvider, useFieldArray, UseFormReturn } from 'react-hook-form'
-import DialogInput from '@src/components/ui/dialogInput'
-import ClearIcon from '@mui/icons-material/Clear'
+import DialogInput from '@src/components/ui/dialog/dialogInput'
 import AddIcon from '@mui/icons-material/Add'
-import { BoardCredentialsProps } from '@src/types/boardCredentialsProps'
+import { BoardCredentialsProps } from '@src/types/board/boardCredentialsProps'
+import DeleteStatusIcon from '@src/components/ui/dialog/editBoard/boardStatus/deleteStatusIcon'
 
 type BoardDialogProps = {
     methods: UseFormReturn<BoardCredentialsProps>
@@ -41,16 +41,16 @@ const BoardForm = ({
                                 <DialogInput
                                     {...register(`status.${index}.value`)}
                                 />
-                                <ClearIcon
-                                    className='cursor-pointer text-3xl'
-                                    onClick={() => remove(index)}
+                                <DeleteStatusIcon
+                                    statusesLength={defaultValues.status.length}
+                                    onClickAction={() => remove(index)}
                                 />
                             </div>
                         )
                     }
                 )}
                 <div
-                    className='w-full flex justify-center items-center font-bold h-12 border-none rounded uppercase bg-[#000000] text-white cursor-pointer'
+                    className='w-full flex justify-center items-center font-bold h-12 border-none rounded uppercase bg-[#000000] text-white cursor-pointer text-sm'
                     onClick={() => append({ value: '' })}
                 >
                     <AddIcon />
