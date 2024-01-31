@@ -22,6 +22,7 @@ const LogoSection = ({ expanded }: ExpandedProps) => {
                                 alt='Kanban logo'
                                 quality={100}
                                 height={60}
+                                priority
                             />
                         </Link>
                     </div>

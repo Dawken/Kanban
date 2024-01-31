@@ -11,7 +11,7 @@ const Logout = ({ expanded }: ExpandedProps) => {
 
     return (
         <ToolTip name={'Logout'}>
-            <div
+            <button
                 className='absolute bottom-5 w-full px-4'
                 onClick={() => logoutUser()}
             >
@@ -33,7 +33,7 @@ const Logout = ({ expanded }: ExpandedProps) => {
                         </>
                     )}
                 </div>
-            </div>
+            </button>
         </ToolTip>
     )
 }
