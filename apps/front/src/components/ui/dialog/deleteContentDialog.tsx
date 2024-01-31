@@ -44,7 +44,7 @@ const DeleteContentDialog = ({
                         </div>
                     </button>
                     <button
-                        className='hover:bg-[#ff6c6c] bg-[#ff4f4d] transition-all rounded'
+                        className='hover:bg-[#ff6c6c] bg-delete transition-all rounded'
                         onClick={remove}
                     >
                         <div className='my-1.5 mx-5 text-black w-8 h-5 flex items-center justify-center'>

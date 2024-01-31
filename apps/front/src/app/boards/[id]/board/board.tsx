@@ -98,6 +98,7 @@ const Board = () => {
                                       return (
                                           <Status
                                               status={status}
+                                              statusesLength={statuses.length}
                                               key={status.id}
                                           />
                                       )
@@ -113,6 +114,7 @@ const Board = () => {
                         <Status
                             key={draggedStatus.id}
                             status={draggedStatus as StatusProps}
+                            statusesLength={statuses.length}
                             dragId={dragId}
                         />
                     ) : null}

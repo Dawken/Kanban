@@ -61,7 +61,13 @@ const EditBoard = ({ board, open, handleClose }: EditBoardProps) => {
                     </div>
                     <div className='font-bold'>Board Statuses</div>
                     {board.status.map((status: StatusProps) => {
-                        return <BoardStatus status={status} key={status.id} />
+                        return (
+                            <BoardStatus
+                                status={status}
+                                board={board}
+                                key={status.id}
+                            />
+                        )
                     })}
                     {isNewStatusOpen && (
                         <ClickAwayListener onClickAway={closeNewStatus}>

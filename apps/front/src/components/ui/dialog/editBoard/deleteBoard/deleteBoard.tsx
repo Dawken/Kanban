@@ -15,7 +15,7 @@ const DeleteBoard = ({ boardId }: DeleteBoardProps) => {
     return (
         <>
             <button
-                className='bg-[#ff4f4d] rounded text-black'
+                className='bg-delete rounded text-black'
                 onClick={handleOpen}
             >
                 <div className='m-1 flex justify-center items-center text-sm font-bold'>

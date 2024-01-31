@@ -1,12 +1,18 @@
 import React from 'react'
 import { TextField } from '@mui/material'
-import ClearIcon from '@mui/icons-material/Clear'
 import useDeleteStatus from '@src/hooks/status/useDeleteStatus'
-import { StatusProps } from '@src/types/status/statusProps'
 import DeleteContentDialog from '@src/components/ui/dialog/deleteContentDialog'
 import useToggleOpen from '@src/hooks/useToggleOpen'
+import { StatusProps } from '@src/types/status/statusProps'
+import { BoardProps } from '@src/types/board/boardProps'
+import DeleteStatusIcon from '@src/components/ui/dialog/editBoard/boardStatus/deleteStatusIcon'
 
-const BoardStatus = ({ status }: { status: StatusProps }) => {
+type BoardStatusProps = {
+    status: StatusProps
+    board: BoardProps
+}
+
+const BoardStatus = ({ status, board }: BoardStatusProps) => {
     const { open, handleOpen, handleClose } = useToggleOpen()
 
     const { removeStatus, isStatusRemoving } = useDeleteStatus()
@@ -15,9 +21,9 @@ const BoardStatus = ({ status }: { status: StatusProps }) => {
         <>
             <div className='flex justify-center items-center gap-3'>
                 <TextField fullWidth value={status.statusName} disabled />
-                <ClearIcon
-                    className='cursor-pointer text-2xl'
-                    onClick={handleOpen}
+                <DeleteStatusIcon
+                    statusesLength={board.status.length}
+                    onClickAction={handleOpen}
                 />
             </div>
             <DeleteContentDialog

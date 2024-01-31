@@ -14,9 +14,11 @@ import { DragIdProps } from '@src/types/dragIdProps'
 
 const Status = ({
     status,
+    statusesLength,
     dragId,
 }: {
     status: StatusProps
+    statusesLength: number
     dragId?: DragIdProps
 }) => {
     const { anchorEl, handleClick, handleClose, open } = useAnchorEl()
@@ -91,7 +93,8 @@ const Status = ({
                     onClose={handleClose}
                     anchorEl={anchorEl}
                     handleOpenStatus={handleOpenStatus}
-                    statusId={status.id}
+                    status={status}
+                    statusesLength={statusesLength}
                 />
             )}
         </div>
