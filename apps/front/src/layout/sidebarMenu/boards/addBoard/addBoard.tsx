@@ -9,9 +9,9 @@ import { Dialog, DialogTitle } from '@mui/material'
 import FormButton from '@src/components/ui/form/formButton'
 
 const AddBoard = ({ expanded }: ExpandedProps) => {
-    const { methods, loading, error, addBoard } = useAddBoard()
-
     const { handleOpen, open, handleClose } = useToggleOpen()
+
+    const { methods, loading, error, addBoard } = useAddBoard(handleClose)
 
     return (
         <>
