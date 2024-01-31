@@ -4,7 +4,7 @@ import { Tooltip, Zoom } from '@mui/material'
 type ToolTipProps = {
     name: string
     children: ReactElement
-    placement?: 'top'
+    placement?: 'top' | 'bottom'
 }
 const ToolTip = ({ name, children, placement }: ToolTipProps) => {
     return (
