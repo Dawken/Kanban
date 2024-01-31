@@ -2,8 +2,13 @@ import { useMutation } from '@apollo/client'
 import { DELETE_BOARD } from '@src/graphQL/boards/mutations'
 import { toast } from 'react-toastify'
 import { GET_BOARDS } from '@src/graphQL/boards/queries'
+import { useParams, useRouter } from 'next/navigation'
 
 const useDeleteBoard = (boardId: string) => {
+    const params = useParams()
+
+    const router = useRouter()
+
     const [deleteBoard, { loading: isBoardRemoving }] = useMutation(
         DELETE_BOARD,
         {
@@ -21,6 +26,10 @@ const useDeleteBoard = (boardId: string) => {
                 boardId: boardId,
             },
             refetchQueries: [{ query: GET_BOARDS }],
+        }).then(() => {
+            if (params.id === boardId) {
+                router.push('/')
+            }
         })
     }
 
