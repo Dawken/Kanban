@@ -95,6 +95,7 @@ const typeDefs = gql`
             description: String
             statusId: String!
         ): Task
+        updateTaskName(taskName: String!, taskId: String!): Task
     }
 `
 export default typeDefs
