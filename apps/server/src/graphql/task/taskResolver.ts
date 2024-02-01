@@ -25,8 +25,7 @@ const taskResolvers = {
                             order: existingTaskCount + 1,
                         },
                     })
-                } catch (error) {
-                    console.log(error)
+                } catch {
                     throw new Error('failed-task-create')
                 }
             }
@@ -48,6 +47,34 @@ const taskResolvers = {
                 }
             } catch {
                 throw new Error('failed-task-edit')
+            }
+        }),
+        deleteTask: checkAuth(async (_parent, { taskId }) => {
+            try {
+                const task = await prisma.task.findUnique({
+                    where: { id: taskId },
+                })
+                if (!task) {
+                    throw new Error('task-not-found')
+                } else {
+                    const deletedTask = await prisma.task.delete({
+                        where: { id: taskId },
+                    })
+                    await prisma.task.updateMany({
+                        where: {
+                            statusId: task.statusId,
+                            order: { gt: task.order },
+                        },
+                        data: {
+                            order: {
+                                decrement: 1,
+                            },
+                        },
+                    })
+                    return deletedTask
+                }
+            } catch {
+                throw new Error('failed-task-delete')
             }
         }),
     },
