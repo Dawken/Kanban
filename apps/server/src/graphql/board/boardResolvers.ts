@@ -9,7 +9,13 @@ const boardResolvers = {
             try {
                 return await prisma.board.findUnique({
                     where: { id: boardId },
-                    include: { status: true },
+                    include: {
+                        status: {
+                            include: {
+                                task: true,
+                            },
+                        },
+                    },
                 })
             } catch (error) {
                 throw new Error('failed-board-fetch')

@@ -24,8 +24,20 @@ const typeDefs = gql`
         statusName: String!
         boardId: String!
         board: Board
+        task: [Task]
         order: Int
     }
+
+    type Task {
+        id: String!
+        taskName: String!
+        statusId: String!
+        status: Status
+        description: String
+        createdAt: DateTime!
+        updatedAt: DateTime!
+    }
+    scalar DateTime
 
     input StatusInput {
         id: String
@@ -76,6 +88,13 @@ const typeDefs = gql`
         updateStatusName(statusId: String!, statusName: String!): Status
         deleteStatus(statusId: String!): Status
         updateStatusOrder(newStatusOrder: [StatusOrderInput!]!): [Status]
+
+        #Task
+        createTask(
+            taskName: String!
+            description: String
+            statusId: String!
+        ): Task
     }
 `
 export default typeDefs
