@@ -36,6 +36,7 @@ const typeDefs = gql`
         description: String
         createdAt: DateTime!
         updatedAt: DateTime!
+        order: Int
     }
     scalar DateTime
 

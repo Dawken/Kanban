@@ -42,4 +42,5 @@ model Task {
   description String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  order       Int?
 }

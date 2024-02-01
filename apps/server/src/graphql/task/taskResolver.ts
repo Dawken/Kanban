@@ -8,6 +8,9 @@ const taskResolvers = {
         createTask: checkAuth(
             async (_parent, { taskName, description, statusId }) => {
                 try {
+                    const existingTaskCount = await prisma.task.count({
+                        where: { statusId },
+                    })
                     return prisma.task.create({
                         data: {
                             taskName,
@@ -19,9 +22,11 @@ const taskResolvers = {
                                     id: statusId,
                                 },
                             },
+                            order: existingTaskCount + 1,
                         },
                     })
-                } catch {
+                } catch (error) {
+                    console.log(error)
                     throw new Error('failed-task-create')
                 }
             }

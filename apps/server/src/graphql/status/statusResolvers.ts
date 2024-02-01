@@ -8,7 +8,7 @@ const statusResolvers = {
         createStatus: checkAuth(async (_parent, { statusName, boardId }) => {
             try {
                 const existingStatusCount = await prisma.status.count({
-                    where: { boardId: boardId },
+                    where: { boardId },
                 })
 
                 return prisma.status.create({
