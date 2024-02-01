@@ -22,7 +22,7 @@ model Board {
   user      User     @relation(fields: [userId], references: [id])
   userId    String
   status    Status[]
-  order     Int
+  order     Int?
 }
 
 model Status {
@@ -30,5 +30,16 @@ model Status {
   statusName String
   board      Board  @relation(fields: [boardId], references: [id], onDelete: Cascade)
   boardId    String
-  order      Int
+  task       Task[]
+  order      Int?
+}
+
+model Task {
+  id          String   @id @default(cuid())
+  taskName    String
+  status      Status   @relation(fields: [statusId], references: [id], onDelete: Cascade)
+  statusId    String
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
