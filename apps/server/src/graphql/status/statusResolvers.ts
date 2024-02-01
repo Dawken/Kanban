@@ -42,7 +42,7 @@ const statusResolvers = {
                             },
                         })
                     }
-                } catch (error) {
+                } catch {
                     throw new Error('failed-status-edit')
                 }
             }
@@ -83,7 +83,7 @@ const statusResolvers = {
                         data: { order: updatedStatus.order },
                     })
                 }
-            } catch (error) {
+            } catch {
                 throw new Error('failed-status-update')
             }
         }),

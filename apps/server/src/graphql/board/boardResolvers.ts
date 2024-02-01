@@ -17,7 +17,7 @@ const boardResolvers = {
                         },
                     },
                 })
-            } catch (error) {
+            } catch {
                 throw new Error('failed-board-fetch')
             }
         }),
@@ -34,7 +34,7 @@ const boardResolvers = {
                         order: 'asc',
                     },
                 })
-            } catch (error) {
+            } catch {
                 throw new Error('failed-boards-fetch')
             }
         }),
@@ -82,7 +82,7 @@ const boardResolvers = {
                         },
                     })
                 }
-            } catch (error) {
+            } catch {
                 throw new Error('failed-board-edit')
             }
         }),
@@ -125,7 +125,7 @@ const boardResolvers = {
                         data: { order: updatedBoard.order },
                     })
                 }
-            } catch (error) {
+            } catch {
                 throw new Error('failed-board-update')
             }
         }),
