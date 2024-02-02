@@ -38,7 +38,7 @@ const statusResolvers = {
                         return await prisma.status.update({
                             where: { id: statusId },
                             data: {
-                                statusName: statusName,
+                                statusName,
                             },
                         })
                     }

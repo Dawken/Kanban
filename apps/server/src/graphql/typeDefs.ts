@@ -47,6 +47,16 @@ const typeDefs = gql`
         order: Int
     }
 
+    input TaskInput {
+        id: String
+        taskName: String
+        statusId: String
+        description: String
+        createdAt: DateTime
+        updatedAt: DateTime
+        order: Int
+    }
+
     input BoardOrderInput {
         id: String!
         boardName: String!
@@ -57,6 +67,16 @@ const typeDefs = gql`
     input StatusOrderInput {
         id: String!
         statusName: String!
+        order: Int!
+        task: [TaskInput]
+    }
+
+    input TaskOrderInput {
+        id: String!
+        taskName: String!
+        description: String
+        createdAt: DateTime
+        updatedAt: DateTime
         order: Int!
     }
 
@@ -97,7 +117,10 @@ const typeDefs = gql`
             statusId: String!
         ): Task
         updateTaskName(taskName: String!, taskId: String!): Task
+        updateDescription(description: String!, taskId: String!): Task
         deleteTask(taskId: String!): Status
+        updateTaskOrder(newTaskOrder: [TaskOrderInput!]!): [Task]
+        pushTask(taskId: String!, newStatusId: String!, order: Int!): Task
     }
 `
 export default typeDefs

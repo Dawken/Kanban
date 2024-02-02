@@ -78,7 +78,7 @@ const boardResolvers = {
                     return await prisma.board.update({
                         where: { id: boardId },
                         data: {
-                            boardName: boardName,
+                            boardName,
                         },
                     })
                 }
