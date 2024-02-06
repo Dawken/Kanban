@@ -4,6 +4,21 @@ import checkAuth from '../../middlewares/checkAuth'
 const prisma = new PrismaClient()
 
 const taskResolvers = {
+    Query: {
+        tasks: checkAuth(async (_parent, { boardId }) => {
+            try {
+                return await prisma.task.findMany({
+                    where: {
+                        status: {
+                            boardId: boardId,
+                        },
+                    },
+                })
+            } catch {
+                throw new Error('failed-tasks-fetch')
+            }
+        }),
+    },
     Mutation: {
         createTask: checkAuth(
             async (_parent, { taskName, description, statusId }) => {

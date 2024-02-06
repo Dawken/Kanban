@@ -83,6 +83,7 @@ const typeDefs = gql`
     type Query {
         users: [User]
         boards: [Board]
+        tasks(boardId: String!): [Task]
         board(boardId: String!): Board
     }
 
