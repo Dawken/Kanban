@@ -1,13 +1,19 @@
 import React, { ReactNode } from 'react'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
+import { TaskProps } from '@src/types/task/taskProps'
+import { StatusProps } from '@src/types/status/statusProps'
 
 type DraggableProps = {
     children: ReactNode
     id: string
     disabled?: boolean
+    data?: {
+        type: string
+        item: TaskProps | StatusProps
+    }
 }
-const Draggable = ({ children, id, disabled }: DraggableProps) => {
+const Draggable = ({ children, id, disabled, data }: DraggableProps) => {
     const {
         attributes,
         listeners,
@@ -15,7 +21,7 @@ const Draggable = ({ children, id, disabled }: DraggableProps) => {
         transition,
         transform,
         isDragging,
-    } = useSortable({ id: id, disabled: disabled })
+    } = useSortable({ id, disabled, data })
 
     const style = {
         transition,

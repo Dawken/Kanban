@@ -11,22 +11,33 @@ import Status from '@src/app/boards/[id]/board/status/status'
 import { StatusProps } from '@src/types/status/statusProps'
 import arrayFrom from '@src/utils/arrayFrom'
 import { SortableContext } from '@dnd-kit/sortable'
-import DntContext from '@src/components/ui/drag/dntContext'
 import useDragHandler from '@src/hooks/useDragHandler'
 import { DragOverlay } from '@dnd-kit/core'
 import AddStatus from '@src/app/boards/[id]/board/addStatus/addStatus'
+import Task from '@src/app/boards/[id]/board/status/task/task'
+import DntContext from '@src/components/ui/drag/dntContext'
 
 const Board = () => {
     const { open, handleOpen, handleClose } = useToggleOpen()
 
-    const { data, loading, statuses, setStatuses } = useBoard()
+    const {
+        data,
+        loading,
+        statuses,
+        setStatuses,
+        tasks,
+        setTasks,
+        statusesId,
+    } = useBoard()
 
     const {
         dragId,
         onDragStart,
         onDragCancel,
+        onDragOver,
         handleOnDragEnd,
         draggedItem: draggedStatus,
+        draggedTask,
     } = useDragHandler(statuses)
 
     return (
@@ -78,46 +89,58 @@ const Board = () => {
                 }
                 onDragStart={onDragStart}
                 onDragCancel={onDragCancel}
+                onDragOver={(event) => onDragOver(event, setTasks)}
             >
-                <SortableContext items={statuses}>
-                    <div className='statusesScrollbar max-sm:h-[85vh] h-5/6 max-sm:mt-3 mt-12 overflow-auto'>
-                        <section className='flex items-start max-sm:flex-col max-sm:items-center gap-5'>
-                            {loading
-                                ? arrayFrom(
-                                      4,
-                                      <div>
-                                          <Skeleton
-                                              height={220}
-                                              width={250}
-                                              variant='rounded'
-                                          />
-                                      </div>
-                                  )
-                                : statuses &&
-                                  statuses.map((status: StatusProps) => {
-                                      return (
-                                          <Status
-                                              status={status}
-                                              statusesLength={statuses.length}
-                                              key={status.id}
-                                          />
-                                      )
-                                  })}
-                            {data?.board.id && (
-                                <AddStatus boardId={data.board.id} />
-                            )}
-                        </section>
-                    </div>
-                </SortableContext>
+                <div className='statusesScrollbar max-sm:h-[85vh] h-5/6 max-sm:mt-3 mt-12 overflow-auto'>
+                    <section className='flex items-start max-sm:flex-col max-sm:items-center gap-5'>
+                        {loading ? (
+                            arrayFrom(
+                                4,
+                                <div>
+                                    <Skeleton
+                                        height={220}
+                                        width={270}
+                                        variant='rounded'
+                                    />
+                                </div>
+                            )
+                        ) : (
+                            <SortableContext items={statusesId}>
+                                {statuses.length > 1 &&
+                                    statuses.map((status: StatusProps) => {
+                                        return (
+                                            <Status
+                                                status={status}
+                                                tasks={tasks.filter(
+                                                    (task) =>
+                                                        task.statusId ===
+                                                        status.id
+                                                )}
+                                                statusesLength={statuses.length}
+                                                key={status.id}
+                                            />
+                                        )
+                                    })}
+                            </SortableContext>
+                        )}
+                        {data?.board.id && (
+                            <AddStatus boardId={data.board.id} />
+                        )}
+                    </section>
+                </div>
                 <DragOverlay>
-                    {draggedStatus ? (
+                    {draggedStatus && (
                         <Status
                             key={draggedStatus.id}
                             status={draggedStatus as StatusProps}
+                            tasks={tasks.filter(
+                                (task) => task.statusId === draggedStatus.id
+                            )}
                             statusesLength={statuses.length}
                             dragId={dragId}
                         />
-                    ) : null}
+                    )}
+                    {draggedTask && <Task task={draggedTask} />}
                 </DragOverlay>
             </DntContext>
         </div>

@@ -1,8 +1,8 @@
 import React, { ReactNode } from 'react'
 import {
-    closestCenter,
     DndContext,
     DragEndEvent,
+    DragOverEvent,
     DragStartEvent,
     PointerSensor,
     useSensor,
@@ -14,12 +14,14 @@ type DntContextProps = {
     handleOnDragEnd: (event: DragEndEvent) => void
     onDragStart: (event: DragStartEvent) => void
     onDragCancel: () => void
+    onDragOver: (event: DragOverEvent) => void
 }
 const DntContext = ({
     children,
     handleOnDragEnd,
     onDragStart,
     onDragCancel,
+    onDragOver,
 }: DntContextProps) => {
     const sensors = useSensors(
         useSensor(PointerSensor, {
@@ -32,10 +34,10 @@ const DntContext = ({
     return (
         <DndContext
             sensors={sensors}
-            collisionDetection={closestCenter}
             onDragStart={onDragStart}
             onDragCancel={onDragCancel}
             onDragEnd={handleOnDragEnd}
+            onDragOver={onDragOver}
         >
             {children}
         </DndContext>

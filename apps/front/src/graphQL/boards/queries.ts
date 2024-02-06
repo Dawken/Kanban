@@ -12,6 +12,7 @@ const GET_BOARD = gql`
                 task {
                     id
                     taskName
+                    statusId
                     order
                 }
             }
