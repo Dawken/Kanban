@@ -2,7 +2,11 @@ import React from 'react'
 import { TaskProps } from '@src/types/task/taskProps'
 import Draggable from '@src/components/ui/drag/draggable'
 
-const Task = ({ task }: { task: TaskProps }) => {
+type TasksProps = {
+    task: TaskProps
+}
+
+const Task = ({ task }: TasksProps) => {
     return (
         <Draggable
             id={task.id}

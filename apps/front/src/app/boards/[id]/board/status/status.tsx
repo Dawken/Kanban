@@ -7,8 +7,6 @@ import useAnchorEl from '@src/hooks/useAnchorEl'
 import useUpdateStatusName from '@src/hooks/status/useUpdateStatusName'
 import AddContentTextField from '@src/components/ui/addContentTextField'
 import useToggleOpen from '@src/hooks/useToggleOpen'
-import ToolTip from '@src/components/ui/toolTip'
-import { DragIdProps } from '@src/types/dragIdProps'
 import Task from '@src/app/boards/[id]/board/status/task/task'
 import { SortableContext, useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
@@ -18,15 +16,10 @@ import { TaskProps } from '@src/types/task/taskProps'
 type CustomStatusProps = {
     status: StatusProps
     tasks: TaskProps[]
+    isDraggingTask: boolean
     statusesLength: number
-    dragId?: DragIdProps
 }
-const Status = ({
-    status,
-    tasks,
-    statusesLength,
-    dragId,
-}: CustomStatusProps) => {
+const Status = ({ status, tasks, statusesLength }: CustomStatusProps) => {
     const { anchorEl, handleClick, handleClose, open } = useAnchorEl()
 
     const {
@@ -58,7 +51,7 @@ const Status = ({
     }
 
     const tasksIds = useMemo(() => {
-        return tasks.map((task) => task.id)
+        return tasks && tasks.map((task) => task.id)
     }, [tasks])
 
     if (isDragging) {
@@ -85,7 +78,7 @@ const Status = ({
                 <div
                     {...attributes}
                     {...listeners}
-                    className='w-full h-12 mb-3 cursor-grab'
+                    className='w-full h-12 cursor-grab'
                 >
                     <div className='p-3 flex items-center justify-between relative'>
                         <div className='flex items-center justify-between overflow-hidden'>
@@ -111,17 +104,12 @@ const Status = ({
                                         </div>
                                     </ClickAwayListener>
                                 ) : (
-                                    <ToolTip
-                                        name={dragId ? '' : status.statusName}
-                                        placement='top'
+                                    <div
+                                        className='w-36 p-2 hover:bg-blue-600 hover:bg-opacity-5 rounded font-bold overflow-hidden overflow-ellipsis whitespace-nowrap'
+                                        onClick={handleOpenStatus}
                                     >
-                                        <div
-                                            className='w-36 p-2 hover:bg-blue-600 hover:bg-opacity-5 rounded font-bold overflow-hidden overflow-ellipsis whitespace-nowrap'
-                                            onClick={handleOpenStatus}
-                                        >
-                                            {status.id}
-                                        </div>
-                                    </ToolTip>
+                                        {status.statusName}
+                                    </div>
                                 )}
                             </div>
                         </div>
@@ -130,18 +118,13 @@ const Status = ({
                         </IconButton>
                     </div>
                 </div>
-                <div className='flex-1 h-full'>
+                <div className='flex-1 flex flex-col my-2 flex-grow h-full gap-2'>
                     <SortableContext items={tasksIds}>
-                        <div className='space-y-2'>
-                            {tasks &&
-                                tasks.length > 0 &&
-                                tasks.map((task) => {
-                                    return <Task task={task} key={task.id} />
-                                })}
-                        </div>
+                        {tasks.map((task) => {
+                            return <Task task={task} key={task.id} />
+                        })}
                     </SortableContext>
                 </div>
-                <div className='h-8'></div>
             </div>
             {open && (
                 <EditStatus

@@ -21,6 +21,16 @@ const Board = () => {
     const { open, handleOpen, handleClose } = useToggleOpen()
 
     const {
+        dragId,
+        onDragStart,
+        onDragCancel,
+        onDragOver,
+        handleOnDragEnd,
+        draggedTask,
+        isDraggingTask,
+    } = useDragHandler()
+
+    const {
         data,
         loading,
         statuses,
@@ -28,17 +38,8 @@ const Board = () => {
         tasks,
         setTasks,
         statusesId,
-    } = useBoard()
-
-    const {
-        dragId,
-        onDragStart,
-        onDragCancel,
-        onDragOver,
-        handleOnDragEnd,
-        draggedItem: draggedStatus,
-        draggedTask,
-    } = useDragHandler(statuses)
+        draggedStatus,
+    } = useBoard(dragId, isDraggingTask)
 
     return (
         <div className='sm:mx-10 h-full'>
@@ -116,6 +117,7 @@ const Board = () => {
                                                         task.statusId ===
                                                         status.id
                                                 )}
+                                                isDraggingTask={isDraggingTask}
                                                 statusesLength={statuses.length}
                                                 key={status.id}
                                             />
@@ -136,8 +138,8 @@ const Board = () => {
                             tasks={tasks.filter(
                                 (task) => task.statusId === draggedStatus.id
                             )}
+                            isDraggingTask={isDraggingTask}
                             statusesLength={statuses.length}
-                            dragId={dragId}
                         />
                     )}
                     {draggedTask && <Task task={draggedTask} />}
