@@ -7,29 +7,40 @@ import { TaskProps } from '@src/types/task/taskProps'
 import { arrayMove } from '@dnd-kit/sortable'
 import { SetItemsAction } from '@src/types/setItemsProps'
 
-const useDragHandler = (items: StatusProps[] | BoardProps[] | TaskProps[]) => {
+const useDragHandler = (items?: StatusProps[] | BoardProps[] | TaskProps[]) => {
     const [dragId, setDragId] = useState<DragIdProps>(null)
 
     const [draggedTask, setDraggedTask] = useState<TaskProps | null>(null)
 
+    const [isDraggingTask, setIsDraggingTask] = useState(false)
+
     const onDragStart = (event: DragStartEvent) => {
         setDragId(event.active.id)
+
+        setIsDraggingTask(true)
 
         if (event.active.data.current?.type === 'Task') {
             setDraggedTask(event.active.data.current.item)
         }
     }
-    const onDragCancel = () => setDragId(null)
+    const onDragCancel = () => {
+        setDragId(null)
+        setIsDraggingTask(false)
+    }
 
     const handleOnDragEnd = <T extends { id: string; order: number }>(
         event: DragEndEvent,
         setItems: SetItemsAction<T>
     ) => {
         setDraggedTask(null)
+        setIsDraggingTask(false)
 
         const { active, over } = event
 
         if (over && active.id === over.id) return
+
+        if (active.data.current?.type === 'Task') return
+
         setItems((prevState) => {
             const oldIndex = prevState.findIndex(
                 (item) => item.id === active.id
@@ -48,77 +59,104 @@ const useDragHandler = (items: StatusProps[] | BoardProps[] | TaskProps[]) => {
 
     // Finding existing dragged object based on its id
     const draggedItem =
-        dragId !== null ? items.find((item) => item.id === dragId) : null
+        dragId !== null ? items?.find((item) => item.id === dragId) : null
 
     const onDragOver = (
         event: DragOverEvent,
         setTasks: Dispatch<SetStateAction<TaskProps[]>>
     ) => {
         const { active, over } = event
+
         if (!over) return
 
-        const activeId = active.id
-        const overId = over.id
-
-        if (activeId === overId) return
+        if (active.id === over.id) return
 
         const isActiveATask = active.data.current?.type === 'Task'
         const isOverATask = over.data.current?.type === 'Task'
+        const isOverAColumn = over.data.current?.type === 'Status'
 
         if (!isActiveATask) return
 
         // Im dropping a Task over another Task
-        if (isActiveATask && isOverATask) {
+        if (isOverATask) {
             setTasks((prevTasks) => {
                 const updatedTasks = [...prevTasks]
-                const activeIndex = updatedTasks.findIndex(
-                    (task) => task.id === activeId
+
+                const oldIndex = prevTasks.findIndex(
+                    (item) => item.id === active.id
                 )
-                const overIndex = updatedTasks.findIndex(
-                    (task) => task.id === overId
+                const newIndex = prevTasks.findIndex(
+                    (item) => item.id === over?.id
                 )
 
                 if (
-                    updatedTasks[activeIndex].statusId !==
-                    updatedTasks[overIndex].statusId
+                    updatedTasks[oldIndex].statusId !==
+                    updatedTasks[newIndex].statusId
                 ) {
                     const updatedTask = {
-                        ...updatedTasks[activeIndex],
-                        statusId: updatedTasks[overIndex].statusId,
-                        order: overIndex,
+                        ...updatedTasks[oldIndex],
+                        statusId: updatedTasks[newIndex].statusId,
                     }
 
-                    updatedTasks[activeIndex] = updatedTask
+                    updatedTasks[oldIndex] = updatedTask
 
                     return arrayMove(
                         updatedTasks,
-                        activeIndex,
-                        Math.max(overIndex - 1, 0)
+                        oldIndex,
+                        Math.max(newIndex - 1, 0)
                     )
-                }
+                } else {
+                    const { statusId } = updatedTasks[newIndex]
 
-                return arrayMove(updatedTasks, activeIndex, overIndex)
+                    const sortedArray = arrayMove(
+                        updatedTasks,
+                        oldIndex,
+                        newIndex
+                    )
+
+                    const filteredTasks = sortedArray
+                        .filter((task) => task.statusId === statusId)
+                        .map((item, index) => ({
+                            ...item,
+                            order: index + 1,
+                        }))
+
+                    return sortedArray.map((item) => {
+                        if (item.statusId === statusId) {
+                            const updatedTask = filteredTasks.find(
+                                (task) => task.id === item.id
+                            )
+                            return updatedTask ?? item
+                        }
+                        return item
+                    })
+                }
             })
         }
 
-        const isOverAColumn = over.data.current?.type === 'Status'
-
         // Im dropping a Task over a column
-        if (isActiveATask && isOverAColumn) {
+        if (isOverAColumn) {
             setTasks((prevTasks) => {
                 const activeIndex = prevTasks.findIndex(
-                    (task) => task.id === activeId
+                    (task) => task.id === active.id
                 )
+
+                const updatedTasks = [...prevTasks]
 
                 const updatedTask = {
                     ...prevTasks[activeIndex],
-                    statusId: String(overId),
+                    statusId: String(over.id),
                 }
 
-                const updatedTasks = [...prevTasks]
                 updatedTasks[activeIndex] = updatedTask
 
-                return updatedTasks
+                return arrayMove(
+                    updatedTasks,
+                    activeIndex,
+                    over.id !== active.data.current?.item.statusId
+                        ? 0
+                        : activeIndex
+                )
             })
         }
     }
@@ -131,6 +169,7 @@ const useDragHandler = (items: StatusProps[] | BoardProps[] | TaskProps[]) => {
         onDragOver,
         draggedItem,
         draggedTask,
+        isDraggingTask,
     }
 }
 export default useDragHandler

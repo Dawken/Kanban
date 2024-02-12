@@ -5,6 +5,7 @@ import {
     DragOverEvent,
     DragStartEvent,
     PointerSensor,
+    pointerWithin,
     useSensor,
     useSensors,
 } from '@dnd-kit/core'
@@ -34,6 +35,7 @@ const DntContext = ({
     return (
         <DndContext
             sensors={sensors}
+            collisionDetection={pointerWithin}
             onDragStart={onDragStart}
             onDragCancel={onDragCancel}
             onDragEnd={handleOnDragEnd}
