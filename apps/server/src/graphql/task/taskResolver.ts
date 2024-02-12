@@ -10,9 +10,10 @@ const taskResolvers = {
                 return await prisma.task.findMany({
                     where: {
                         status: {
-                            boardId: boardId,
+                            boardId,
                         },
                     },
+                    orderBy: [{ statusId: 'asc' }, { order: 'asc' }],
                 })
             } catch {
                 throw new Error('failed-tasks-fetch')
@@ -148,7 +149,7 @@ const taskResolvers = {
                     await prisma.task.updateMany({
                         where: {
                             statusId: oldTaskStatus.statusId,
-                            order: { gt: task.order },
+                            order: { gt: oldTaskStatus.order },
                         },
                         data: {
                             order: {

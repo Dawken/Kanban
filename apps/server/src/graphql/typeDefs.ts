@@ -74,6 +74,7 @@ const typeDefs = gql`
     input TaskOrderInput {
         id: String!
         taskName: String!
+        statusId: String!
         description: String
         createdAt: DateTime
         updatedAt: DateTime
