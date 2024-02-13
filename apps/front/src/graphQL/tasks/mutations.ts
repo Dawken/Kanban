@@ -16,4 +16,23 @@ const UPDATE_TASK_ORDER = gql`
     }
 `
 
-export { PUSH_TASK, UPDATE_TASK_ORDER }
+const CREATE_TASK = gql`
+    mutation CreateTask(
+        $taskName: String!
+        $statusId: String!
+        $description: String
+    ) {
+        createTask(
+            taskName: $taskName
+            statusId: $statusId
+            description: $description
+        ) {
+            taskName
+            statusId
+            description
+            id
+        }
+    }
+`
+
+export { PUSH_TASK, UPDATE_TASK_ORDER, CREATE_TASK }
