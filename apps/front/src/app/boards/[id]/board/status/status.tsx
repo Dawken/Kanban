@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 import { ClickAwayListener, IconButton } from '@mui/material'
@@ -12,6 +12,8 @@ import { SortableContext, useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import { StatusProps } from '@src/types/status/statusProps'
 import { TaskProps } from '@src/types/task/taskProps'
+import useStatus from '@src/app/boards/[id]/board/status/useStatus'
+import AddIcon from '@mui/icons-material/Add'
 
 type CustomStatusProps = {
     status: StatusProps
@@ -28,7 +30,15 @@ const Status = ({ status, tasks, statusesLength }: CustomStatusProps) => {
         handleClose: handleCloseStatus,
     } = useToggleOpen()
 
+    const {
+        open: isCreateTaskOpen,
+        handleOpen: handleOpenCreateTask,
+        handleClose: handleCloseCreateTask,
+    } = useToggleOpen()
+
     const { isStatusNameUpdating, editStatusName } = useUpdateStatusName()
+
+    const { tasksIds, isTaskCreating, addNewTask } = useStatus(tasks)
 
     const {
         setNodeRef,
@@ -49,10 +59,6 @@ const Status = ({ status, tasks, statusesLength }: CustomStatusProps) => {
         transition,
         transform: CSS.Translate.toString(transform),
     }
-
-    const tasksIds = useMemo(() => {
-        return tasks && tasks.map((task) => task.id)
-    }, [tasks])
 
     if (isDragging) {
         return (
@@ -119,11 +125,33 @@ const Status = ({ status, tasks, statusesLength }: CustomStatusProps) => {
                     </div>
                 </div>
                 <div className='flex-1 flex flex-col my-2 flex-grow h-full gap-2'>
-                    <SortableContext items={tasksIds}>
-                        {tasks.map((task) => {
-                            return <Task task={task} key={task.id} />
-                        })}
-                    </SortableContext>
+                    {tasks.length > 0 ? (
+                        <SortableContext items={tasksIds}>
+                            {tasks.map((task) => {
+                                return <Task task={task} key={task.id} />
+                            })}
+                        </SortableContext>
+                    ) : isCreateTaskOpen ? (
+                        <div className='bg-black min-h-[90px] rounded mx-2 flex items-center justify-center'>
+                            <div className='px-1 w-full'>
+                                <AddContentTextField
+                                    closeNewStatus={handleCloseCreateTask}
+                                    createContent={addNewTask}
+                                    multiline={true}
+                                    parentId={status.id}
+                                    isCreating={isTaskCreating}
+                                />
+                            </div>
+                        </div>
+                    ) : (
+                        <div
+                            className='bg-black opacity-50 max-h-[90px] rounded mx-2 flex items-center justify-center flex-1 text-sm font-bold hover:bg-blue-600 hover:bg-opacity-10 cursor-pointer'
+                            onClick={handleOpenCreateTask}
+                        >
+                            <AddIcon />
+                            Create task
+                        </div>
+                    )}
                 </div>
             </div>
             {open && (

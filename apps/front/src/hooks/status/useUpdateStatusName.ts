@@ -21,8 +21,8 @@ const useUpdateStatusName = () => {
         } else {
             updateStatusName({
                 variables: {
-                    statusName: statusName,
-                    statusId: statusId,
+                    statusName,
+                    statusId,
                 },
             })
         }
