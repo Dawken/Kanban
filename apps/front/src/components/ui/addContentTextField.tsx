@@ -9,6 +9,7 @@ type AddContentTextFieldProps = {
     createContent: (text: string, parentId: string) => void
     parentId: string
     isCreating: boolean
+    multiline?: boolean
     defaultText?: string
     isSmallField?: boolean
 }
@@ -17,6 +18,7 @@ const AddContentTextField = ({
     createContent,
     parentId,
     isCreating,
+    multiline,
     defaultText,
     isSmallField,
 }: AddContentTextFieldProps) => {
@@ -28,26 +30,37 @@ const AddContentTextField = ({
         inputRef.current && inputRef.current.focus()
     }, [])
 
+    const addContent = () => {
+        createContent(text, parentId)
+        closeNewStatus()
+    }
+
     return (
-        <>
+        <div className='relative w-full'>
             <TextField
                 fullWidth
                 inputRef={inputRef}
                 value={text}
                 onChange={(event) => handleChange(event.target.value)}
                 size={isSmallField ? 'small' : 'medium'}
+                multiline={multiline}
+                rows={multiline ? 2 : 1}
                 inputProps={{
                     style: {
                         fontSize: isSmallField ? 11 : 16,
                     },
                 }}
+                onKeyDown={(event) => {
+                    if (event.key === 'Enter') {
+                        addContent()
+                    }
+                }}
             />
-            <div className='bg-zinc-900 ml-auto w-fit h-12 flex justify-center items-center gap-2 rounded p-2'>
+            <div className='absolute z-10 right-0 bg-black ml-auto w-fit h-12 flex justify-center items-center gap-2 rounded p-2'>
                 <button
                     className='bg-zinc-800 p-1 rounded w-8 h-8 hover:bg-zinc-700 flex items-center justify-center'
                     onClick={() => {
-                        createContent(text, parentId)
-                        closeNewStatus()
+                        addContent()
                     }}
                 >
                     {isCreating ? (
@@ -63,7 +76,7 @@ const AddContentTextField = ({
                     <CloseIcon className='text-base' />
                 </button>
             </div>
-        </>
+        </div>
     )
 }
 
