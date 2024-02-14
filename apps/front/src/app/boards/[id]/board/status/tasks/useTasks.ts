@@ -6,7 +6,7 @@ import { CREATE_TASK } from '@src/graphQL/tasks/mutations'
 import { GET_BOARD_TASKS } from '@src/graphQL/tasks/queries'
 import { useParams } from 'next/navigation'
 
-const useStatus = (tasks: TaskProps[]) => {
+const useTasks = (tasks: TaskProps[]) => {
     const params = useParams()
 
     const [createTask, { loading: isTaskCreating }] = useMutation(CREATE_TASK, {
@@ -50,4 +50,4 @@ const useStatus = (tasks: TaskProps[]) => {
         addNewTask,
     }
 }
-export default useStatus
+export default useTasks

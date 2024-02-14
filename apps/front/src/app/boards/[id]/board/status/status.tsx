@@ -7,13 +7,11 @@ import useAnchorEl from '@src/hooks/useAnchorEl'
 import useUpdateStatusName from '@src/hooks/status/useUpdateStatusName'
 import AddContentTextField from '@src/components/ui/addContentTextField'
 import useToggleOpen from '@src/hooks/useToggleOpen'
-import Task from '@src/app/boards/[id]/board/status/task/task'
-import { SortableContext, useSortable } from '@dnd-kit/sortable'
+import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import { StatusProps } from '@src/types/status/statusProps'
 import { TaskProps } from '@src/types/task/taskProps'
-import useStatus from '@src/app/boards/[id]/board/status/useStatus'
-import AddIcon from '@mui/icons-material/Add'
+import Tasks from '@src/app/boards/[id]/board/status/tasks/tasks'
 
 type CustomStatusProps = {
     status: StatusProps
@@ -25,9 +23,9 @@ const Status = ({ status, tasks, statusesLength }: CustomStatusProps) => {
     const { anchorEl, handleClick, handleClose, open } = useAnchorEl()
 
     const {
-        open: isStatusOpen,
-        handleOpen: handleOpenStatus,
-        handleClose: handleCloseStatus,
+        open: isEditStatusOpen,
+        handleOpen: handleOpenEditStatus,
+        handleClose: handleCloseEditStatus,
     } = useToggleOpen()
 
     const {
@@ -37,8 +35,6 @@ const Status = ({ status, tasks, statusesLength }: CustomStatusProps) => {
     } = useToggleOpen()
 
     const { isStatusNameUpdating, editStatusName } = useUpdateStatusName()
-
-    const { tasksIds, isTaskCreating, addNewTask } = useStatus(tasks)
 
     const {
         setNodeRef,
@@ -81,6 +77,7 @@ const Status = ({ status, tasks, statusesLength }: CustomStatusProps) => {
                 ref={setNodeRef}
                 style={style}
             >
+                {/*Top of status with name and edit status button*/}
                 <div
                     {...attributes}
                     {...listeners}
@@ -90,14 +87,14 @@ const Status = ({ status, tasks, statusesLength }: CustomStatusProps) => {
                         <div className='flex items-center justify-between overflow-hidden'>
                             <DragIndicatorIcon className='text-xl' />
                             <div className='ml-2 font-bold text-xs'>
-                                {isStatusOpen ? (
+                                {isEditStatusOpen ? (
                                     <ClickAwayListener
-                                        onClickAway={handleCloseStatus}
+                                        onClickAway={handleCloseEditStatus}
                                     >
                                         <div className='absolute w-40 top-3 left-8'>
                                             <AddContentTextField
                                                 closeNewStatus={
-                                                    handleCloseStatus
+                                                    handleCloseEditStatus
                                                 }
                                                 createContent={editStatusName}
                                                 parentId={status.id}
@@ -112,7 +109,7 @@ const Status = ({ status, tasks, statusesLength }: CustomStatusProps) => {
                                 ) : (
                                     <div
                                         className='w-36 p-2 hover:bg-blue-600 hover:bg-opacity-5 rounded font-bold overflow-hidden overflow-ellipsis whitespace-nowrap'
-                                        onClick={handleOpenStatus}
+                                        onClick={handleOpenEditStatus}
                                     >
                                         {status.statusName}
                                     </div>
@@ -124,44 +121,24 @@ const Status = ({ status, tasks, statusesLength }: CustomStatusProps) => {
                         </IconButton>
                     </div>
                 </div>
-                <div className='flex-1 flex flex-col my-2 flex-grow h-full gap-2'>
-                    {tasks.length > 0 ? (
-                        <SortableContext items={tasksIds}>
-                            {tasks.map((task) => {
-                                return <Task task={task} key={task.id} />
-                            })}
-                        </SortableContext>
-                    ) : isCreateTaskOpen ? (
-                        <div className='bg-black min-h-[90px] rounded mx-2 flex items-center justify-center'>
-                            <div className='px-1 w-full'>
-                                <AddContentTextField
-                                    closeNewStatus={handleCloseCreateTask}
-                                    createContent={addNewTask}
-                                    multiline={true}
-                                    parentId={status.id}
-                                    isCreating={isTaskCreating}
-                                />
-                            </div>
-                        </div>
-                    ) : (
-                        <div
-                            className='bg-black opacity-50 max-h-[90px] rounded mx-2 flex items-center justify-center flex-1 text-sm font-bold hover:bg-blue-600 hover:bg-opacity-10 cursor-pointer'
-                            onClick={handleOpenCreateTask}
-                        >
-                            <AddIcon />
-                            Create task
-                        </div>
-                    )}
-                </div>
+                {/*Sortable tasks with add task text field*/}
+                <Tasks
+                    tasks={tasks}
+                    statusId={status.id}
+                    isCreateTaskOpen={isCreateTaskOpen}
+                    handleOpenCreateTask={handleOpenCreateTask}
+                    handleCloseCreateTask={handleCloseCreateTask}
+                />
             </div>
             {open && (
                 <EditStatus
                     open={open}
                     onClose={handleClose}
                     anchorEl={anchorEl}
-                    handleOpenStatus={handleOpenStatus}
+                    handleOpenEditStatus={handleOpenEditStatus}
                     status={status}
                     statusesLength={statusesLength}
+                    handleOpenCreateTask={handleOpenCreateTask}
                 />
             )}
         </>

@@ -15,7 +15,7 @@ const Task = ({ task }: TasksProps) => {
                 item: task,
             }}
         >
-            <div className='bg-black min-h-[90px] rounded mx-2 text-white'>
+            <div className='bg-black min-h-[90px] rounded mx-2 text-white font-sans '>
                 <div className='p-2 text-sm'>{task.taskName}</div>
             </div>
         </Draggable>

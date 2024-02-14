@@ -7,22 +7,25 @@ import useToggleOpen from '@src/hooks/useToggleOpen'
 import useDeleteStatus from '@src/hooks/status/useDeleteStatus'
 import { StatusProps } from '@src/types/status/statusProps'
 import ToolTip from '@src/components/ui/toolTip'
+import AddIcon from '@mui/icons-material/Add'
 
 type EditStatusProps = {
     open: boolean
     onClose: () => void
     anchorEl: HTMLButtonElement | null
-    handleOpenStatus: () => void
+    handleOpenEditStatus: () => void
     status: StatusProps
     statusesLength: number
+    handleOpenCreateTask: () => void
 }
 const EditStatus = ({
     open,
     onClose,
     anchorEl,
-    handleOpenStatus,
+    handleOpenEditStatus,
     status,
     statusesLength,
+    handleOpenCreateTask,
 }: EditStatusProps) => {
     const {
         open: isDeleteDialogOpen,
@@ -42,12 +45,22 @@ const EditStatus = ({
                 <button
                     className='w-full gap-2 p-2 px-5 flex items-center hover:bg-neutral-900 transition-all'
                     onClick={() => {
-                        handleOpenStatus()
+                        handleOpenEditStatus()
                         onClose()
                     }}
                 >
                     <AbcIcon fontSize='small' />
                     <p>Change name</p>
+                </button>
+                <button
+                    className='w-full gap-2 p-2 px-5 flex items-center hover:bg-neutral-900 transition-all'
+                    onClick={() => {
+                        handleOpenCreateTask()
+                        onClose()
+                    }}
+                >
+                    <AddIcon fontSize='small' />
+                    <p>Add new task</p>
                 </button>
                 <button
                     className='w-full'

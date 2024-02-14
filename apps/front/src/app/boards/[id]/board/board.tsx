@@ -14,7 +14,7 @@ import { SortableContext } from '@dnd-kit/sortable'
 import useDragHandler from '@src/hooks/useDragHandler'
 import { DragOverlay } from '@dnd-kit/core'
 import AddStatus from '@src/app/boards/[id]/board/addStatus/addStatus'
-import Task from '@src/app/boards/[id]/board/status/task/task'
+import Task from '@src/app/boards/[id]/board/status/tasks/task/task'
 import DntContext from '@src/components/ui/drag/dntContext'
 
 const Board = () => {
