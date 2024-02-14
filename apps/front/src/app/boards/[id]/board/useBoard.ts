@@ -32,12 +32,13 @@ const useBoard = (dragId: DragIdProps, isDraggingTask: boolean) => {
         data?.board.status ?? []
     )
 
-    useEffect(() => {
-        if (data && prevTasks) {
-            setStatuses(data.board.status)
-            setTasks(prevTasks.tasks)
-        }
-    }, [data, prevTasks])
+    if (data && statuses.length === 0) {
+        setStatuses(data.board.status)
+    }
+
+    if (prevTasks && tasks.length === 0) {
+        setTasks(prevTasks.tasks)
+    }
 
     const updateBoards = () => {
         updateStatusOrder({

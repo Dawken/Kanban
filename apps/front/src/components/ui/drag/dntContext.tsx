@@ -15,7 +15,7 @@ type DntContextProps = {
     handleOnDragEnd: (event: DragEndEvent) => void
     onDragStart: (event: DragStartEvent) => void
     onDragCancel: () => void
-    onDragOver: (event: DragOverEvent) => void
+    onDragOver?: (event: DragOverEvent) => void
 }
 const DntContext = ({
     children,

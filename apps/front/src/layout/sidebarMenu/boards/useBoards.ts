@@ -10,11 +10,9 @@ const useBoards = () => {
 
     const [boards, setBoards] = useState<BoardProps[]>(data?.boards ?? [])
 
-    useEffect(() => {
-        if (data) {
-            setBoards(data.boards)
-        }
-    }, [data])
+    if (data && boards.length === 0) {
+        setBoards(data.boards)
+    }
 
     const updateBoards = () => {
         updateBoardOrder({
