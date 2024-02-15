@@ -35,4 +35,26 @@ const CREATE_TASK = gql`
     }
 `
 
-export { PUSH_TASK, UPDATE_TASK_ORDER, CREATE_TASK }
+const DELETE_TASK = gql`
+    mutation DeleteTask($taskId: String!) {
+        deleteTask(taskId: $taskId) {
+            id
+        }
+    }
+`
+
+const UPDATE_TASK_NAME = gql`
+    mutation UpdateTaskName($taskName: String!, $taskId: String!) {
+        updateTaskName(taskName: $taskName, taskId: $taskId) {
+            id
+        }
+    }
+`
+
+export {
+    PUSH_TASK,
+    UPDATE_TASK_ORDER,
+    CREATE_TASK,
+    DELETE_TASK,
+    UPDATE_TASK_NAME,
+}
