@@ -33,34 +33,32 @@ const Task = ({ task }: TasksProps) => {
                     item: task,
                 }}
             >
-                <div className='bg-black min-h-[90px] rounded mx-2 text-white font-sans'>
+                <div className='bg-black min-h-[90px] sm:w-[260px] rounded mx-2 text-white font-sans'>
                     <div className='h-full flex justify-between items-start p-2'>
-                        <div className='flex flex-1 h-full w-full'>
-                            {isEditTaskOpen ? (
-                                <ClickAwayListener
-                                    onClickAway={handleCloseEditTask}
-                                >
-                                    <div className='w-full h-full'>
-                                        <AddContentTextField
-                                            closeNewStatus={handleCloseEditTask}
-                                            createContent={updateName}
-                                            parentId={task.id}
-                                            isCreating={isTaskNameUpdating}
-                                            defaultText={task.taskName}
-                                            multiline={true}
-                                            fontSize={14}
-                                        />
-                                    </div>
-                                </ClickAwayListener>
-                            ) : (
-                                <div
-                                    className='p-2 text-sm break-all'
-                                    onClick={handleOpenEditTask}
-                                >
-                                    {task.taskName}
+                        {isEditTaskOpen ? (
+                            <ClickAwayListener
+                                onClickAway={handleCloseEditTask}
+                            >
+                                <div className='w-full h-full'>
+                                    <AddContentTextField
+                                        closeNewStatus={handleCloseEditTask}
+                                        createContent={updateName}
+                                        parentId={task.id}
+                                        isCreating={isTaskNameUpdating}
+                                        defaultText={task.taskName}
+                                        multiline={true}
+                                        fontSize={14}
+                                    />
                                 </div>
-                            )}
-                        </div>
+                            </ClickAwayListener>
+                        ) : (
+                            <div
+                                className='p-2 text-sm break-all'
+                                onClick={handleOpenEditTask}
+                            >
+                                {task.taskName}
+                            </div>
+                        )}
                         <IconButton size='small' onClick={handleClick}>
                             <MoreHorizIcon />
                         </IconButton>

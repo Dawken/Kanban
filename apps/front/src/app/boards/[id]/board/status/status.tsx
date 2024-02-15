@@ -72,7 +72,7 @@ const Status = ({ status, tasks, statusesLength }: CustomStatusProps) => {
         <>
             <div
                 className={
-                    'max-sm:w-[60vw] sm:min-w-[270px] min-h-[220px] bg-neutral-900 rounded text-gray-400 flex flex-col'
+                    'max-sm:w-[60vw] min-h-[220px] bg-neutral-900 rounded text-gray-400 flex flex-col'
                 }
                 ref={setNodeRef}
                 style={style}
