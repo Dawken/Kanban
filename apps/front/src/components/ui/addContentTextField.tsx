@@ -12,6 +12,7 @@ type AddContentTextFieldProps = {
     multiline?: boolean
     defaultText?: string
     isSmallField?: boolean
+    fontSize?: number
 }
 const AddContentTextField = ({
     closeNewStatus,
@@ -21,6 +22,7 @@ const AddContentTextField = ({
     multiline,
     defaultText,
     isSmallField,
+    fontSize,
 }: AddContentTextFieldProps) => {
     const { text, handleChange } = useTextState(defaultText)
 
@@ -44,10 +46,9 @@ const AddContentTextField = ({
                 onChange={(event) => handleChange(event.target.value)}
                 size={isSmallField ? 'small' : 'medium'}
                 multiline={multiline}
-                rows={multiline ? 2 : 1}
                 inputProps={{
                     style: {
-                        fontSize: isSmallField ? 11 : 16,
+                        fontSize: fontSize ? fontSize : isSmallField ? 11 : 16,
                     },
                 }}
                 onKeyDown={(event) => {
