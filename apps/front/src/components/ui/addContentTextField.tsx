@@ -43,12 +43,6 @@ const AddContentTextField = ({
         <div className='relative'>
             <TextareaAutosize
                 ref={textareaRef}
-                onFocus={(event) =>
-                    event.currentTarget.setSelectionRange(
-                        event.currentTarget.value.length,
-                        event.currentTarget.value.length
-                    )
-                }
                 minRows={isSingleRow ? 1 : 2}
                 value={text}
                 onChange={(event) => handleChange(event.target.value)}
