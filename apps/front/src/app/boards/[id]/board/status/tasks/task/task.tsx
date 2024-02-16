@@ -32,28 +32,27 @@ const Task = ({ task }: TasksProps) => {
                     type: 'Task',
                     item: task,
                 }}
+                disabled={isEditTaskOpen}
             >
-                <div className='bg-black min-h-[90px] sm:w-[260px] rounded mx-2 text-white font-sans'>
-                    <div className='h-full flex justify-between items-start p-2'>
+                <div className='bg-black min-h-[95px] sm:w-[260px] rounded mx-2 text-white font-sans'>
+                    <div className='h-full flex justify-between items-start p-4'>
                         {isEditTaskOpen ? (
                             <ClickAwayListener
                                 onClickAway={handleCloseEditTask}
                             >
-                                <div className='w-full h-full'>
+                                <div className='w-full'>
                                     <AddContentTextField
                                         closeNewStatus={handleCloseEditTask}
                                         createContent={updateName}
                                         parentId={task.id}
                                         isCreating={isTaskNameUpdating}
                                         defaultText={task.taskName}
-                                        multiline={true}
-                                        fontSize={14}
                                     />
                                 </div>
                             </ClickAwayListener>
                         ) : (
                             <div
-                                className='p-2 text-sm break-all'
+                                className='p-2 mb-[5px] text-sm break-all cursor-pointer'
                                 onClick={handleOpenEditTask}
                             >
                                 {task.taskName}

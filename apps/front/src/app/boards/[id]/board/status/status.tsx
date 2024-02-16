@@ -72,7 +72,7 @@ const Status = ({ status, tasks, statusesLength }: CustomStatusProps) => {
         <>
             <div
                 className={
-                    'max-sm:w-[60vw] min-h-[220px] bg-neutral-900 rounded text-gray-400 flex flex-col'
+                    'max-sm:w-[60vw] min-h-[220px] bg-neutral-900 rounded text-gray-400 flex flex-col '
                 }
                 ref={setNodeRef}
                 style={style}
@@ -83,15 +83,15 @@ const Status = ({ status, tasks, statusesLength }: CustomStatusProps) => {
                     {...listeners}
                     className='w-full h-12 cursor-grab'
                 >
-                    <div className='p-3 flex items-center justify-between relative'>
-                        <div className='flex items-center justify-between overflow-hidden'>
+                    <div className='p-3 flex items-center justify-between'>
+                        <div className='flex items-center justify-between'>
                             <DragIndicatorIcon className='text-xl' />
                             <div className='ml-2 font-bold text-xs'>
                                 {isEditStatusOpen ? (
                                     <ClickAwayListener
                                         onClickAway={handleCloseEditStatus}
                                     >
-                                        <div className='absolute w-40 top-3 left-8'>
+                                        <div className='w-44 h-8'>
                                             <AddContentTextField
                                                 closeNewStatus={
                                                     handleCloseEditStatus
@@ -102,13 +102,13 @@ const Status = ({ status, tasks, statusesLength }: CustomStatusProps) => {
                                                     isStatusNameUpdating
                                                 }
                                                 defaultText={status.statusName}
-                                                isSmallField={true}
+                                                isSingleRow={true}
                                             />
                                         </div>
                                     </ClickAwayListener>
                                 ) : (
                                     <div
-                                        className='w-36 p-2 hover:bg-blue-600 hover:bg-opacity-5 rounded font-bold overflow-hidden overflow-ellipsis whitespace-nowrap'
+                                        className='w-44 p-2 hover:bg-blue-600 hover:bg-opacity-5 rounded font-bold overflow-hidden overflow-ellipsis whitespace-nowrap'
                                         onClick={handleOpenEditStatus}
                                     >
                                         {status.statusName}

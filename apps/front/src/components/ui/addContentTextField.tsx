@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react'
-import { CircularProgress, TextField } from '@mui/material'
+import { CircularProgress, TextareaAutosize } from '@mui/material'
 import DoneIcon from '@mui/icons-material/Done'
 import CloseIcon from '@mui/icons-material/Close'
 import useTextState from '@src/hooks/useTextState'
@@ -9,53 +9,57 @@ type AddContentTextFieldProps = {
     createContent: (text: string, parentId: string) => void
     parentId: string
     isCreating: boolean
-    multiline?: boolean
+    isSingleRow?: boolean
     defaultText?: string
-    isSmallField?: boolean
-    fontSize?: number
 }
 const AddContentTextField = ({
     closeNewStatus,
     createContent,
     parentId,
     isCreating,
-    multiline,
+    isSingleRow,
     defaultText,
-    isSmallField,
-    fontSize,
 }: AddContentTextFieldProps) => {
     const { text, handleChange } = useTextState(defaultText)
-
-    const inputRef = useRef<HTMLInputElement | null>(null)
-
-    useEffect(() => {
-        inputRef.current && inputRef.current.focus()
-    }, [])
 
     const addContent = () => {
         createContent(text, parentId)
         closeNewStatus()
     }
 
+    const textareaRef = useRef<HTMLTextAreaElement>(null)
+
+    useEffect(() => {
+        if (textareaRef.current) {
+            textareaRef.current.focus()
+            textareaRef.current.setSelectionRange(
+                textareaRef.current.value.length,
+                textareaRef.current.value.length
+            )
+        }
+    }, [])
+
     return (
-        <div className='relative w-full'>
-            <TextField
-                fullWidth
-                inputRef={inputRef}
+        <div className='relative'>
+            <TextareaAutosize
+                ref={textareaRef}
+                onFocus={(event) =>
+                    event.currentTarget.setSelectionRange(
+                        event.currentTarget.value.length,
+                        event.currentTarget.value.length
+                    )
+                }
+                minRows={isSingleRow ? 1 : 2}
                 value={text}
                 onChange={(event) => handleChange(event.target.value)}
-                size={isSmallField ? 'small' : 'medium'}
-                multiline={multiline}
-                inputProps={{
-                    style: {
-                        fontSize: fontSize ? fontSize : isSmallField ? 11 : 16,
-                    },
-                }}
                 onKeyDown={(event) => {
                     if (event.key === 'Enter') {
                         addContent()
                     }
                 }}
+                className={`w-full h-full border-2 border-transparent focus:border-blue-600  p-1.5 rounded outline-none bg-transparent ${
+                    isSingleRow && 'whitespace-nowrap'
+                } transition-colors duration-500 ease-in-out overflow-x-hidden resize-none`}
             />
             <div className='absolute z-10 right-0 bg-black ml-auto w-fit h-12 flex justify-center items-center gap-2 rounded p-2'>
                 <button
