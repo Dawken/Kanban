@@ -19,7 +19,7 @@ const AddTaskTextField = ({
     isTaskCreating,
 }: AddTaskTextFieldProps) => {
     return (
-        <div className='bg-black min-h-[90px] w-[260px] rounded mx-2 flex items-center justify-start mt-2'>
+        <div className='bg-black min-h-[90px] sm:w-[260px] rounded mx-2 flex items-center justify-start mt-2'>
             <ClickAwayListener onClickAway={handleCloseCreateTask}>
                 <div className='p-4 flex-1'>
                     <AddContentTextField

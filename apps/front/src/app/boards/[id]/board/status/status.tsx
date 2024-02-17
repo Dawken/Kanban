@@ -16,7 +16,6 @@ import Tasks from '@src/app/boards/[id]/board/status/tasks/tasks'
 type CustomStatusProps = {
     status: StatusProps
     tasks: TaskProps[]
-    isDraggingTask: boolean
     statusesLength: number
 }
 const Status = ({ status, tasks, statusesLength }: CustomStatusProps) => {
@@ -56,24 +55,12 @@ const Status = ({ status, tasks, statusesLength }: CustomStatusProps) => {
         transform: CSS.Translate.toString(transform),
     }
 
-    if (isDragging) {
-        return (
-            <div
-                className={
-                    'invisible max-sm:w-[60vw] sm:min-w-[270px] min-h-[220px]'
-                }
-                ref={setNodeRef}
-                style={style}
-            />
-        )
-    }
-
     return (
         <>
             <div
-                className={
-                    'max-sm:w-[60vw] min-h-[220px] bg-neutral-900 rounded text-gray-400 flex flex-col '
-                }
+                className={`${
+                    isDragging ? 'invisible' : 'visible'
+                } touch-none max-sm:w-[60vw] w-[276px] min-h-[220px] bg-neutral-900 rounded text-gray-400 flex flex-col`}
                 ref={setNodeRef}
                 style={style}
             >
@@ -84,14 +71,14 @@ const Status = ({ status, tasks, statusesLength }: CustomStatusProps) => {
                     className='w-full h-12 cursor-grab'
                 >
                     <div className='p-3 flex items-center justify-between'>
-                        <div className='flex items-center justify-between'>
+                        <div className='flex items-center justify-start w-4/5'>
                             <DragIndicatorIcon className='text-xl' />
-                            <div className='ml-2 font-bold text-xs'>
+                            <div className='w-11/12 ml-2 font-bold text-xs overflow-hidden'>
                                 {isEditStatusOpen ? (
                                     <ClickAwayListener
                                         onClickAway={handleCloseEditStatus}
                                     >
-                                        <div className='w-44 h-8'>
+                                        <div className='h-8'>
                                             <AddContentTextField
                                                 closeNewStatus={
                                                     handleCloseEditStatus
@@ -108,7 +95,7 @@ const Status = ({ status, tasks, statusesLength }: CustomStatusProps) => {
                                     </ClickAwayListener>
                                 ) : (
                                     <div
-                                        className='w-44 p-2 hover:bg-blue-600 hover:bg-opacity-5 rounded font-bold overflow-hidden overflow-ellipsis whitespace-nowrap'
+                                        className='p-2 hover:bg-blue-600 hover:bg-opacity-5 rounded font-bold overflow-hidden whitespace-nowrap overflow-ellipsis'
                                         onClick={handleOpenEditStatus}
                                     >
                                         {status.statusName}
@@ -122,13 +109,15 @@ const Status = ({ status, tasks, statusesLength }: CustomStatusProps) => {
                     </div>
                 </div>
                 {/*Sortable tasks with add task text field*/}
-                <Tasks
-                    tasks={tasks}
-                    statusId={status.id}
-                    isCreateTaskOpen={isCreateTaskOpen}
-                    handleOpenCreateTask={handleOpenCreateTask}
-                    handleCloseCreateTask={handleCloseCreateTask}
-                />
+                <div className={isDragging ? 'opacity-0' : 'opacity-100'}>
+                    <Tasks
+                        tasks={tasks}
+                        statusId={status.id}
+                        isCreateTaskOpen={isCreateTaskOpen}
+                        handleOpenCreateTask={handleOpenCreateTask}
+                        handleCloseCreateTask={handleCloseCreateTask}
+                    />
+                </div>
             </div>
             {open && (
                 <EditStatus

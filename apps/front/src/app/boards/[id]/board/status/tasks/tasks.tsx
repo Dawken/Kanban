@@ -23,7 +23,7 @@ const Tasks = ({
     const { tasksIds, isTaskCreating, addNewTask } = useTasks(tasks)
 
     return (
-        <div className='text-sm font-sans font-medium'>
+        <div className='text-sm font-sans'>
             {tasks.length > 0 ? (
                 <>
                     <div className='flex-1 flex flex-col mt-2 flex-grow h-full gap-2'>
@@ -61,7 +61,7 @@ const Tasks = ({
                 />
             ) : (
                 <div
-                    className='bg-black opacity-50 min-h-[90px] w-[260px] rounded mx-2 mt-2 flex items-center justify-center flex-1 hover:bg-blue-600 hover:bg-opacity-10 cursor-pointer'
+                    className='bg-black opacity-50 min-h-[90px] sm:w-[260px] rounded mx-2 mt-2 flex items-center justify-center flex-1 hover:bg-blue-600 hover:bg-opacity-10 cursor-pointer'
                     onClick={handleOpenCreateTask}
                 >
                     <AddIcon />
