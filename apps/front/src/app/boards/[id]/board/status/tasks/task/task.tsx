@@ -8,6 +8,7 @@ import EditTask from '@src/app/boards/[id]/board/status/tasks/task/editTask'
 import useAnchorEl from '@src/hooks/useAnchorEl'
 import AddContentTextField from '@src/components/ui/addContentTextField'
 import useTask from '@src/app/boards/[id]/board/status/tasks/task/useTask'
+import CopyToClipboard from '@src/components/ui/copyToClipboard'
 
 type TasksProps = {
     task: TaskProps
@@ -34,33 +35,43 @@ const Task = ({ task }: TasksProps) => {
                 }}
                 disabled={isEditTaskOpen}
             >
-                <div className='bg-black min-h-[95px] sm:w-[260px] rounded mx-2 text-white font-sans'>
-                    <div className='h-full flex justify-between items-start p-4'>
-                        {isEditTaskOpen ? (
-                            <ClickAwayListener
-                                onClickAway={handleCloseEditTask}
-                            >
-                                <div className='w-full'>
-                                    <AddContentTextField
-                                        closeNewStatus={handleCloseEditTask}
-                                        createContent={updateName}
-                                        parentId={task.id}
-                                        isCreating={isTaskNameUpdating}
-                                        defaultText={task.taskName}
-                                    />
+                <div className='bg-black min-h-[95px] sm:w-[260px] rounded mx-2 text-white font-sans relative'>
+                    <div className='h-full flex justify-between p-4'>
+                        <div className='w-4/5'>
+                            {isEditTaskOpen ? (
+                                <ClickAwayListener
+                                    onClickAway={handleCloseEditTask}
+                                >
+                                    <div>
+                                        <AddContentTextField
+                                            closeNewStatus={handleCloseEditTask}
+                                            createContent={updateName}
+                                            parentId={task.id}
+                                            isCreating={isTaskNameUpdating}
+                                            defaultText={task.taskName}
+                                        />
+                                    </div>
+                                </ClickAwayListener>
+                            ) : (
+                                <div
+                                    className='p-2 mb-[5px] text-sm break-all cursor-pointer'
+                                    onClick={handleOpenEditTask}
+                                >
+                                    {task.taskName}
                                 </div>
-                            </ClickAwayListener>
-                        ) : (
-                            <div
-                                className='p-2 mb-[5px] text-sm break-all cursor-pointer'
-                                onClick={handleOpenEditTask}
-                            >
-                                {task.taskName}
+                            )}
+                        </div>
+                        <div className='absolute bottom-0 right-0 p-2.5 mr-1 flex flex-col justify-between h-full'>
+                            <IconButton size='small' onClick={handleClick}>
+                                <MoreHorizIcon className='text-gray-400' />
+                            </IconButton>
+                            <div>
+                                <CopyToClipboard
+                                    text={task.taskName}
+                                    placement='bottom'
+                                />
                             </div>
-                        )}
-                        <IconButton size='small' onClick={handleClick}>
-                            <MoreHorizIcon />
-                        </IconButton>
+                        </div>
                     </div>
                 </div>
             </Draggable>

@@ -73,7 +73,7 @@ const Status = ({ status, tasks, statusesLength }: CustomStatusProps) => {
                     <div className='p-3 flex items-center justify-between'>
                         <div className='flex items-center justify-start w-4/5'>
                             <DragIndicatorIcon className='text-xl' />
-                            <div className='w-11/12 ml-2 font-bold text-xs overflow-hidden'>
+                            <div className='w-11/12 ml-2 font-bold text-xs'>
                                 {isEditStatusOpen ? (
                                     <ClickAwayListener
                                         onClickAway={handleCloseEditStatus}
