@@ -60,7 +60,7 @@ const Status = ({ status, tasks, statusesLength }: CustomStatusProps) => {
             <div
                 className={`${
                     isDragging ? 'invisible' : 'visible'
-                } touch-none max-sm:w-[60vw] w-[276px] min-h-[220px] bg-neutral-900 rounded text-gray-400 flex flex-col`}
+                } touch-none max-sm:w-[60vw] sm:min-w-[276px] sm:max-w-[276px] min-h-[220px] bg-neutral-900 rounded text-gray-400 flex flex-col`}
                 ref={setNodeRef}
                 style={style}
             >

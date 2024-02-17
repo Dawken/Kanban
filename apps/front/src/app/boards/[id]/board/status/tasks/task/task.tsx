@@ -35,8 +35,8 @@ const Task = ({ task }: TasksProps) => {
                 }}
                 disabled={isEditTaskOpen}
             >
-                <div className='bg-black min-h-[95px] sm:w-[260px] rounded mx-2 text-white font-sans relative'>
-                    <div className='h-full flex justify-between p-4'>
+                <div className='bg-black min-h-[95px] rounded mx-1 text-white font-sans relative'>
+                    <div className='h-full flex justify-between p-2'>
                         <div className='w-4/5'>
                             {isEditTaskOpen ? (
                                 <ClickAwayListener

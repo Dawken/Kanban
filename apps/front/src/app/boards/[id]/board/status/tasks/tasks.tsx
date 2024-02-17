@@ -1,8 +1,5 @@
 import React from 'react'
-import {
-    horizontalListSortingStrategy,
-    SortableContext,
-} from '@dnd-kit/sortable'
+import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import Task from '@src/app/boards/[id]/board/status/tasks/task/task'
 import AddIcon from '@mui/icons-material/Add'
 import useTasks from '@src/app/boards/[id]/board/status/tasks/useTasks'
@@ -29,10 +26,10 @@ const Tasks = ({
         <div className='text-sm font-sans'>
             {tasks.length > 0 ? (
                 <>
-                    <div className='flex-1 flex flex-col mt-2 flex-grow h-full gap-2'>
+                    <div className='flex-1 flex flex-col mt-2 flex-grow h-full gap-1'>
                         <SortableContext
                             items={tasksIds}
-                            strategy={horizontalListSortingStrategy}
+                            strategy={verticalListSortingStrategy}
                         >
                             {tasks.map((task) => {
                                 return <Task task={task} key={task.id} />
@@ -40,7 +37,7 @@ const Tasks = ({
                         </SortableContext>
                     </div>
                     {isCreateTaskOpen ? (
-                        <div className='my-2'>
+                        <div className='my-1'>
                             <AddTaskTextField
                                 handleCloseCreateTask={handleCloseCreateTask}
                                 addNewTask={addNewTask}
@@ -59,15 +56,17 @@ const Tasks = ({
                     )}
                 </>
             ) : isCreateTaskOpen ? (
-                <AddTaskTextField
-                    handleCloseCreateTask={handleCloseCreateTask}
-                    addNewTask={addNewTask}
-                    statusId={statusId}
-                    isTaskCreating={isTaskCreating}
-                />
+                <div className='mt-2'>
+                    <AddTaskTextField
+                        handleCloseCreateTask={handleCloseCreateTask}
+                        addNewTask={addNewTask}
+                        statusId={statusId}
+                        isTaskCreating={isTaskCreating}
+                    />
+                </div>
             ) : (
                 <div
-                    className='bg-black opacity-50 min-h-[90px] sm:w-[260px] rounded mx-2 mt-2 flex items-center justify-center flex-1 hover:bg-blue-600 hover:bg-opacity-10 cursor-pointer'
+                    className='bg-black opacity-50 min-h-[95px] rounded mx-1 mt-2 flex items-center justify-center flex-1 hover:bg-blue-600 hover:bg-opacity-10 cursor-pointer'
                     onClick={handleOpenCreateTask}
                 >
                     <AddIcon />
