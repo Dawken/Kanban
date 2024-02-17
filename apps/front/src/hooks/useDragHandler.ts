@@ -17,9 +17,8 @@ const useDragHandler = (items?: StatusProps[] | BoardProps[] | TaskProps[]) => {
     const onDragStart = (event: DragStartEvent) => {
         setDragId(event.active.id)
 
-        setIsDraggingTask(true)
-
         if (event.active.data.current?.type === 'Task') {
+            setIsDraggingTask(true)
             setDraggedTask(event.active.data.current.item)
         }
     }

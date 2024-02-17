@@ -91,6 +91,7 @@ const Board = () => {
                 onDragStart={onDragStart}
                 onDragCancel={onDragCancel}
                 onDragOver={(event) => onDragOver(event, setTasks)}
+                isDraggingTask={isDraggingTask}
             >
                 <div className='statusesScrollbar max-sm:h-[85vh] h-5/6 max-sm:mt-3 mt-12 overflow-auto'>
                     <section className='flex items-start max-sm:flex-col max-sm:items-center gap-5'>
@@ -117,7 +118,6 @@ const Board = () => {
                                                         task.statusId ===
                                                         status.id
                                                 )}
-                                                isDraggingTask={isDraggingTask}
                                                 statusesLength={statuses.length}
                                                 key={status.id}
                                             />
@@ -138,7 +138,6 @@ const Board = () => {
                             tasks={tasks.filter(
                                 (task) => task.statusId === draggedStatus.id
                             )}
-                            isDraggingTask={isDraggingTask}
                             statusesLength={statuses.length}
                         />
                     )}

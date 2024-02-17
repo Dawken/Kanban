@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react'
 import {
+    rectIntersection,
     DndContext,
     DragEndEvent,
     DragOverEvent,
@@ -16,6 +17,7 @@ type DntContextProps = {
     onDragStart: (event: DragStartEvent) => void
     onDragCancel: () => void
     onDragOver?: (event: DragOverEvent) => void
+    isDraggingTask?: boolean
 }
 const DntContext = ({
     children,
@@ -23,6 +25,7 @@ const DntContext = ({
     onDragStart,
     onDragCancel,
     onDragOver,
+    isDraggingTask,
 }: DntContextProps) => {
     const sensors = useSensors(
         useSensor(PointerSensor, {
@@ -35,7 +38,9 @@ const DntContext = ({
     return (
         <DndContext
             sensors={sensors}
-            collisionDetection={pointerWithin}
+            collisionDetection={
+                isDraggingTask ? pointerWithin : rectIntersection
+            }
             onDragStart={onDragStart}
             onDragCancel={onDragCancel}
             onDragEnd={handleOnDragEnd}
