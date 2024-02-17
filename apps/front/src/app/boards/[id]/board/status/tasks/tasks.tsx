@@ -1,5 +1,8 @@
 import React from 'react'
-import { SortableContext } from '@dnd-kit/sortable'
+import {
+    horizontalListSortingStrategy,
+    SortableContext,
+} from '@dnd-kit/sortable'
 import Task from '@src/app/boards/[id]/board/status/tasks/task/task'
 import AddIcon from '@mui/icons-material/Add'
 import useTasks from '@src/app/boards/[id]/board/status/tasks/useTasks'
@@ -27,7 +30,10 @@ const Tasks = ({
             {tasks.length > 0 ? (
                 <>
                     <div className='flex-1 flex flex-col mt-2 flex-grow h-full gap-2'>
-                        <SortableContext items={tasksIds}>
+                        <SortableContext
+                            items={tasksIds}
+                            strategy={horizontalListSortingStrategy}
+                        >
                             {tasks.map((task) => {
                                 return <Task task={task} key={task.id} />
                             })}
