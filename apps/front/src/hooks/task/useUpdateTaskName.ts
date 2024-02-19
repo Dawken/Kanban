@@ -1,10 +1,10 @@
-import { useMutation } from '@apollo/client'
 import { useParams } from 'next/navigation'
+import { useMutation } from '@apollo/client'
 import { UPDATE_TASK_NAME } from '@src/graphQL/tasks/mutations'
-import { GET_BOARD_TASKS } from '@src/graphQL/tasks/queries'
 import { toast } from 'react-toastify'
+import { GET_BOARD_TASKS } from '@src/graphQL/tasks/queries'
 
-const useTask = () => {
+const useUpdateTaskName = () => {
     const params = useParams()
 
     const [updateTaskName, { loading: isTaskNameUpdating }] = useMutation(
@@ -35,10 +35,10 @@ const useTask = () => {
             ],
         })
     }
-
     return {
-        updateName,
         isTaskNameUpdating,
+        updateName,
+        updateTaskName,
     }
 }
-export default useTask
+export default useUpdateTaskName

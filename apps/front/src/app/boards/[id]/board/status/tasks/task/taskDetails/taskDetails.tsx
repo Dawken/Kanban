@@ -1,5 +1,5 @@
 import React from 'react'
-import { Dialog, TextareaAutosize } from '@mui/material'
+import { ClickAwayListener, Dialog, TextareaAutosize } from '@mui/material'
 import useTaskDetails from '@src/app/boards/[id]/board/status/tasks/task/taskDetails/useTaskDetails'
 import useTextState from '@src/hooks/useTextState'
 import DeleteContentDialog from '@src/components/ui/dialog/deleteContentDialog'
@@ -7,6 +7,9 @@ import useToggleOpen from '@src/hooks/useToggleOpen'
 import useDeleteTask from '@src/hooks/task/useDeleteTask'
 import DeleteIcon from '@mui/icons-material/Delete'
 import dayjs from 'dayjs'
+import AddContentTextField from '@src/components/ui/addContentTextField'
+import useUpdateTaskName from '@src/hooks/task/useUpdateTaskName'
+import { GET_BOARD_TASKS, GET_TASK } from '@src/graphQL/tasks/queries'
 
 type TaskDetailsProps = {
     open: boolean
@@ -15,7 +18,8 @@ type TaskDetailsProps = {
 }
 
 const TaskDetails = ({ open, handleClose, taskId }: TaskDetailsProps) => {
-    const { data, loading } = useTaskDetails(taskId)
+    const { data, loading, updateName, isTaskNameUpdating } =
+        useTaskDetails(taskId)
 
     const { text, handleChange } = useTextState(data?.task.description)
 
@@ -25,15 +29,44 @@ const TaskDetails = ({ open, handleClose, taskId }: TaskDetailsProps) => {
         handleClose: handleCloseDeleteDialog,
     } = useToggleOpen()
 
+    const {
+        open: isEditTaskNameOpen,
+        handleOpen: handleOpenEditTaskName,
+        handleClose: handleCloseEditTaskName,
+    } = useToggleOpen()
+
     const { removeTask, isTaskRemoving } = useDeleteTask()
 
     return (
         <>
-            <Dialog onClose={handleClose} open={open}>
+            <Dialog onClose={handleClose} open={open} fullWidth>
                 <div className='my-5 mx-10 font-medium space-y-5 font-sans'>
                     <div className='flex items-start justify-between mt-5 text-xl'>
-                        <div className='w-80 break-all'>
-                            {data?.task.taskName}
+                        <div className='w-5/6 relative right-2'>
+                            {isEditTaskNameOpen ? (
+                                <ClickAwayListener
+                                    onClickAway={handleCloseEditTaskName}
+                                >
+                                    <div>
+                                        <AddContentTextField
+                                            closeNewStatus={
+                                                handleCloseEditTaskName
+                                            }
+                                            createContent={updateName}
+                                            parentId={taskId}
+                                            isCreating={isTaskNameUpdating}
+                                            defaultText={data?.task.taskName}
+                                        />
+                                    </div>
+                                </ClickAwayListener>
+                            ) : (
+                                <div
+                                    className='mb-[6px] p-2 break-all hover:bg-blue-600 hover:bg-opacity-5 rounded cursor-pointer'
+                                    onClick={handleOpenEditTaskName}
+                                >
+                                    {data?.task.taskName}
+                                </div>
+                            )}
                         </div>
                         <button
                             className='bg-delete rounded text-black'
@@ -44,7 +77,7 @@ const TaskDetails = ({ open, handleClose, taskId }: TaskDetailsProps) => {
                             </div>
                         </button>
                     </div>
-                    <div className='w-96 space-y-3'>
+                    <div className='w-full space-y-3'>
                         <div>Description</div>
                         <TextareaAutosize
                             minRows={3}

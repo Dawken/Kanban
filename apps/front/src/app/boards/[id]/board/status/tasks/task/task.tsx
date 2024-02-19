@@ -7,9 +7,9 @@ import useToggleOpen from '@src/hooks/useToggleOpen'
 import EditTask from '@src/app/boards/[id]/board/status/tasks/task/editTask'
 import useAnchorEl from '@src/hooks/useAnchorEl'
 import AddContentTextField from '@src/components/ui/addContentTextField'
-import useTask from '@src/app/boards/[id]/board/status/tasks/task/useTask'
 import CopyToClipboard from '@src/components/ui/copyToClipboard'
 import TaskDetails from '@src/app/boards/[id]/board/status/tasks/task/taskDetails/taskDetails'
+import useUpdateTaskName from '@src/hooks/task/useUpdateTaskName'
 
 type TasksProps = {
     task: TaskProps
@@ -24,7 +24,7 @@ const Task = ({ task }: TasksProps) => {
 
     const { anchorEl, handleClick, handleClose, open } = useAnchorEl()
 
-    const { updateName, isTaskNameUpdating } = useTask()
+    const { updateName, isTaskNameUpdating } = useUpdateTaskName()
 
     const {
         open: isTaskDetailsOpen,
@@ -48,7 +48,7 @@ const Task = ({ task }: TasksProps) => {
                 >
                     <div className='h-full flex justify-between p-2'>
                         <div
-                            className='w-4/5 '
+                            className='w-4/5'
                             onClick={(event) => event.stopPropagation()}
                         >
                             {isEditTaskOpen ? (

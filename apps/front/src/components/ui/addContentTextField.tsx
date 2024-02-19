@@ -39,6 +39,8 @@ const AddContentTextField = ({
         }
     }, [])
 
+    console.log(text, parentId)
+
     return (
         <div className='relative'>
             <TextareaAutosize
@@ -50,7 +52,7 @@ const AddContentTextField = ({
                         addContent()
                     }
                 }}
-                className={`w-full h-full border-2 border-transparent focus:border-blue-600  p-1.5 rounded outline-none bg-transparent ${
+                className={`w-full h-full border-2 border-transparent focus:border-blue-600 p-1.5 rounded outline-none bg-transparent ${
                     isSingleRow && 'whitespace-nowrap'
                 } transition-colors duration-500 ease-in-out overflow-x-hidden resize-none`}
             />
@@ -64,11 +66,11 @@ const AddContentTextField = ({
                     {isCreating ? (
                         <CircularProgress size={15} className='text-white' />
                     ) : (
-                        <DoneIcon className='text-sm' />
+                        <DoneIcon className='text-base' />
                     )}
                 </button>
                 <button
-                    className='bg-zinc-800 p-1 rounded w-8 h-8 hover:bg-zinc-700'
+                    className='bg-zinc-800 p-1 rounded w-8 h-8 hover:bg-zinc-700 flex items-center justify-center'
                     onClick={closeNewStatus}
                 >
                     <CloseIcon className='text-base' />
