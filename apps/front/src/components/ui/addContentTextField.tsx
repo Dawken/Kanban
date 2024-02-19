@@ -43,7 +43,6 @@ const AddContentTextField = ({
         <div className='relative'>
             <TextareaAutosize
                 ref={textareaRef}
-                minRows={isSingleRow ? 1 : 2}
                 value={text}
                 onChange={(event) => handleChange(event.target.value)}
                 onKeyDown={(event) => {

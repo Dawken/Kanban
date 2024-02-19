@@ -11,4 +11,15 @@ const GET_BOARD_TASKS = gql`
     }
 `
 
-export { GET_BOARD_TASKS }
+const GET_TASK = gql`
+    query Task($taskId: String!) {
+        task(taskId: $taskId) {
+            taskName
+            description
+            createdAt
+            updatedAt
+        }
+    }
+`
+
+export { GET_BOARD_TASKS, GET_TASK }

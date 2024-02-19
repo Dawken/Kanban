@@ -5,6 +5,15 @@ const prisma = new PrismaClient()
 
 const taskResolvers = {
     Query: {
+        task: checkAuth(async (_parent, { taskId }) => {
+            try {
+                return await prisma.task.findUnique({
+                    where: { id: taskId },
+                })
+            } catch {
+                throw new Error('failed-task-fetch')
+            }
+        }),
         tasks: checkAuth(async (_parent, { boardId }) => {
             try {
                 return await prisma.task.findMany({
