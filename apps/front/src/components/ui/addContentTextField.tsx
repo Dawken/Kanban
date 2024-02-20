@@ -54,7 +54,7 @@ const AddContentTextField = ({
                     isSingleRow && 'whitespace-nowrap'
                 } transition-colors duration-500 ease-in-out overflow-x-hidden resize-none`}
             />
-            <div className='absolute z-10 right-0 ml-auto h-12 flex justify-center items-center gap-2 rounded p-2 '>
+            <div className='absolute z-10 right-0 ml-auto h-12 flex justify-center items-center gap-2 rounded'>
                 <button
                     className='bg-black p-1 rounded w-8 h-8 hover:bg-zinc-700 flex items-center justify-center'
                     onClick={() => {

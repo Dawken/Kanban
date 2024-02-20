@@ -1,5 +1,10 @@
 import React from 'react'
-import { ClickAwayListener, Dialog, TextareaAutosize } from '@mui/material'
+import {
+    CircularProgress,
+    ClickAwayListener,
+    Dialog,
+    TextareaAutosize,
+} from '@mui/material'
 import useTaskDetails from '@src/app/boards/[id]/board/status/tasks/task/taskDetails/useTaskDetails'
 import useTextState from '@src/hooks/useTextState'
 import DeleteContentDialog from '@src/components/ui/dialog/deleteContentDialog'
@@ -8,8 +13,7 @@ import useDeleteTask from '@src/hooks/task/useDeleteTask'
 import DeleteIcon from '@mui/icons-material/Delete'
 import dayjs from 'dayjs'
 import AddContentTextField from '@src/components/ui/addContentTextField'
-import useUpdateTaskName from '@src/hooks/task/useUpdateTaskName'
-import { GET_BOARD_TASKS, GET_TASK } from '@src/graphQL/tasks/queries'
+import CopyToClipboard from '@src/components/ui/copyToClipboard'
 
 type TaskDetailsProps = {
     open: boolean
@@ -18,8 +22,14 @@ type TaskDetailsProps = {
 }
 
 const TaskDetails = ({ open, handleClose, taskId }: TaskDetailsProps) => {
-    const { data, loading, updateName, isTaskNameUpdating } =
-        useTaskDetails(taskId)
+    const {
+        data,
+        loading,
+        updateName,
+        isTaskNameUpdating,
+        updateTaskDescription,
+        isDescriptionUpdating,
+    } = useTaskDetails(taskId)
 
     const { text, handleChange } = useTextState(data?.task.description)
 
@@ -79,25 +89,36 @@ const TaskDetails = ({ open, handleClose, taskId }: TaskDetailsProps) => {
                     </div>
                     <div className='w-full space-y-3'>
                         <div>Description</div>
-                        <TextareaAutosize
-                            minRows={3}
-                            value={text}
-                            onChange={(event) =>
-                                handleChange(event.target.value)
-                            }
-                            className='w-full outline-none p-1.5 rounded border-2 border-[#474747] focus:border-blue-600 transition-colors duration-500 font-normal bg-transparent resize-none'
-                        />
-
+                        <div className='flex items-end gap-2'>
+                            <TextareaAutosize
+                                minRows={3}
+                                spellCheck={false}
+                                placeholder={'Edit description'}
+                                value={text}
+                                onChange={(event) =>
+                                    handleChange(event.target.value)
+                                }
+                                className={`${
+                                    !text ? 'text-disabled' : 'text-white'
+                                } w-full outline-none p-1.5 rounded border-2 border-[#474747] focus:border-blue-600 transition-colors duration-500 font-normal bg-transparent resize-none`}
+                            />
+                            <div className='flex justify-center mr-2'>
+                                <CopyToClipboard text={text} />
+                            </div>
+                        </div>
                         <div className='flex justify-start items-center gap-2 text-sm'>
-                            <button className='hover:bg-blue-500 bg-blue-600 transition-all duration-500 rounded'>
-                                <div className='my-1.5 mx-4 w-8 h-5 flex items-center justify-center'>
-                                    Save
-                                </div>
-                            </button>
-                            <button className='hover:bg-zinc-600 transition-all duration-500 rounded'>
-                                <div className='my-1.5 mx-4 w-8 h-5 flex items-center justify-center'>
-                                    Cancel
-                                </div>
+                            <button
+                                className='w-16 h-8 hover:bg-blue-500 bg-blue-600 transition-all duration-500 rounded flex items-center justify-center'
+                                onClick={() => updateTaskDescription(text)}
+                            >
+                                {isDescriptionUpdating ? (
+                                    <CircularProgress
+                                        size={15}
+                                        className='text-white'
+                                    />
+                                ) : (
+                                    <div>Save</div>
+                                )}
                             </button>
                         </div>
                         <hr className='my-4 border-t border-[#474747] w-full' />
