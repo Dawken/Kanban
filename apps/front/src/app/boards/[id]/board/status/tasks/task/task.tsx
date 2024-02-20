@@ -67,7 +67,7 @@ const Task = ({ task }: TasksProps) => {
                                 </ClickAwayListener>
                             ) : (
                                 <div
-                                    className='p-2 mb-[5px] text-sm break-all cursor-pointer hover:bg-blue-400 hover:bg-opacity-5 transition-all rounded'
+                                    className='p-2 mb-[5px] text-sm break-words cursor-pointer hover:bg-blue-400 hover:bg-opacity-5 transition-all rounded'
                                     onClick={handleOpenEditTask}
                                 >
                                     {task.taskName}
