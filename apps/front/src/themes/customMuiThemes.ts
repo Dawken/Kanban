@@ -21,7 +21,8 @@ const darkTheme = createTheme({
         MuiDialog: {
             styleOverrides: {
                 paper: {
-                    backgroundColor: 'black',
+                    backgroundImage:
+                        'linear-gradient(rgba(25, 25, 25, 1), rgba(25, 25, 25, 1))',
                 },
             },
         },
