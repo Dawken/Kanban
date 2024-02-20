@@ -14,6 +14,7 @@ const GET_BOARD_TASKS = gql`
 const GET_TASK = gql`
     query Task($taskId: String!) {
         task(taskId: $taskId) {
+            id
             taskName
             description
             createdAt

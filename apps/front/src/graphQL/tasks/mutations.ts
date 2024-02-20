@@ -51,10 +51,20 @@ const UPDATE_TASK_NAME = gql`
     }
 `
 
+const UPDATE_DESCRIPTION = gql`
+    mutation UpdateDescription($description: String!, $taskId: String!) {
+        updateDescription(description: $description, taskId: $taskId) {
+            description
+            updatedAt
+        }
+    }
+`
+
 export {
     PUSH_TASK,
     UPDATE_TASK_ORDER,
     CREATE_TASK,
     DELETE_TASK,
     UPDATE_TASK_NAME,
+    UPDATE_DESCRIPTION,
 }
