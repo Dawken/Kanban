@@ -1,5 +1,10 @@
 import { Dispatch, SetStateAction, useState } from 'react'
-import { DragEndEvent, DragOverEvent, DragStartEvent } from '@dnd-kit/core'
+import {
+    DragEndEvent,
+    DragOverEvent,
+    DragStartEvent,
+    UniqueIdentifier,
+} from '@dnd-kit/core'
 import { DragIdProps } from '@src/types/dragIdProps'
 import { StatusProps } from '@src/types/status/statusProps'
 import { BoardProps } from '@src/types/board/boardProps'
@@ -76,6 +81,28 @@ const useDragHandler = (items?: StatusProps[] | BoardProps[] | TaskProps[]) => {
 
         if (!isActiveATask) return
 
+        const updateTasksOrder = (
+            sortedArray: TaskProps[],
+            statusId: string | UniqueIdentifier
+        ) => {
+            const filteredTasks = sortedArray
+                .filter((task) => task.statusId === statusId)
+                .map((item, index) => ({
+                    ...item,
+                    order: index + 1,
+                }))
+
+            return sortedArray.map((item) => {
+                if (item.statusId === statusId) {
+                    const updatedTask = filteredTasks.find(
+                        (task) => task.id === item.id
+                    )
+                    return updatedTask ?? item
+                }
+                return item
+            })
+        }
+
         // Im dropping a Task over another Task
         if (isOverATask) {
             setTasks((prevTasks) => {
@@ -114,22 +141,7 @@ const useDragHandler = (items?: StatusProps[] | BoardProps[] | TaskProps[]) => {
                         newIndex
                     )
 
-                    const filteredTasks = sortedArray
-                        .filter((task) => task.statusId === statusId)
-                        .map((item, index) => ({
-                            ...item,
-                            order: index + 1,
-                        }))
-
-                    return sortedArray.map((item) => {
-                        if (item.statusId === statusId) {
-                            const updatedTask = filteredTasks.find(
-                                (task) => task.id === item.id
-                            )
-                            return updatedTask ?? item
-                        }
-                        return item
-                    })
+                    return updateTasksOrder(sortedArray, statusId)
                 }
             })
         }
@@ -143,14 +155,14 @@ const useDragHandler = (items?: StatusProps[] | BoardProps[] | TaskProps[]) => {
 
                 const updatedTasks = [...prevTasks]
 
-                // const statusTasks = updatedTasks.filter((task) => task.statusId === over.id)
-
                 const updatedTask = {
                     ...prevTasks[activeIndex],
                     statusId: String(over.id),
                 }
 
                 updatedTasks[activeIndex] = updatedTask
+
+                const statusId = over.id
 
                 const sortedArray = arrayMove(
                     updatedTasks,
@@ -160,22 +172,7 @@ const useDragHandler = (items?: StatusProps[] | BoardProps[] | TaskProps[]) => {
                         : activeIndex
                 )
 
-                const filteredTasks = sortedArray
-                    .filter((task) => task.statusId === over.id)
-                    .map((item, index) => ({
-                        ...item,
-                        order: index + 1,
-                    }))
-
-                return sortedArray.map((item) => {
-                    if (item.statusId === over.id) {
-                        const updatedTask = filteredTasks.find(
-                            (task) => task.id === item.id
-                        )
-                        return updatedTask ?? item
-                    }
-                    return item
-                })
+                return updateTasksOrder(sortedArray, statusId)
             })
         }
     }
