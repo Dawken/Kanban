@@ -123,18 +123,6 @@ const taskResolvers = {
                 throw new Error('failed-task-delete')
             }
         }),
-        updateTaskOrder: checkAuth(async (_parent, { newTaskOrder }) => {
-            try {
-                for (const updatedTask of newTaskOrder) {
-                    await prisma.task.update({
-                        where: { id: updatedTask.id },
-                        data: { order: updatedTask.order },
-                    })
-                }
-            } catch {
-                throw new Error('failed-task-update')
-            }
-        }),
         pushTask: checkAuth(async (_parent, { taskId, newStatusId, order }) => {
             try {
                 const oldTaskStatus = await prisma.task.findUnique({
@@ -159,6 +147,7 @@ const taskResolvers = {
                         where: {
                             statusId: oldTaskStatus.statusId,
                             order: { gt: oldTaskStatus.order },
+                            id: { not: taskId },
                         },
                         data: {
                             order: {

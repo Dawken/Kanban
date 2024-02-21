@@ -71,16 +71,6 @@ const typeDefs = gql`
         task: [TaskInput]
     }
 
-    input TaskOrderInput {
-        id: String!
-        taskName: String!
-        statusId: String!
-        description: String
-        createdAt: DateTime
-        updatedAt: DateTime
-        order: Int!
-    }
-
     type Query {
         users: [User]
         boards: [Board]
@@ -122,7 +112,6 @@ const typeDefs = gql`
         updateTaskName(taskName: String!, taskId: String!): Task
         updateDescription(description: String!, taskId: String!): Task
         deleteTask(taskId: String!): Status
-        updateTaskOrder(newTaskOrder: [TaskOrderInput!]!): [Task]
         pushTask(taskId: String!, newStatusId: String!, order: Int!): Task
     }
 `
