@@ -2,7 +2,6 @@ import React from 'react'
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 import { ClickAwayListener, IconButton } from '@mui/material'
-import EditStatus from '@src/app/boards/[id]/board/status/editStatus'
 import useAnchorEl from '@src/hooks/useAnchorEl'
 import useUpdateStatusName from '@src/hooks/status/useUpdateStatusName'
 import AddContentTextField from '@src/components/ui/addContentTextField'
@@ -11,7 +10,8 @@ import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import { StatusProps } from '@src/types/status/statusProps'
 import { TaskProps } from '@src/types/task/taskProps'
-import Tasks from '@src/app/boards/[id]/board/status/tasks/tasks'
+import Tasks from '@src/app/boards/[id]/board/statuses/status/tasks/tasks'
+import EditStatus from '@src/app/boards/[id]/board/statuses/status/editStatus'
 
 type CustomStatusProps = {
     status: StatusProps

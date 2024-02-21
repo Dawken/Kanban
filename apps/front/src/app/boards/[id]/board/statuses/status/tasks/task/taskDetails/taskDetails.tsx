@@ -1,6 +1,5 @@
 import React from 'react'
 import { ClickAwayListener, Dialog } from '@mui/material'
-import useTaskDetails from '@src/app/boards/[id]/board/status/tasks/task/taskDetails/useTaskDetails'
 import DeleteContentDialog from '@src/components/ui/dialog/deleteContentDialog'
 import useToggleOpen from '@src/hooks/useToggleOpen'
 import useDeleteTask from '@src/hooks/task/useDeleteTask'
@@ -9,7 +8,8 @@ import dayjs from 'dayjs'
 import AddContentTextField from '@src/components/ui/addContentTextField'
 import useUpdateTaskName from '@src/hooks/task/useUpdateTaskName'
 import Skeleton from '@mui/material/Skeleton'
-import Description from '@src/app/boards/[id]/board/status/tasks/task/taskDetails/description/description'
+import Description from '@src/app/boards/[id]/board/statuses/status/tasks/task/taskDetails/description/description'
+import useTaskDetails from '@src/app/boards/[id]/board/statuses/status/tasks/task/taskDetails/useTaskDetails'
 
 type TaskDetailsProps = {
     open: boolean
@@ -54,7 +54,7 @@ const TaskDetails = ({ open, handleClose, taskId }: TaskDetailsProps) => {
                                             createContent={updateName}
                                             parentId={taskId}
                                             isCreating={isTaskNameUpdating}
-                                            defaultText={data.task.taskName}
+                                            defaultText={data?.task.taskName}
                                         />
                                     </div>
                                 </ClickAwayListener>
@@ -70,7 +70,7 @@ const TaskDetails = ({ open, handleClose, taskId }: TaskDetailsProps) => {
                                             className='p-2 break-all relative right-2 hover:bg-blue-600 hover:bg-opacity-5 rounded cursor-pointer'
                                             onClick={handleOpenEditTaskName}
                                         >
-                                            {data.task.taskName}
+                                            {data?.task.taskName}
                                         </div>
                                     )}
                                 </div>
@@ -128,7 +128,7 @@ const TaskDetails = ({ open, handleClose, taskId }: TaskDetailsProps) => {
                                         height={16}
                                     />
                                 ) : (
-                                    dayjs(data.task.createdAt).format(
+                                    dayjs(data?.task.createdAt).format(
                                         'DD MMMM YYYY HH:mm'
                                     )
                                 )}
@@ -142,7 +142,7 @@ const TaskDetails = ({ open, handleClose, taskId }: TaskDetailsProps) => {
                                         height={16}
                                     />
                                 ) : (
-                                    dayjs(data.task.updatedAt).format(
+                                    dayjs(data?.task.updatedAt).format(
                                         'DD MMMM YYYY HH:mm'
                                     )
                                 )}

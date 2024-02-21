@@ -2,7 +2,7 @@ import React from 'react'
 import { CircularProgress, TextareaAutosize } from '@mui/material'
 import CopyToClipboard from '@src/components/ui/copyToClipboard'
 import useTextState from '@src/hooks/useTextState'
-import useDescription from '@src/app/boards/[id]/board/status/tasks/task/taskDetails/description/useDescription'
+import useDescription from '@src/app/boards/[id]/board/statuses/status/tasks/task/taskDetails/description/useDescription'
 
 type DescriptionProps = {
     description: string

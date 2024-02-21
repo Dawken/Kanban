@@ -1,10 +1,10 @@
 import React from 'react'
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
-import Task from '@src/app/boards/[id]/board/status/tasks/task/task'
 import AddIcon from '@mui/icons-material/Add'
-import useTasks from '@src/app/boards/[id]/board/status/tasks/useTasks'
 import { TaskProps } from '@src/types/task/taskProps'
-import AddTaskTextField from '@src/app/boards/[id]/board/status/tasks/addTaskTextField'
+import AddTaskTextField from '@src/app/boards/[id]/board/statuses/status/tasks/addTaskTextField'
+import useTasks from '@src/app/boards/[id]/board/statuses/status/tasks/useTasks'
+import Task from '@src/app/boards/[id]/board/statuses/status/tasks/task/task'
 
 type TasksProps = {
     tasks: TaskProps[]

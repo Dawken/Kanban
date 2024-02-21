@@ -4,12 +4,12 @@ import Draggable from '@src/components/ui/drag/draggable'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 import { ClickAwayListener, IconButton } from '@mui/material'
 import useToggleOpen from '@src/hooks/useToggleOpen'
-import EditTask from '@src/app/boards/[id]/board/status/tasks/task/editTask'
 import useAnchorEl from '@src/hooks/useAnchorEl'
 import AddContentTextField from '@src/components/ui/addContentTextField'
 import CopyToClipboard from '@src/components/ui/copyToClipboard'
-import TaskDetails from '@src/app/boards/[id]/board/status/tasks/task/taskDetails/taskDetails'
 import useUpdateTaskName from '@src/hooks/task/useUpdateTaskName'
+import TaskDetails from '@src/app/boards/[id]/board/statuses/status/tasks/task/taskDetails/taskDetails'
+import EditTask from '@src/app/boards/[id]/board/statuses/status/tasks/task/editTask'
 
 type TasksProps = {
     task: TaskProps

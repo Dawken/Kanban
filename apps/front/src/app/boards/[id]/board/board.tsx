@@ -7,15 +7,16 @@ import EditBoard from '@src/components/ui/dialog/editBoard/editBoard'
 import useToggleOpen from '@src/hooks/useToggleOpen'
 import Image from 'next/image'
 import BoardPhoto from '../../../../../public/assets/boardImage.png'
-import Status from '@src/app/boards/[id]/board/status/status'
 import { StatusProps } from '@src/types/status/statusProps'
 import arrayFrom from '@src/utils/arrayFrom'
 import { SortableContext } from '@dnd-kit/sortable'
 import useDragHandler from '@src/hooks/useDragHandler'
 import { DragOverlay } from '@dnd-kit/core'
-import AddStatus from '@src/app/boards/[id]/board/addStatus/addStatus'
-import Task from '@src/app/boards/[id]/board/status/tasks/task/task'
 import DntContext from '@src/components/ui/drag/dntContext'
+import Statuses from '@src/app/boards/[id]/board/statuses/statuses'
+import Status from '@src/app/boards/[id]/board/statuses/status/status'
+import AddStatus from '@src/app/boards/[id]/board/addStatus'
+import Task from '@src/app/boards/[id]/board/statuses/status/tasks/task/task'
 
 const Board = () => {
     const { open, handleOpen, handleClose } = useToggleOpen()
@@ -39,7 +40,7 @@ const Board = () => {
         setTasks,
         statusesId,
         draggedStatus,
-    } = useBoard(dragId, isDraggingTask)
+    } = useBoard(dragId)
 
     return (
         <div className='sm:mx-10 h-full'>
@@ -108,21 +109,7 @@ const Board = () => {
                             )
                         ) : (
                             <SortableContext items={statusesId}>
-                                {statuses.length > 1 &&
-                                    statuses.map((status: StatusProps) => {
-                                        return (
-                                            <Status
-                                                status={status}
-                                                tasks={tasks.filter(
-                                                    (task) =>
-                                                        task.statusId ===
-                                                        status.id
-                                                )}
-                                                statusesLength={statuses.length}
-                                                key={status.id}
-                                            />
-                                        )
-                                    })}
+                                <Statuses statuses={statuses} tasks={tasks} />
                             </SortableContext>
                         )}
                         {data?.board.id && (

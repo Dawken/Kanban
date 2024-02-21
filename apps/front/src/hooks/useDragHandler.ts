@@ -95,6 +95,7 @@ const useDragHandler = (items?: StatusProps[] | BoardProps[] | TaskProps[]) => {
                     const updatedTask = {
                         ...updatedTasks[oldIndex],
                         statusId: updatedTasks[newIndex].statusId,
+                        order: updatedTasks[newIndex].order,
                     }
 
                     updatedTasks[oldIndex] = updatedTask
@@ -142,6 +143,8 @@ const useDragHandler = (items?: StatusProps[] | BoardProps[] | TaskProps[]) => {
 
                 const updatedTasks = [...prevTasks]
 
+                // const statusTasks = updatedTasks.filter((task) => task.statusId === over.id)
+
                 const updatedTask = {
                     ...prevTasks[activeIndex],
                     statusId: String(over.id),
@@ -149,13 +152,30 @@ const useDragHandler = (items?: StatusProps[] | BoardProps[] | TaskProps[]) => {
 
                 updatedTasks[activeIndex] = updatedTask
 
-                return arrayMove(
+                const sortedArray = arrayMove(
                     updatedTasks,
                     activeIndex,
                     over.id !== active.data.current?.item.statusId
                         ? 0
                         : activeIndex
                 )
+
+                const filteredTasks = sortedArray
+                    .filter((task) => task.statusId === over.id)
+                    .map((item, index) => ({
+                        ...item,
+                        order: index + 1,
+                    }))
+
+                return sortedArray.map((item) => {
+                    if (item.statusId === over.id) {
+                        const updatedTask = filteredTasks.find(
+                            (task) => task.id === item.id
+                        )
+                        return updatedTask ?? item
+                    }
+                    return item
+                })
             })
         }
     }
