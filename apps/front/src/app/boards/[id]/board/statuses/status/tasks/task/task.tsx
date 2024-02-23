@@ -43,7 +43,7 @@ const Task = ({ task }: TasksProps) => {
                 disabled={isEditTaskOpen}
             >
                 <div
-                    className='bg-black min-h-[95px] rounded mx-1 text-white font-sans relative cursor-pointer font-medium'
+                    className='bg-black min-h-[95px] rounded mx-1 text-white font-sans relative cursor-pointer'
                     onClick={handleOpenTaskDetails}
                 >
                     <div className='h-full flex justify-between p-2'>

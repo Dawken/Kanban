@@ -12,6 +12,7 @@ import { StatusProps } from '@src/types/status/statusProps'
 import { TaskProps } from '@src/types/task/taskProps'
 import Tasks from '@src/app/boards/[id]/board/statuses/status/tasks/tasks'
 import EditStatus from '@src/app/boards/[id]/board/statuses/status/editStatus'
+import { useDroppable } from '@dnd-kit/core'
 
 type CustomStatusProps = {
     status: StatusProps
@@ -46,6 +47,14 @@ const Status = ({ status, tasks, statusesLength }: CustomStatusProps) => {
         id: status.id,
     })
 
+    const { setNodeRef: droppableArea } = useDroppable({
+        id: status.id,
+        data: {
+            type: 'Status',
+            status,
+        },
+    })
+
     const style = {
         transition,
         transform: CSS.Translate.toString(transform),
@@ -67,7 +76,7 @@ const Status = ({ status, tasks, statusesLength }: CustomStatusProps) => {
                     className='w-full h-12 cursor-grab'
                 >
                     <div className='p-3 flex items-center justify-between'>
-                        <div className='flex items-center justify-start w-4/5'>
+                        <div className='flex items-center justify-start w-4/5 font-sans'>
                             <DragIndicatorIcon className='text-xl' />
                             <div className='w-11/12 ml-2 font-bold text-xs'>
                                 {isEditStatusOpen ? (
@@ -105,7 +114,12 @@ const Status = ({ status, tasks, statusesLength }: CustomStatusProps) => {
                     </div>
                 </div>
                 {/*Sortable tasks with add task text field*/}
-                <div className={isDragging ? 'opacity-0' : 'opacity-100'}>
+                <div
+                    className={`${
+                        isDragging ? 'opacity-0' : 'opacity-100'
+                    } mt-2`}
+                    ref={droppableArea}
+                >
                     <Tasks
                         tasks={tasks}
                         status={status}
