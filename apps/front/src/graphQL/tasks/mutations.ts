@@ -7,15 +7,6 @@ const PUSH_TASK = gql`
         }
     }
 `
-
-const UPDATE_TASK_ORDER = gql`
-    mutation UpdateTaskOrder($newTaskOrder: [TaskOrderInput!]!) {
-        updateTaskOrder(newTaskOrder: $newTaskOrder) {
-            id
-        }
-    }
-`
-
 const CREATE_TASK = gql`
     mutation CreateTask(
         $taskName: String!
@@ -62,7 +53,6 @@ const UPDATE_DESCRIPTION = gql`
 
 export {
     PUSH_TASK,
-    UPDATE_TASK_ORDER,
     CREATE_TASK,
     DELETE_TASK,
     UPDATE_TASK_NAME,
