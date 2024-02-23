@@ -85,21 +85,16 @@ const useDragHandler = (items?: StatusProps[] | BoardProps[] | TaskProps[]) => {
             sortedArray: TaskProps[],
             statusId: string | UniqueIdentifier
         ) => {
-            const filteredTasks = sortedArray
+            const filteredTasksMap = new Map()
+            sortedArray
                 .filter((task) => task.statusId === statusId)
-                .map((item, index) => ({
-                    ...item,
-                    order: index + 1,
-                }))
+                .forEach((task, index) => {
+                    const updatedTask = { ...task, order: index + 1 }
+                    filteredTasksMap.set(task.id, updatedTask)
+                })
 
             return sortedArray.map((item) => {
-                if (item.statusId === statusId) {
-                    const updatedTask = filteredTasks.find(
-                        (task) => task.id === item.id
-                    )
-                    return updatedTask ?? item
-                }
-                return item
+                return filteredTasksMap.get(item.id) ?? item
             })
         }
 
@@ -116,13 +111,15 @@ const useDragHandler = (items?: StatusProps[] | BoardProps[] | TaskProps[]) => {
                 )
 
                 if (
-                    updatedTasks[oldIndex].statusId !==
-                    updatedTasks[newIndex].statusId
+                    prevTasks[oldIndex].statusId !==
+                    prevTasks[newIndex].statusId
                 ) {
                     const updatedTask = {
-                        ...updatedTasks[oldIndex],
+                        ...prevTasks[oldIndex],
                         statusId: updatedTasks[newIndex].statusId,
-                        order: updatedTasks[newIndex].order,
+                        order:
+                            active.data.current?.item.order ??
+                            updatedTasks[newIndex].order,
                     }
 
                     updatedTasks[oldIndex] = updatedTask
@@ -130,7 +127,7 @@ const useDragHandler = (items?: StatusProps[] | BoardProps[] | TaskProps[]) => {
                     return arrayMove(
                         updatedTasks,
                         oldIndex,
-                        Math.max(newIndex - 1, 0)
+                        oldIndex < newIndex ? newIndex - 1 : newIndex
                     )
                 } else {
                     const { statusId } = updatedTasks[newIndex]
@@ -160,16 +157,19 @@ const useDragHandler = (items?: StatusProps[] | BoardProps[] | TaskProps[]) => {
                     statusId: String(over.id),
                 }
 
+                const statusId = over.id
+
                 updatedTasks[activeIndex] = updatedTask
 
-                const statusId = over.id
+                const newIndex =
+                    over?.id === active?.data.current?.item.statusId
+                        ? activeIndex
+                        : updatedTasks.length
 
                 const sortedArray = arrayMove(
                     updatedTasks,
                     activeIndex,
-                    over.id !== active.data.current?.item.statusId
-                        ? 0
-                        : activeIndex
+                    newIndex
                 )
 
                 return updateTasksOrder(sortedArray, statusId)
