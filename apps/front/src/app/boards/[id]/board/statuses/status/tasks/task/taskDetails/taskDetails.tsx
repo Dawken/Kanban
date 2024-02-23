@@ -6,7 +6,6 @@ import useDeleteTask from '@src/hooks/task/useDeleteTask'
 import DeleteIcon from '@mui/icons-material/Delete'
 import dayjs from 'dayjs'
 import AddContentTextField from '@src/components/ui/addContentTextField'
-import useUpdateTaskName from '@src/hooks/task/useUpdateTaskName'
 import Skeleton from '@mui/material/Skeleton'
 import Description from '@src/app/boards/[id]/board/statuses/status/tasks/task/taskDetails/description/description'
 import useTaskDetails from '@src/app/boards/[id]/board/statuses/status/tasks/task/taskDetails/useTaskDetails'
@@ -18,7 +17,8 @@ type TaskDetailsProps = {
 }
 
 const TaskDetails = ({ open, handleClose, taskId }: TaskDetailsProps) => {
-    const { data, isTaskDataLoading } = useTaskDetails(taskId)
+    const { data, isTaskDataLoading, updateName, isTaskNameUpdating } =
+        useTaskDetails(taskId)
 
     const {
         open: isDeleteDialogOpen,
@@ -31,8 +31,6 @@ const TaskDetails = ({ open, handleClose, taskId }: TaskDetailsProps) => {
         handleOpen: handleOpenEditTaskName,
         handleClose: handleCloseEditTaskName,
     } = useToggleOpen()
-
-    const { updateName, isTaskNameUpdating } = useUpdateTaskName()
 
     const { removeTask, isTaskRemoving } = useDeleteTask()
 

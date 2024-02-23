@@ -23,9 +23,9 @@ const Status = ({ status, tasks, statusesLength }: CustomStatusProps) => {
     const { anchorEl, handleClick, handleClose, open } = useAnchorEl()
 
     const {
-        open: isEditStatusOpen,
-        handleOpen: handleOpenEditStatus,
-        handleClose: handleCloseEditStatus,
+        open: isEditStatusNameOpen,
+        handleOpen: handleOpenEditStatusName,
+        handleClose: handleCloseEditStatusName,
     } = useToggleOpen()
 
     const {
@@ -45,6 +45,7 @@ const Status = ({ status, tasks, statusesLength }: CustomStatusProps) => {
         isDragging,
     } = useSortable({
         id: status.id,
+        disabled: isEditStatusNameOpen,
     })
 
     const { setNodeRef: droppableArea } = useDroppable({
@@ -79,14 +80,14 @@ const Status = ({ status, tasks, statusesLength }: CustomStatusProps) => {
                         <div className='flex items-center justify-start w-4/5 font-sans'>
                             <DragIndicatorIcon className='text-xl' />
                             <div className='w-11/12 ml-2 font-bold text-xs'>
-                                {isEditStatusOpen ? (
+                                {isEditStatusNameOpen ? (
                                     <ClickAwayListener
-                                        onClickAway={handleCloseEditStatus}
+                                        onClickAway={handleCloseEditStatusName}
                                     >
                                         <div className='h-8'>
                                             <AddContentTextField
                                                 closeNewStatus={
-                                                    handleCloseEditStatus
+                                                    handleCloseEditStatusName
                                                 }
                                                 createContent={editStatusName}
                                                 parentId={status.id}
@@ -101,7 +102,7 @@ const Status = ({ status, tasks, statusesLength }: CustomStatusProps) => {
                                 ) : (
                                     <div
                                         className='p-2 hover:bg-blue-600 hover:bg-opacity-5 rounded font-bold overflow-hidden whitespace-nowrap overflow-ellipsis'
-                                        onClick={handleOpenEditStatus}
+                                        onClick={handleOpenEditStatusName}
                                     >
                                         {status.statusName}
                                     </div>
@@ -134,7 +135,7 @@ const Status = ({ status, tasks, statusesLength }: CustomStatusProps) => {
                     open={open}
                     onClose={handleClose}
                     anchorEl={anchorEl}
-                    handleOpenEditStatus={handleOpenEditStatus}
+                    handleOpenEditStatus={handleOpenEditStatusName}
                     status={status}
                     statusesLength={statusesLength}
                     handleOpenCreateTask={handleOpenCreateTask}
