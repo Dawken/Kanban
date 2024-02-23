@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react'
-import { CircularProgress, TextField } from '@mui/material'
+import { CircularProgress, TextareaAutosize } from '@mui/material'
 import DoneIcon from '@mui/icons-material/Done'
 import CloseIcon from '@mui/icons-material/Close'
 import useTextState from '@src/hooks/useTextState'
@@ -9,61 +9,72 @@ type AddContentTextFieldProps = {
     createContent: (text: string, parentId: string) => void
     parentId: string
     isCreating: boolean
+    isSingleRow?: boolean
     defaultText?: string
-    isSmallField?: boolean
 }
 const AddContentTextField = ({
     closeNewStatus,
     createContent,
     parentId,
     isCreating,
+    isSingleRow,
     defaultText,
-    isSmallField,
 }: AddContentTextFieldProps) => {
     const { text, handleChange } = useTextState(defaultText)
 
-    const inputRef = useRef<HTMLInputElement | null>(null)
+    const addContent = () => {
+        createContent(text, parentId)
+        closeNewStatus()
+    }
+
+    const textareaRef = useRef<HTMLTextAreaElement>(null)
 
     useEffect(() => {
-        inputRef.current && inputRef.current.focus()
+        if (textareaRef.current) {
+            textareaRef.current.focus()
+            textareaRef.current.setSelectionRange(
+                textareaRef.current.value.length,
+                textareaRef.current.value.length
+            )
+        }
     }, [])
 
     return (
-        <>
-            <TextField
-                fullWidth
-                inputRef={inputRef}
+        <div className='relative'>
+            <TextareaAutosize
+                ref={textareaRef}
                 value={text}
                 onChange={(event) => handleChange(event.target.value)}
-                size={isSmallField ? 'small' : 'medium'}
-                inputProps={{
-                    style: {
-                        fontSize: isSmallField ? 11 : 16,
-                    },
+                onKeyDown={(event) => {
+                    if (event.key === 'Enter') {
+                        addContent()
+                    }
                 }}
+                className={`w-full h-full border-2 border-transparent focus:border-blue-600 p-1.5 rounded outline-none bg-black ${
+                    isSingleRow && 'whitespace-nowrap'
+                } transition-colors duration-500 ease-in-out overflow-x-hidden resize-none`}
             />
-            <div className='bg-zinc-900 ml-auto w-fit h-12 flex justify-center items-center gap-2 rounded p-2'>
+            <div className='absolute z-10 right-0 ml-auto h-12 flex justify-center items-center gap-2 rounded'>
                 <button
-                    className='bg-zinc-800 p-1 rounded w-8 h-8 hover:bg-zinc-700 flex items-center justify-center'
+                    className='bg-black p-1 rounded w-8 h-8 hover:bg-zinc-700 flex items-center justify-center'
                     onClick={() => {
-                        createContent(text, parentId)
-                        closeNewStatus()
+                        addContent()
                     }}
                 >
                     {isCreating ? (
                         <CircularProgress size={15} className='text-white' />
                     ) : (
-                        <DoneIcon className='text-sm' />
+                        <DoneIcon className='text-base' />
                     )}
                 </button>
                 <button
-                    className='bg-zinc-800 p-1 rounded w-8 h-8 hover:bg-zinc-700'
+                    className='bg-black p-1 rounded w-8 h-8 hover:bg-zinc-700 flex items-center justify-center'
                     onClick={closeNewStatus}
                 >
                     <CloseIcon className='text-base' />
                 </button>
             </div>
-        </>
+        </div>
     )
 }
 

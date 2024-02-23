@@ -9,9 +9,15 @@ const boardResolvers = {
             try {
                 return await prisma.board.findUnique({
                     where: { id: boardId },
-                    include: { status: true },
+                    include: {
+                        status: {
+                            include: {
+                                task: true,
+                            },
+                        },
+                    },
                 })
-            } catch (error) {
+            } catch {
                 throw new Error('failed-board-fetch')
             }
         }),
@@ -28,7 +34,7 @@ const boardResolvers = {
                         order: 'asc',
                     },
                 })
-            } catch (error) {
+            } catch {
                 throw new Error('failed-boards-fetch')
             }
         }),
@@ -72,11 +78,11 @@ const boardResolvers = {
                     return await prisma.board.update({
                         where: { id: boardId },
                         data: {
-                            boardName: boardName,
+                            boardName,
                         },
                     })
                 }
-            } catch (error) {
+            } catch {
                 throw new Error('failed-board-edit')
             }
         }),
@@ -119,7 +125,7 @@ const boardResolvers = {
                         data: { order: updatedBoard.order },
                     })
                 }
-            } catch (error) {
+            } catch {
                 throw new Error('failed-board-update')
             }
         }),

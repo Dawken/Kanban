@@ -24,13 +24,36 @@ const typeDefs = gql`
         statusName: String!
         boardId: String!
         board: Board
+        task: [Task]
         order: Int
     }
+
+    type Task {
+        id: String!
+        taskName: String!
+        statusId: String!
+        status: Status
+        description: String
+        createdAt: DateTime!
+        updatedAt: DateTime!
+        order: Int
+    }
+    scalar DateTime
 
     input StatusInput {
         id: String
         statusName: String
         boardId: String
+        order: Int
+    }
+
+    input TaskInput {
+        id: String
+        taskName: String
+        statusId: String
+        description: String
+        createdAt: DateTime
+        updatedAt: DateTime
         order: Int
     }
 
@@ -45,12 +68,15 @@ const typeDefs = gql`
         id: String!
         statusName: String!
         order: Int!
+        task: [TaskInput]
     }
 
     type Query {
         users: [User]
         boards: [Board]
         board(boardId: String!): Board
+        tasks(boardId: String!): [Task]
+        task(taskId: String!): Task
     }
 
     type Mutation {
@@ -76,6 +102,17 @@ const typeDefs = gql`
         updateStatusName(statusId: String!, statusName: String!): Status
         deleteStatus(statusId: String!): Status
         updateStatusOrder(newStatusOrder: [StatusOrderInput!]!): [Status]
+
+        #Task
+        createTask(
+            taskName: String!
+            description: String
+            statusId: String!
+        ): Task
+        updateTaskName(taskName: String!, taskId: String!): Task
+        updateDescription(description: String!, taskId: String!): Task
+        deleteTask(taskId: String!): Status
+        pushTask(taskId: String!, newStatusId: String!, order: Int!): Task
     }
 `
 export default typeDefs

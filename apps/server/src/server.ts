@@ -9,6 +9,7 @@ import { mergeResolvers } from '@graphql-tools/merge'
 import authResolvers from './graphql/auth/authResolvers'
 import boardResolvers from './graphql/board/boardResolvers'
 import statusResolvers from './graphql/status/statusResolvers'
+import taskResolvers from './graphql/task/taskResolver'
 
 config()
 
@@ -21,6 +22,7 @@ const resolvers = mergeResolvers([
     authResolvers,
     boardResolvers,
     statusResolvers,
+    taskResolvers,
 ])
 const server = async () => {
     const app = express()

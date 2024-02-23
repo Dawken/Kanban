@@ -5,7 +5,11 @@ import DoneIcon from '@mui/icons-material/Done'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 
-const ClipBoardCopy = ({ text }: { text: string }) => {
+type ClipBoardCopy = {
+    text: string
+    placement?: 'bottom'
+}
+const ClipBoardCopy = ({ text, placement }: ClipBoardCopy) => {
     const [copied, setCopied] = useState(false)
 
     useEffect(() => {
@@ -20,16 +24,21 @@ const ClipBoardCopy = ({ text }: { text: string }) => {
         <Tooltip
             TransitionComponent={Zoom}
             title={copied ? 'Copied!' : 'Copy to clipboard'}
-            placement='top'
+            placement={placement ?? 'top'}
         >
             <IconButton
                 edge='end'
                 onClick={() => {
                     setCopied(true)
                 }}
+                className='text-gray-400'
             >
                 <CopyToClipboard text={text}>
-                    {copied ? <DoneIcon /> : <ContentCopyIcon />}
+                    {copied ? (
+                        <DoneIcon fontSize={'small'} />
+                    ) : (
+                        <ContentCopyIcon fontSize={'small'} />
+                    )}
                 </CopyToClipboard>
             </IconButton>
         </Tooltip>

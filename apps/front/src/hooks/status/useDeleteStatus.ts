@@ -19,7 +19,7 @@ const useDeleteStatus = () => {
     const removeStatus = (statusId: string) => {
         deleteStatus({
             variables: {
-                statusId: statusId,
+                statusId,
             },
             refetchQueries: [{ query: GET_BOARDS }],
         })

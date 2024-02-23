@@ -8,7 +8,7 @@ const statusResolvers = {
         createStatus: checkAuth(async (_parent, { statusName, boardId }) => {
             try {
                 const existingStatusCount = await prisma.status.count({
-                    where: { boardId: boardId },
+                    where: { boardId },
                 })
 
                 return prisma.status.create({
@@ -38,11 +38,11 @@ const statusResolvers = {
                         return await prisma.status.update({
                             where: { id: statusId },
                             data: {
-                                statusName: statusName,
+                                statusName,
                             },
                         })
                     }
-                } catch (error) {
+                } catch {
                     throw new Error('failed-status-edit')
                 }
             }
@@ -83,7 +83,7 @@ const statusResolvers = {
                         data: { order: updatedStatus.order },
                     })
                 }
-            } catch (error) {
+            } catch {
                 throw new Error('failed-status-update')
             }
         }),
