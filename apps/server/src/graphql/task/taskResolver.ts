@@ -133,7 +133,7 @@ const taskResolvers = {
                     where: { id: taskId },
                     data: {
                         statusId: newStatusId,
-                        order: order,
+                        order,
                     },
                     include: {
                         status: true,

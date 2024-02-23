@@ -45,6 +45,9 @@ const Status = ({ status, tasks, statusesLength }: CustomStatusProps) => {
         isDragging,
     } = useSortable({
         id: status.id,
+        data: {
+            status,
+        },
         disabled: isEditStatusNameOpen,
     })
 

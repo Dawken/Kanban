@@ -64,13 +64,6 @@ const typeDefs = gql`
         status: [StatusInput]
     }
 
-    input StatusOrderInput {
-        id: String!
-        statusName: String!
-        order: Int!
-        task: [TaskInput]
-    }
-
     type Query {
         users: [User]
         boards: [Board]
@@ -101,7 +94,7 @@ const typeDefs = gql`
         createStatus(statusName: String!, boardId: String!): Status
         updateStatusName(statusId: String!, statusName: String!): Status
         deleteStatus(statusId: String!): Status
-        updateStatusOrder(newStatusOrder: [StatusOrderInput!]!): [Status]
+        updateStatusOrder(statusId: String!, order: Int!): Status
 
         #Task
         createTask(

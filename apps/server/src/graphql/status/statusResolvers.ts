@@ -75,13 +75,49 @@ const statusResolvers = {
                 throw new Error('failed-status-delete')
             }
         }),
-        updateStatusOrder: checkAuth(async (_parent, { newStatusOrder }) => {
+        updateStatusOrder: checkAuth(async (_parent, { statusId, order }) => {
             try {
-                for (const updatedStatus of newStatusOrder) {
-                    await prisma.status.update({
-                        where: { id: updatedStatus.id },
-                        data: { order: updatedStatus.order },
+                const oldStatus = await prisma.status.findUnique({
+                    where: { id: statusId },
+                })
+
+                const status = await prisma.status.update({
+                    where: { id: statusId },
+                    data: {
+                        order,
+                    },
+                })
+
+                if (!status) {
+                    throw new Error('status-not-found')
+                } else {
+                    await prisma.status.updateMany({
+                        where: {
+                            boardId: oldStatus.boardId,
+                            order: { gt: oldStatus.order },
+                            id: { not: statusId },
+                        },
+                        data: {
+                            order: {
+                                decrement: 1,
+                            },
+                        },
                     })
+
+                    await prisma.status.updateMany({
+                        where: {
+                            boardId: oldStatus.boardId,
+                            order: { gte: order },
+                            id: { not: statusId },
+                        },
+                        data: {
+                            order: {
+                                increment: 1,
+                            },
+                        },
+                    })
+
+                    return status
                 }
             } catch {
                 throw new Error('failed-status-update')

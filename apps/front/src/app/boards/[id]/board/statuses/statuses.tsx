@@ -11,6 +11,7 @@ type StatusesProps = {
 const Statuses = ({ statuses, tasks }: StatusesProps) => {
     useStatuses()
 
+    console.log(statuses.map((status) => status.order))
     return (
         <>
             {statuses.length > 0 &&

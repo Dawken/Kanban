@@ -55,17 +55,15 @@ const Tasks = ({
                         )}
                     </>
                 ) : isCreateTaskOpen ? (
-                    <div className='mt-2'>
-                        <AddTaskTextField
-                            handleCloseCreateTask={handleCloseCreateTask}
-                            addNewTask={addNewTask}
-                            statusId={status.id}
-                            isTaskCreating={isTaskCreating}
-                        />
-                    </div>
+                    <AddTaskTextField
+                        handleCloseCreateTask={handleCloseCreateTask}
+                        addNewTask={addNewTask}
+                        statusId={status.id}
+                        isTaskCreating={isTaskCreating}
+                    />
                 ) : (
                     <div
-                        className='bg-black opacity-50 min-h-[95px] rounded mx-1 mt-2 flex items-center justify-center flex-1 hover:bg-blue-600 hover:bg-opacity-10 cursor-pointer'
+                        className='bg-black opacity-50 min-h-[95px] rounded mx-1 flex items-center justify-center flex-1 hover:bg-blue-600 hover:bg-opacity-10 cursor-pointer'
                         onClick={handleOpenCreateTask}
                     >
                         <AddIcon />

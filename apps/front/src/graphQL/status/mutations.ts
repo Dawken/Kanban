@@ -25,8 +25,8 @@ const UPDATE_STATUS_NAME = gql`
 `
 
 const UPDATE_STATUS_ORDER = gql`
-    mutation UpdateStatusOrder($newStatusOrder: [StatusOrderInput!]!) {
-        updateStatusOrder(newStatusOrder: $newStatusOrder) {
+    mutation UpdateStatusOrder($statusId: String!, $order: Int!) {
+        updateStatusOrder(statusId: $statusId, order: $order) {
             id
         }
     }
