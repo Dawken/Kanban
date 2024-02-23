@@ -6,15 +6,9 @@ const GET_BOARD = gql`
             boardName
             id
             status {
-                statusName
                 id
+                statusName
                 order
-                task {
-                    id
-                    taskName
-                    statusId
-                    order
-                }
             }
         }
     }
@@ -27,8 +21,8 @@ const GET_BOARDS = gql`
             id
             order
             status {
-                statusName
                 id
+                statusName
                 order
             }
         }

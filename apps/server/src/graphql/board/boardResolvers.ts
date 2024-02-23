@@ -11,9 +11,7 @@ const boardResolvers = {
                     where: { id: boardId },
                     include: {
                         status: {
-                            include: {
-                                task: true,
-                            },
+                            orderBy: { order: 'asc' },
                         },
                     },
                 })
@@ -55,9 +53,12 @@ const boardResolvers = {
                         },
                         status: status
                             ? {
-                                  create: status.map((statusName: string) => ({
-                                      statusName,
-                                  })),
+                                  create: status.map(
+                                      (statusName: string, index: number) => ({
+                                          statusName,
+                                          order: index + 1,
+                                      })
+                                  ),
                               }
                             : undefined,
                         order: existingBoardsCount + 1,
