@@ -21,11 +21,15 @@ const Draggable = ({ children, id, disabled, data }: DraggableProps) => {
         transition,
         transform,
         isDragging,
-    } = useSortable({ id, disabled, data })
+    } = useSortable({
+        id,
+        disabled,
+        data,
+    })
 
     const style = {
         transition,
-        transform: CSS.Transform.toString(transform),
+        transform: CSS.Translate.toString(transform),
     }
 
     return (
@@ -35,7 +39,7 @@ const Draggable = ({ children, id, disabled, data }: DraggableProps) => {
             {...listeners}
             style={style}
             className={
-                isDragging ? 'opacity-50' : 'visible touch-none cursor-grab'
+                isDragging ? 'invisible' : 'visible touch-none cursor-grab'
             }
         >
             {children}

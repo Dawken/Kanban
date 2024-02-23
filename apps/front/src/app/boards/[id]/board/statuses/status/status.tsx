@@ -44,10 +44,6 @@ const Status = ({ status, tasks, statusesLength }: CustomStatusProps) => {
         isDragging,
     } = useSortable({
         id: status.id,
-        data: {
-            type: 'Status',
-            status,
-        },
     })
 
     const style = {
@@ -112,7 +108,7 @@ const Status = ({ status, tasks, statusesLength }: CustomStatusProps) => {
                 <div className={isDragging ? 'opacity-0' : 'opacity-100'}>
                     <Tasks
                         tasks={tasks}
-                        statusId={status.id}
+                        status={status}
                         isCreateTaskOpen={isCreateTaskOpen}
                         handleOpenCreateTask={handleOpenCreateTask}
                         handleCloseCreateTask={handleCloseCreateTask}
