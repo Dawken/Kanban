@@ -11,14 +11,11 @@ const Logout = ({ expanded }: ExpandedProps) => {
 
     return (
         <ToolTip name={'Logout'}>
-            <button
-                className='absolute bottom-5 w-full px-4'
-                onClick={() => logoutUser()}
-            >
+            <button className='w-full px-4 mb-5' onClick={() => logoutUser()}>
                 <div
                     className={`w-full h-12 bg-zinc-900 rounded-md gap-2 flex ${
                         loading ? 'justify-center' : 'justify-start'
-                    } items-center font-bold hover:bg-gradient-to-br from-[#00dffc] to-[#00ff82] hover:text-black`}
+                    } items-center font-bold hover:bg-zinc-800 transition-all`}
                 >
                     {loading ? (
                         <CircularProgress size={25} />

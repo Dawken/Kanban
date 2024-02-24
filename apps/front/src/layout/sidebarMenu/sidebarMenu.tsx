@@ -11,12 +11,14 @@ const SidebarMenu = () => {
         <aside
             className={`${
                 expanded ? 'w-72' : 'w-24'
-            } transition-all duration-500 h-screen bg-[#0e0e0e] border-r border-[#00dffc] border-opacity-50 text-gray-400 text-sm relative`}
+            } transition-all duration-500 h-screen bg-[#0e0e0e] border-r border-[#00dffc] border-opacity-50 text-gray-400 text-sm flex flex-col justify-between`}
         >
-            <div className='w-full flex place-content-around items-center h-24 gap-32'>
-                <LogoSection expanded={expanded} />
+            <div>
+                <div className='w-full flex place-content-around items-center h-24 gap-32'>
+                    <LogoSection expanded={expanded} />
+                </div>
+                <Boards expanded={expanded} />
             </div>
-            <Boards expanded={expanded} />
             <Logout expanded={expanded} />
         </aside>
     )

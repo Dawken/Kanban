@@ -24,7 +24,7 @@ const Boards = ({ expanded }: ExpandedProps) => {
     } = useDragHandler(boards)
 
     return (
-        <div className='flex flex-col items-center m-3'>
+        <div className='flex flex-col items-center mx-2 flex-1'>
             <div className='w-full h-12 px-1'>
                 <AddBoard expanded={expanded} />
             </div>

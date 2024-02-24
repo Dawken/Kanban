@@ -14,7 +14,7 @@ const SortableBoards = ({ boards, expanded, loading }: SortableBoardsProps) => {
     useSortableBoards()
 
     return (
-        <div className='w-full max-h-[63vh] overscroll-auto flex flex-col gap-3 boardsVerticalScrollbar'>
+        <div className='w-full max-h-[57vh] overscroll-auto flex flex-col gap-3 boardsVerticalScrollbar'>
             {loading
                 ? arrayFrom(5, <Skeleton height={48} variant='rounded' />)
                 : boards.map((board: BoardProps) => {
