@@ -25,8 +25,8 @@ const DELETE_BOARD = gql`
 `
 
 const UPDATE_BOARDS_ORDER = gql`
-    mutation UpdateBoardsOrder($newBoardOrder: [BoardOrderInput!]!) {
-        updateBoardsOrder(newBoardOrder: $newBoardOrder) {
+    mutation UpdateBoardsOrder($boardId: String!, $order: Int!) {
+        updateBoardsOrder(boardId: $boardId, order: $order) {
             id
         }
     }

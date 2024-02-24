@@ -1,9 +1,8 @@
 'use client'
 import React from 'react'
 import useBoards from '@src/layout/sidebarMenu/boards/useBoards'
-import arrayFrom from '@src/utils/arrayFrom'
 import Skeleton from '@mui/material/Skeleton'
-import Board from '@src/layout/sidebarMenu/boards/board/board'
+import Board from '@src/layout/sidebarMenu/boards/sortableBoards/board/board'
 import AddBoard from '@src/layout/sidebarMenu/boards/addBoard/addBoard'
 import { ExpandedProps } from '@src/types/expandedProps'
 import { BoardProps } from '@src/types/board/boardProps'
@@ -11,9 +10,10 @@ import DntContext from '@src/components/ui/drag/dntContext'
 import { DragOverlay } from '@dnd-kit/core'
 import { SortableContext } from '@dnd-kit/sortable'
 import useDragHandler from '@src/hooks/useDragHandler'
+import SortableBoards from '@src/layout/sidebarMenu/boards/sortableBoards/sortableBoards'
 
 const Boards = ({ expanded }: ExpandedProps) => {
-    const { loading, boards, setBoards } = useBoards()
+    const { loading, boards, setBoards, boardsId } = useBoards()
 
     const {
         dragId,
@@ -52,33 +52,22 @@ const Boards = ({ expanded }: ExpandedProps) => {
                 onDragStart={onDragStart}
                 onDragCancel={onDragCancel}
             >
-                <SortableContext items={boards}>
-                    <div className='w-full max-h-[63vh] overscroll-auto flex flex-col gap-3 boardsVerticalScrollbar'>
-                        {loading
-                            ? arrayFrom(
-                                  5,
-                                  <Skeleton height={48} variant='rounded' />
-                              )
-                            : boards.map((board: BoardProps) => {
-                                  return (
-                                      <Board
-                                          board={board}
-                                          expanded={expanded}
-                                          key={board.id}
-                                      />
-                                  )
-                              })}
-                    </div>
+                <SortableContext items={boardsId}>
+                    <SortableBoards
+                        boards={boards}
+                        expanded={expanded}
+                        loading={loading}
+                    />
                 </SortableContext>
                 <DragOverlay>
-                    {draggedBoard ? (
+                    {draggedBoard && (
                         <Board
                             key={draggedBoard.id}
                             board={draggedBoard as BoardProps}
                             expanded={expanded}
                             dragId={dragId}
                         />
-                    ) : null}
+                    )}
                 </DragOverlay>
             </DntContext>
         </div>

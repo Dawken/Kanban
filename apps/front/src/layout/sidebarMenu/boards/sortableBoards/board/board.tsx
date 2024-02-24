@@ -28,7 +28,14 @@ const Board = ({ board, expanded, dragId }: BoardsProps) => {
 
     return (
         <>
-            <Draggable id={board.id} disabled={!expanded}>
+            <Draggable
+                id={board.id}
+                disabled={!expanded}
+                data={{
+                    type: 'Board',
+                    item: board,
+                }}
+            >
                 <ToolTip name={dragId ? '' : board.boardName}>
                     <div
                         className={`${
