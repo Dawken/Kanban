@@ -25,10 +25,10 @@ const Tasks = ({
 
     return (
         <SortableContext items={tasksIds}>
-            <div className='text-sm font-sans max-h-[600px]'>
+            <div className='text-sm font-sans'>
                 {tasks.length > 0 ? (
                     <>
-                        <div className='flex flex-col gap-1'>
+                        <div className='flex flex-col gap-1 max-h-[63vh] boardsVerticalScrollbar'>
                             {tasks.map((task) => {
                                 return <Task task={task} key={task.id} />
                             })}
@@ -63,7 +63,7 @@ const Tasks = ({
                     />
                 ) : (
                     <div
-                        className='bg-black opacity-50 min-h-[95px] rounded mx-1 flex items-center justify-center flex-1 hover:bg-blue-600 hover:bg-opacity-10 cursor-pointer'
+                        className='bg-black opacity-50 min-h-[95px] rounded mx-2 flex items-center justify-center flex-1 hover:bg-blue-600 hover:bg-opacity-10 cursor-pointer'
                         onClick={handleOpenCreateTask}
                     >
                         <AddIcon />
