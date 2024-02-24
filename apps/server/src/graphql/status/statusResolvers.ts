@@ -76,52 +76,48 @@ const statusResolvers = {
             }
         }),
         updateStatusOrder: checkAuth(async (_parent, { statusId, order }) => {
-            try {
-                const oldStatus = await prisma.status.findUnique({
-                    where: { id: statusId },
-                })
+            return prisma
+                .$transaction(async (transaction) => {
+                    const oldStatus = await transaction.status.findUnique({
+                        where: { id: statusId },
+                    })
 
-                const status = await prisma.status.update({
-                    where: { id: statusId },
-                    data: {
-                        order,
-                    },
-                })
-
-                if (!status) {
-                    throw new Error('status-not-found')
-                } else {
-                    await prisma.status.updateMany({
-                        where: {
-                            boardId: oldStatus.boardId,
-                            order: { gt: oldStatus.order },
-                            id: { not: statusId },
-                        },
+                    const status = await transaction.status.update({
+                        where: { id: statusId },
                         data: {
-                            order: {
-                                decrement: 1,
-                            },
+                            order,
                         },
                     })
 
-                    await prisma.status.updateMany({
-                        where: {
-                            boardId: oldStatus.boardId,
-                            order: { gte: order },
-                            id: { not: statusId },
-                        },
-                        data: {
-                            order: {
-                                increment: 1,
+                    if (!status) {
+                        throw new Error('status-not-found')
+                    } else {
+                        await transaction.status.updateMany({
+                            where: {
+                                boardId: oldStatus.boardId,
+                                id: { not: statusId },
+                                order:
+                                    oldStatus.order < order
+                                        ? { gte: oldStatus.order, lte: order }
+                                        : {
+                                              gte: order,
+                                              lte: oldStatus.order,
+                                          },
                             },
-                        },
-                    })
+                            data: {
+                                order:
+                                    oldStatus.order < order
+                                        ? { decrement: 1 }
+                                        : { increment: 1 },
+                            },
+                        })
 
-                    return status
-                }
-            } catch {
-                throw new Error('failed-status-update')
-            }
+                        return status
+                    }
+                })
+                .catch(() => {
+                    throw new Error('failed-status-update')
+                })
         }),
     },
 }
