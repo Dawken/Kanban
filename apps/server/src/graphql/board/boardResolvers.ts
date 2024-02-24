@@ -118,17 +118,49 @@ const boardResolvers = {
                 throw new Error('failed-board-delete')
             }
         }),
-        updateBoardsOrder: checkAuth(async (_parent, { newBoardOrder }) => {
-            try {
-                for (const updatedBoard of newBoardOrder) {
-                    await prisma.board.update({
-                        where: { id: updatedBoard.id },
-                        data: { order: updatedBoard.order },
+        updateBoardsOrder: checkAuth(async (_parent, { boardId, order }) => {
+            return prisma
+                .$transaction(async (transaction) => {
+                    const oldBoard = await transaction.board.findUnique({
+                        where: { id: boardId },
                     })
-                }
-            } catch {
-                throw new Error('failed-board-update')
-            }
+
+                    const board = await transaction.board.update({
+                        where: { id: boardId },
+                        data: {
+                            order,
+                        },
+                    })
+
+                    if (!board) {
+                        throw new Error('board-not-found')
+                    } else {
+                        await transaction.board.updateMany({
+                            where: {
+                                userId: oldBoard.userId,
+                                id: { not: boardId },
+                                order:
+                                    oldBoard.order < order
+                                        ? { gte: oldBoard.order, lte: order }
+                                        : {
+                                              gte: order,
+                                              lte: oldBoard.order,
+                                          },
+                            },
+                            data: {
+                                order:
+                                    oldBoard.order < order
+                                        ? { decrement: 1 }
+                                        : { increment: 1 },
+                            },
+                        })
+
+                        return board
+                    }
+                })
+                .catch(() => {
+                    throw new Error('failed-board-update')
+                })
         }),
     },
 }

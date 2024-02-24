@@ -40,30 +40,6 @@ const typeDefs = gql`
     }
     scalar DateTime
 
-    input StatusInput {
-        id: String
-        statusName: String
-        boardId: String
-        order: Int
-    }
-
-    input TaskInput {
-        id: String
-        taskName: String
-        statusId: String
-        description: String
-        createdAt: DateTime
-        updatedAt: DateTime
-        order: Int
-    }
-
-    input BoardOrderInput {
-        id: String!
-        boardName: String!
-        order: Int!
-        status: [StatusInput]
-    }
-
     type Query {
         users: [User]
         boards: [Board]
@@ -88,7 +64,7 @@ const typeDefs = gql`
         createBoard(boardName: String!, status: [String]): Board
         updateBoardName(boardId: String!, boardName: String!): Board
         deleteBoard(boardId: String!): Board
-        updateBoardsOrder(newBoardOrder: [BoardOrderInput!]!): [Board]
+        updateBoardsOrder(boardId: String!, order: Int!): Board
 
         #Status
         createStatus(statusName: String!, boardId: String!): Status
