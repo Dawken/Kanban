@@ -5,10 +5,10 @@ import AuthProvider from '@src/shared/authProvider'
 const Layout = (Component: ComponentType) => {
     return function view() {
         return (
-            <div className='flex'>
+            <div className='flex h-full'>
                 <SidebarMenu />
                 <AuthProvider>
-                    <div className='overflow-hidden flex-1'>
+                    <div className='flex-1 overflow-hidden'>
                         <Component />
                     </div>
                 </AuthProvider>

@@ -52,7 +52,7 @@ const Board = ({ board, expanded, dragId }: BoardsProps) => {
                                 'w-full h-full text-sm flex justify-start items-center whitespace-nowrap overflow-hidden'
                             }
                         >
-                            <DashboardRoundedIcon className='text-2xl ml-[1.15rem] ' />
+                            <DashboardRoundedIcon className='text-2xl ml-[1.35rem] ' />
                             {expanded && (
                                 <div className='overflow-hidden overflow-ellipsis mx-2'>
                                     {board.boardName}
