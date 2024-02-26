@@ -95,7 +95,7 @@ const Board = () => {
                 isDraggingTask={isDraggingTask}
             >
                 <div className='statusesScrollbar max-sm:h-[85vh] h-5/6 max-sm:mt-3 mt-12 overflow-auto'>
-                    <section className='flex items-start max-sm:flex-col max-sm:items-center gap-5'>
+                    <section className='flex items-start max-sm:flex-col max-sm:ml-2 gap-5'>
                         {loading ? (
                             arrayFrom(
                                 4,
