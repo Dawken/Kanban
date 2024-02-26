@@ -118,7 +118,7 @@ const useDragHandler = (items?: StatusProps[] | BoardProps[] | TaskProps[]) => {
                         ...prevTasks[oldIndex],
                         statusId: updatedTasks[newIndex].statusId,
                         order:
-                            active.data.current?.item.order ??
+                            over.data.current?.item.order ??
                             updatedTasks[newIndex].order,
                     }
 
