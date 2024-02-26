@@ -12,7 +12,7 @@ const Home = () => {
     return (
         <div className='h-full flex justify-center items-center font-sans text-gray-400 boardsVerticalScrollbar my-5 animate__animated animate__fadeIn'>
             <div className='flex items-start max-xl:flex-col min:xl:h-5/6 gap-5 m-5'>
-                <div className='h-full space-y-8 max-lg:text-base'>
+                <div className='h-full space-y-8 max-lg:text-base m-5'>
                     <h1 className='text-5xl max-lg:text-4xl text-center xl:text-start'>
                         Welcome in Kanban Board
                     </h1>
