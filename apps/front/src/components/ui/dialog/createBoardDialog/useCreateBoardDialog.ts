@@ -4,8 +4,11 @@ import { CREATE_BOARD } from '@src/graphQL/boards/mutations'
 import { toast } from 'react-toastify'
 import { GET_BOARDS } from '@src/graphQL/boards/queries'
 import { BoardCredentialsProps } from '@src/types/board/boardCredentialsProps'
+import { useRouter } from 'next/navigation'
 
-const useAddBoard = (handleClose: () => void) => {
+const useCreateBoardDialog = (handleClose: () => void) => {
+    const router = useRouter()
+
     const methods = useForm<BoardCredentialsProps>({
         defaultValues: {
             boardName: 'New Board',
@@ -18,8 +21,9 @@ const useAddBoard = (handleClose: () => void) => {
     })
 
     const [createBoard, { loading, error }] = useMutation(CREATE_BOARD, {
-        onCompleted: () => {
+        onCompleted: (data) => {
             toast.success('New board added')
+            router.push(`/boards/${data.createBoard.id}`)
         },
         onError: () => {
             toast.error('Board creation failed')
@@ -50,4 +54,4 @@ const useAddBoard = (handleClose: () => void) => {
         addBoard,
     }
 }
-export default useAddBoard
+export default useCreateBoardDialog

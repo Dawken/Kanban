@@ -5,6 +5,7 @@ import HomePageImage from '../../public/assets/homePage.png'
 import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded'
 import TaskIcon from '@mui/icons-material/Task'
 import VpnKeyIcon from '@mui/icons-material/VpnKey'
+import AddBoard from '@src/app/addBoard'
 
 const Home = () => {
     return (
@@ -47,6 +48,7 @@ const Home = () => {
                             Check your tasks from any device with your account
                         </p>
                     </ul>
+                    <AddBoard />
                 </div>
                 <div className='flex justify-center items-end w-full lg:flex-1'>
                     <Image
