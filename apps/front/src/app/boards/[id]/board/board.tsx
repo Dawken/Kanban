@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { useRef } from 'react'
 import useBoard from '@src/app/boards/[id]/board/useBoard'
 import Skeleton from '@mui/material/Skeleton'
 import EditIcon from '@mui/icons-material/Edit'
@@ -33,6 +33,7 @@ const Board = () => {
 
     const {
         data,
+        scrollableRef,
         loading,
         statuses,
         setStatuses,
@@ -84,6 +85,7 @@ const Board = () => {
                         />
                     )}
                 </div>
+                <hr className='my-4 border-t border-[#474747] w-full' />
             </div>
             <DntContext
                 handleOnDragEnd={(event) =>
@@ -94,14 +96,17 @@ const Board = () => {
                 onDragOver={(event) => onDragOver(event, setTasks)}
                 isDraggingTask={isDraggingTask}
             >
-                <div className='statusesScrollbar max-sm:h-[85vh] h-5/6 max-sm:mt-3 mt-12 overflow-auto'>
+                <div
+                    className='statusesScrollbar max-sm:h-[85vh] h-5/6 max-sm:mt-3 overflow-auto'
+                    ref={scrollableRef}
+                >
                     <section className='flex items-start max-sm:flex-col max-sm:ml-2 gap-5'>
                         {loading ? (
                             arrayFrom(
                                 4,
                                 <div>
                                     <Skeleton
-                                        height={220}
+                                        height={620}
                                         width={270}
                                         variant='rounded'
                                     />
@@ -109,7 +114,11 @@ const Board = () => {
                             )
                         ) : (
                             <SortableContext items={statusesId}>
-                                <Statuses statuses={statuses} tasks={tasks} />
+                                <Statuses
+                                    statuses={statuses}
+                                    tasks={tasks}
+                                    scrollableRef={scrollableRef}
+                                />
                             </SortableContext>
                         )}
                         {data?.board.id && (
@@ -126,6 +135,7 @@ const Board = () => {
                                 (task) => task.statusId === draggedStatus.id
                             )}
                             statusesLength={statuses.length}
+                            hideCreateTask={true}
                         />
                     )}
                     {draggedTask && <Task task={draggedTask} />}

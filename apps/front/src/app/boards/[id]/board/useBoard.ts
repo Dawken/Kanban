@@ -1,6 +1,6 @@
 import { useParams } from 'next/navigation'
 import { useQuery } from '@apollo/client'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { StatusProps } from '@src/types/status/statusProps'
 import { TaskProps } from '@src/types/task/taskProps'
 import { DragIdProps } from '@src/types/dragIdProps'
@@ -11,6 +11,8 @@ const useBoard = (dragId: DragIdProps) => {
     const params = useParams()
 
     const paramsId = params.id
+
+    const scrollableRef = useRef<HTMLDivElement>(null)
 
     const { data, loading } = useQuery(GET_BOARD, {
         variables: { boardId: paramsId },
@@ -42,6 +44,7 @@ const useBoard = (dragId: DragIdProps) => {
 
     return {
         data,
+        scrollableRef,
         loading,
         statuses,
         setStatuses,

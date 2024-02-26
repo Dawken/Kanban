@@ -13,13 +13,20 @@ import { TaskProps } from '@src/types/task/taskProps'
 import Tasks from '@src/app/boards/[id]/board/statuses/status/tasks/tasks'
 import EditStatus from '@src/app/boards/[id]/board/statuses/status/editStatus'
 import { useDroppable } from '@dnd-kit/core'
+import AddIcon from '@mui/icons-material/Add'
 
 type CustomStatusProps = {
     status: StatusProps
     tasks: TaskProps[]
     statusesLength: number
+    hideCreateTask?: boolean
 }
-const Status = ({ status, tasks, statusesLength }: CustomStatusProps) => {
+const Status = ({
+    status,
+    tasks,
+    statusesLength,
+    hideCreateTask,
+}: CustomStatusProps) => {
     const { anchorEl, handleClick, handleClose, open } = useAnchorEl()
 
     const {
@@ -69,7 +76,7 @@ const Status = ({ status, tasks, statusesLength }: CustomStatusProps) => {
             <div
                 className={`${
                     isDragging ? 'invisible' : 'visible'
-                } touch-none max-sm:w-[60vw] sm:min-w-[276px] sm:max-w-[276px] min-h-[220px] bg-neutral-900 rounded text-gray-400 flex flex-col`}
+                } touch-none max-sm:w-[60vw] sm:min-w-[276px] sm:max-w-[276px] min-h-[220px] bg-neutral-900 rounded text-gray-400 flex flex-col relative`}
                 ref={setNodeRef}
                 style={style}
             >
@@ -77,7 +84,7 @@ const Status = ({ status, tasks, statusesLength }: CustomStatusProps) => {
                 <div
                     {...attributes}
                     {...listeners}
-                    className='w-full h-12 cursor-grab'
+                    className='h-12 cursor-grab sticky top-0 z-10 bg-neutral-900'
                 >
                     <div className='p-3 flex items-center justify-between'>
                         <div className='flex items-center justify-start w-4/5 font-sans'>
@@ -121,7 +128,7 @@ const Status = ({ status, tasks, statusesLength }: CustomStatusProps) => {
                 <div
                     className={`${
                         isDragging ? 'opacity-0' : 'opacity-100'
-                    } mt-2`}
+                    } mt-1`}
                     ref={droppableArea}
                 >
                     <Tasks
@@ -130,6 +137,7 @@ const Status = ({ status, tasks, statusesLength }: CustomStatusProps) => {
                         isCreateTaskOpen={isCreateTaskOpen}
                         handleOpenCreateTask={handleOpenCreateTask}
                         handleCloseCreateTask={handleCloseCreateTask}
+                        hideCreateTask={hideCreateTask}
                     />
                 </div>
             </div>

@@ -3,12 +3,12 @@ import { useMutation } from '@apollo/client'
 import { PUSH_TASK } from '@src/graphQL/tasks/mutations'
 import { GET_BOARD_TASKS } from '@src/graphQL/tasks/queries'
 import { DragStartEvent, useDndMonitor } from '@dnd-kit/core'
-import { useState } from 'react'
+import { RefObject, useState } from 'react'
 import { deepEqual } from 'fast-equals'
 import { UPDATE_STATUS_ORDER } from '@src/graphQL/status/mutations'
 import { GET_BOARD } from '@src/graphQL/boards/queries'
 
-const useStatuses = () => {
+const useStatuses = (scrollableRef: RefObject<HTMLDivElement>) => {
     const params = useParams()
 
     const [pushTask] = useMutation(PUSH_TASK)
@@ -51,9 +51,16 @@ const useStatuses = () => {
 
     const [draggedItem, setDraggedItem] = useState()
 
+    const scrollToTop = () => {
+        scrollableRef.current?.scrollTo({ top: 0 })
+    }
+
     useDndMonitor({
         onDragStart(event: DragStartEvent) {
             setDraggedItem(event.active?.data.current?.item)
+            if (event.active.data.current?.status) {
+                scrollToTop()
+            }
         },
         onDragEnd(event) {
             // Change task order
