@@ -13,7 +13,6 @@ import { TaskProps } from '@src/types/task/taskProps'
 import Tasks from '@src/app/boards/[id]/board/statuses/status/tasks/tasks'
 import EditStatus from '@src/app/boards/[id]/board/statuses/status/editStatus'
 import { useDroppable } from '@dnd-kit/core'
-import AddIcon from '@mui/icons-material/Add'
 
 type CustomStatusProps = {
     status: StatusProps
@@ -76,7 +75,7 @@ const Status = ({
             <div
                 className={`${
                     isDragging ? 'invisible' : 'visible'
-                } touch-none max-sm:w-[60vw] sm:min-w-[276px] sm:max-w-[276px] min-h-[220px] bg-neutral-900 rounded text-gray-400 flex flex-col relative`}
+                } touch-none max-sm:w-[60vw] sm:min-w-[276px] sm:max-w-[276px] flex-1 min-h-[420px] self-stretch bg-neutral-900 rounded text-gray-400 flex flex-col relative`}
                 ref={setNodeRef}
                 style={style}
             >
@@ -128,7 +127,7 @@ const Status = ({
                 <div
                     className={`${
                         isDragging ? 'opacity-0' : 'opacity-100'
-                    } mt-1`}
+                    } mt-1 h-full`}
                     ref={droppableArea}
                 >
                     <Tasks

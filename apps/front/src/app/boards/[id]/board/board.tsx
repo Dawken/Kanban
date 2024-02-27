@@ -1,5 +1,5 @@
 'use client'
-import React, { useRef } from 'react'
+import React from 'react'
 import useBoard from '@src/app/boards/[id]/board/useBoard'
 import Skeleton from '@mui/material/Skeleton'
 import EditIcon from '@mui/icons-material/Edit'
@@ -100,7 +100,7 @@ const Board = () => {
                     className='statusesScrollbar max-sm:h-[85vh] h-5/6 max-sm:mt-3 overflow-auto'
                     ref={scrollableRef}
                 >
-                    <section className='flex items-start max-sm:flex-col max-sm:ml-2 gap-5'>
+                    <section className='flex items-start max-sm:flex-col max-sm:ml-2 gap-6'>
                         {loading ? (
                             arrayFrom(
                                 4,
@@ -126,7 +126,11 @@ const Board = () => {
                         )}
                     </section>
                 </div>
-                <DragOverlay>
+                <DragOverlay
+                    className={
+                        draggedStatus ? 'bg-neutral-900' : 'bg-transparent'
+                    }
+                >
                     {draggedStatus && (
                         <Status
                             key={draggedStatus.id}

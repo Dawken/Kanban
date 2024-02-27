@@ -27,7 +27,7 @@ const Tasks = ({
 
     return (
         <SortableContext items={tasksIds}>
-            <div className='text-sm font-sans'>
+            <div className='text-sm font-sans flex-1'>
                 {tasks.length > 0 ? (
                     <>
                         <div className='flex flex-col gap-1'>
