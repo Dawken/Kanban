@@ -13,7 +13,7 @@ const LoginForm = () => {
     return (
         <FormProvider {...methods}>
             <form
-                className='flex flex-col items-center space-y-8 m-5 mt-10'
+                className='flex flex-col items-center gap-8 m-5 mt-10'
                 onSubmit={login()}
             >
                 <FormInput
