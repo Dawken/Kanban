@@ -9,11 +9,7 @@ const boardResolvers = {
             try {
                 return await prisma.board.findUnique({
                     where: { id: boardId },
-                    include: {
-                        status: {
-                            orderBy: { order: 'asc' },
-                        },
-                    },
+                    include: { status: { orderBy: [{ order: 'asc' }] } },
                 })
             } catch {
                 throw new Error('failed-board-fetch')
@@ -22,15 +18,9 @@ const boardResolvers = {
         boards: checkAuth(async (_parent, _args, req) => {
             try {
                 return await prisma.board.findMany({
-                    where: {
-                        userId: req.user.id,
-                    },
-                    include: {
-                        status: true,
-                    },
-                    orderBy: {
-                        order: 'asc',
-                    },
+                    where: { userId: req.user.id },
+                    include: { status: { orderBy: [{ order: 'asc' }] } },
+                    orderBy: { order: 'asc' },
                 })
             } catch {
                 throw new Error('failed-boards-fetch')
