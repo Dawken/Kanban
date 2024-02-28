@@ -5,6 +5,7 @@
         "target": "es2017",
         "esModuleInterop": true,
         "alwaysStrict": true,
+        "skipLibCheck": true,
         "noImplicitAny": true,
         "useUnknownInCatchVariables": false,
         "experimentalDecorators": true,
