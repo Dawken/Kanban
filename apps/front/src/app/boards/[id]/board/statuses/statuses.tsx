@@ -3,14 +3,21 @@ import useStatuses from '@src/app/boards/[id]/board/statuses/useStatuses'
 import Status from '@src/app/boards/[id]/board/statuses/status/status'
 import { StatusProps } from '@src/types/status/statusProps'
 import { TaskProps } from '@src/types/task/taskProps'
+import { DragIdProps } from '@src/types/dragIdProps'
 
 type StatusesProps = {
     statuses: StatusProps[]
     tasks: TaskProps[]
     scrollableRef: RefObject<HTMLDivElement>
+    dragId: DragIdProps
 }
-const Statuses = ({ statuses, tasks, scrollableRef }: StatusesProps) => {
-    useStatuses(scrollableRef)
+const Statuses = ({
+    statuses,
+    tasks,
+    scrollableRef,
+    dragId,
+}: StatusesProps) => {
+    const { isStatusOrderUpdating } = useStatuses(scrollableRef)
 
     return (
         <>
@@ -23,6 +30,8 @@ const Statuses = ({ statuses, tasks, scrollableRef }: StatusesProps) => {
                                 (task) => task.statusId === status.id
                             )}
                             statusesLength={statuses.length}
+                            isStatusOrderUpdating={isStatusOrderUpdating}
+                            dragId={dragId}
                             key={status.id}
                         />
                     )

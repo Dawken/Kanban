@@ -118,6 +118,7 @@ const Board = () => {
                                     statuses={statuses}
                                     tasks={tasks}
                                     scrollableRef={scrollableRef}
+                                    dragId={dragId}
                                 />
                             </SortableContext>
                         )}
@@ -139,6 +140,7 @@ const Board = () => {
                                 (task) => task.statusId === draggedStatus.id
                             )}
                             statusesLength={statuses.length}
+                            dragId={dragId}
                             hideCreateTask={true}
                         />
                     )}

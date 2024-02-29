@@ -7,13 +7,15 @@ import { RefObject, useState } from 'react'
 import { deepEqual } from 'fast-equals'
 import { UPDATE_STATUS_ORDER } from '@src/graphQL/status/mutations'
 import { GET_BOARD } from '@src/graphQL/boards/queries'
+import { BoardProps } from '@src/types/board/boardProps'
 
 const useStatuses = (scrollableRef: RefObject<HTMLDivElement>) => {
     const params = useParams()
 
     const [pushTask] = useMutation(PUSH_TASK)
 
-    const [updateStatusOrder] = useMutation(UPDATE_STATUS_ORDER)
+    const [updateStatusOrder, { loading: isStatusOrderUpdating }] =
+        useMutation(UPDATE_STATUS_ORDER)
     const pushTaskToStatus = (id: string, statusId: string, order: number) => {
         pushTask({
             variables: {
@@ -38,18 +40,29 @@ const useStatuses = (scrollableRef: RefObject<HTMLDivElement>) => {
                 statusId,
                 order,
             },
-            refetchQueries: [
-                {
+            update: (cache, { data }) => {
+                const { board } = cache.readQuery<{ board: BoardProps }>({
                     query: GET_BOARD,
-                    variables: {
-                        boardId: params.id,
+                    variables: { boardId: params.id },
+                }) || { board: {} }
+
+                if (!board) return
+
+                cache.writeQuery({
+                    query: GET_BOARD,
+                    variables: { boardId: params.id },
+                    data: {
+                        board: {
+                            ...board,
+                            status: data.updateStatusOrder,
+                        },
                     },
-                },
-            ],
+                })
+            },
         })
     }
 
-    const [draggedItem, setDraggedItem] = useState()
+    const [draggedTask, setDraggedTask] = useState()
 
     const scrollToTop = () => {
         scrollableRef.current?.scrollTo({ top: 0 })
@@ -57,7 +70,7 @@ const useStatuses = (scrollableRef: RefObject<HTMLDivElement>) => {
 
     useDndMonitor({
         onDragStart(event: DragStartEvent) {
-            setDraggedItem(event.active?.data.current?.item)
+            setDraggedTask(event.active?.data.current?.item)
             if (event.active.data.current?.status) {
                 scrollToTop()
             }
@@ -66,7 +79,7 @@ const useStatuses = (scrollableRef: RefObject<HTMLDivElement>) => {
             // Change task order
             const task = event.active?.data.current?.item
 
-            if (task && !deepEqual(draggedItem, task)) {
+            if (task && !deepEqual(draggedTask, task)) {
                 const { id, statusId, order } = task
                 pushTaskToStatus(id, statusId, order)
             }
@@ -84,5 +97,8 @@ const useStatuses = (scrollableRef: RefObject<HTMLDivElement>) => {
             }
         },
     })
+    return {
+        isStatusOrderUpdating,
+    }
 }
 export default useStatuses

@@ -13,17 +13,23 @@ import { TaskProps } from '@src/types/task/taskProps'
 import Tasks from '@src/app/boards/[id]/board/statuses/status/tasks/tasks'
 import EditStatus from '@src/app/boards/[id]/board/statuses/status/editStatus'
 import { useDroppable } from '@dnd-kit/core'
+import MuiCircularProgress from '@src/components/ui/animations/muiCircularProgress'
+import { DragIdProps } from '@src/types/dragIdProps'
 
 type CustomStatusProps = {
     status: StatusProps
     tasks: TaskProps[]
     statusesLength: number
+    isStatusOrderUpdating?: boolean
+    dragId: DragIdProps
     hideCreateTask?: boolean
 }
 const Status = ({
     status,
     tasks,
     statusesLength,
+    isStatusOrderUpdating,
+    dragId,
     hideCreateTask,
 }: CustomStatusProps) => {
     const { anchorEl, handleClick, handleClose, open } = useAnchorEl()
@@ -54,7 +60,7 @@ const Status = ({
         data: {
             status,
         },
-        disabled: isEditStatusNameOpen,
+        disabled: isEditStatusNameOpen || isStatusOrderUpdating,
     })
 
     const { setNodeRef: droppableArea } = useDroppable({
@@ -73,9 +79,13 @@ const Status = ({
     return (
         <>
             <div
-                className={`${
-                    isDragging ? 'invisible' : 'visible'
-                } touch-none max-sm:w-[60vw] sm:min-w-[276px] sm:max-w-[276px] flex-1 min-h-[420px] self-stretch bg-neutral-900 rounded text-gray-400 flex flex-col relative`}
+                className={`${isDragging ? 'invisible' : 'visible'} 
+                ${
+                    isStatusOrderUpdating
+                        ? 'pointer-events-none'
+                        : 'pointer-events-auto'
+                }
+                touch-none max-sm:w-[60vw] sm:min-w-[276px] sm:max-w-[276px] flex-1 min-h-[420px] self-stretch bg-neutral-900 rounded text-gray-400 flex flex-col relative`}
                 ref={setNodeRef}
                 style={style}
             >
@@ -87,7 +97,11 @@ const Status = ({
                 >
                     <div className='p-3 flex items-center justify-between'>
                         <div className='flex items-center justify-start w-4/5 font-sans'>
-                            <DragIndicatorIcon className='text-xl' />
+                            {dragId === status.id && isStatusOrderUpdating ? (
+                                <MuiCircularProgress size={20} />
+                            ) : (
+                                <DragIndicatorIcon className='text-xl' />
+                            )}
                             <div className='w-11/12 ml-2 font-bold text-xs'>
                                 {isEditStatusNameOpen ? (
                                     <ClickAwayListener
