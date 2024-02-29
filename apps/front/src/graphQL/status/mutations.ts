@@ -27,6 +27,9 @@ const UPDATE_STATUS_NAME = gql`
 const UPDATE_STATUS_ORDER = gql`
     mutation UpdateStatusOrder($statusId: String!, $order: Int!) {
         updateStatusOrder(statusId: $statusId, order: $order) {
+            statusName
+            boardId
+            order
             id
         }
     }

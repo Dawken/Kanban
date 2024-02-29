@@ -70,7 +70,7 @@ const typeDefs = gql`
         createStatus(statusName: String!, boardId: String!): Status
         updateStatusName(statusId: String!, statusName: String!): Status
         deleteStatus(statusId: String!): Status
-        updateStatusOrder(statusId: String!, order: Int!): Status
+        updateStatusOrder(statusId: String!, order: Int!): [Status]
 
         #Task
         createTask(

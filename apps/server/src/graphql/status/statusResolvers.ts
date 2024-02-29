@@ -112,7 +112,13 @@ const statusResolvers = {
                             },
                         })
 
-                        return status
+                        const updatedStatusList =
+                            await transaction.status.findMany({
+                                where: { boardId: oldStatus.boardId },
+                                orderBy: [{ order: 'asc' }],
+                            })
+
+                        return updatedStatusList
                     }
                 })
                 .catch(() => {
