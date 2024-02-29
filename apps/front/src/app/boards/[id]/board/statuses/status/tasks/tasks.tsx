@@ -62,9 +62,9 @@ const Tasks = ({
                             </div>
                         ) : (
                             <div
-                                className={`bg-neutral-900 ${
+                                className={`bg-inherit hover:bg-neutral-900 ${
                                     !hideCreateTask && 'sticky bottom-0'
-                                } font-sans text-sm`}
+                                } font-sans text-sm z-30`}
                             >
                                 <div
                                     className='flex justify-start items-center p-2 cursor-pointer opacity-0 hover:opacity-100 transition-all'

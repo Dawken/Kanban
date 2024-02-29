@@ -90,6 +90,11 @@ const Status = ({
                         ? 'pointer-events-none'
                         : 'pointer-events-auto'
                 }
+                ${
+                    dragId === status.id && isStatusOrderUpdating
+                        ? 'animate-pulse'
+                        : 'animate-none'
+                }
                 touch-none max-sm:w-[60vw] sm:min-w-[276px] sm:max-w-[276px] flex-1 min-h-[420px] self-stretch bg-neutral-900 rounded text-gray-400 flex flex-col relative`}
                 ref={setNodeRef}
                 style={style}
