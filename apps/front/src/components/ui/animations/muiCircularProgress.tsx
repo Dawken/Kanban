@@ -1,10 +1,10 @@
 import React from 'react'
 import { CircularProgress } from '@mui/material'
 
-const MuiCircularProgress = () => {
+const MuiCircularProgress = ({ size }: { size: number }) => {
     return (
         <div className='flex items-center'>
-            <CircularProgress size={24} className='text-white' />
+            <CircularProgress size={size} className='text-blue-400' />
         </div>
     )
 }

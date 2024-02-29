@@ -49,7 +49,7 @@ const EditBoard = ({ board, open, handleClose }: EditBoardProps) => {
                             fullWidth
                         />
                         {isBoardNameUpdating ? (
-                            <MuiCircularProgress />
+                            <MuiCircularProgress size={24} />
                         ) : (
                             <DoneIcon
                                 className='cursor-pointer text-2xl'
