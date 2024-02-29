@@ -123,58 +123,67 @@ const taskResolvers = {
                 throw new Error('failed-task-delete')
             }
         }),
-        pushTask: checkAuth(async (_parent, { taskId, newStatusId, order }) => {
-            try {
-                const oldTaskStatus = await prisma.task.findUnique({
-                    where: { id: taskId },
-                })
-
-                const task = await prisma.task.update({
-                    where: { id: taskId },
-                    data: {
-                        statusId: newStatusId,
-                        order,
-                    },
-                    include: {
-                        status: true,
-                    },
-                })
-
-                if (!task) {
-                    throw new Error('task-not-found')
-                } else {
-                    await prisma.task.updateMany({
-                        where: {
-                            statusId: oldTaskStatus.statusId,
-                            order: { gt: oldTaskStatus.order },
-                            id: { not: taskId },
-                        },
-                        data: {
-                            order: {
-                                decrement: 1,
-                            },
-                        },
+        pushTask: checkAuth(
+            async (_parent, { taskId, newStatusId, order, boardId }) => {
+                try {
+                    const oldTaskStatus = await prisma.task.findUnique({
+                        where: { id: taskId },
                     })
 
-                    await prisma.task.updateMany({
-                        where: {
+                    const task = await prisma.task.update({
+                        where: { id: taskId },
+                        data: {
                             statusId: newStatusId,
-                            order: { gte: order },
-                            id: { not: taskId },
+                            order,
                         },
-                        data: {
-                            order: {
-                                increment: 1,
-                            },
+                        include: {
+                            status: true,
                         },
                     })
 
-                    return task
+                    if (!task) {
+                        throw new Error('task-not-found')
+                    } else {
+                        await prisma.task.updateMany({
+                            where: {
+                                statusId: oldTaskStatus.statusId,
+                                order: { gt: oldTaskStatus.order },
+                                id: { not: taskId },
+                            },
+                            data: {
+                                order: {
+                                    decrement: 1,
+                                },
+                            },
+                        })
+
+                        await prisma.task.updateMany({
+                            where: {
+                                statusId: newStatusId,
+                                order: { gte: order },
+                                id: { not: taskId },
+                            },
+                            data: {
+                                order: {
+                                    increment: 1,
+                                },
+                            },
+                        })
+
+                        return await prisma.task.findMany({
+                            where: {
+                                status: {
+                                    boardId,
+                                },
+                            },
+                            orderBy: [{ statusId: 'asc' }, { order: 'asc' }],
+                        })
+                    }
+                } catch {
+                    throw new Error('failed-task-push')
                 }
-            } catch {
-                throw new Error('failed-task-push')
             }
-        }),
+        ),
     },
 }
 export default taskResolvers

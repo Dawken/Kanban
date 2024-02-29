@@ -1,13 +1,13 @@
 import { useParams } from 'next/navigation'
 import { useMutation } from '@apollo/client'
 import { PUSH_TASK } from '@src/graphQL/tasks/mutations'
-import { GET_BOARD_TASKS } from '@src/graphQL/tasks/queries'
 import { DragStartEvent, useDndMonitor } from '@dnd-kit/core'
 import { RefObject, useState } from 'react'
 import { deepEqual } from 'fast-equals'
 import { UPDATE_STATUS_ORDER } from '@src/graphQL/status/mutations'
 import { GET_BOARD } from '@src/graphQL/boards/queries'
 import { BoardProps } from '@src/types/board/boardProps'
+import { GET_BOARD_TASKS } from '@src/graphQL/tasks/queries'
 
 const useStatuses = (scrollableRef: RefObject<HTMLDivElement>) => {
     const params = useParams()
@@ -22,15 +22,17 @@ const useStatuses = (scrollableRef: RefObject<HTMLDivElement>) => {
                 taskId: id,
                 newStatusId: statusId,
                 order,
+                boardId: params.id,
             },
-            refetchQueries: [
-                {
+            update: (cache, { data }) => {
+                cache.writeQuery({
                     query: GET_BOARD_TASKS,
-                    variables: {
-                        boardId: params.id,
+                    variables: { boardId: params.id },
+                    data: {
+                        tasks: data.pushTask,
                     },
-                },
-            ],
+                })
+            },
         })
     }
 

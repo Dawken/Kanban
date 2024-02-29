@@ -1,9 +1,22 @@
 import { gql } from '@apollo/client'
 
 const PUSH_TASK = gql`
-    mutation PushTask($taskId: String!, $newStatusId: String!, $order: Int!) {
-        pushTask(taskId: $taskId, newStatusId: $newStatusId, order: $order) {
+    mutation PushTask(
+        $taskId: String!
+        $newStatusId: String!
+        $order: Int!
+        $boardId: String!
+    ) {
+        pushTask(
+            taskId: $taskId
+            newStatusId: $newStatusId
+            order: $order
+            boardId: $boardId
+        ) {
             id
+            taskName
+            statusId
+            order
         }
     }
 `
