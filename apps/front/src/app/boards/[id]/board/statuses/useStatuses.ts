@@ -12,7 +12,7 @@ import { GET_BOARD_TASKS } from '@src/graphQL/tasks/queries'
 const useStatuses = (scrollableRef: RefObject<HTMLDivElement>) => {
     const params = useParams()
 
-    const [pushTask] = useMutation(PUSH_TASK)
+    const [pushTask, { loading: isTaskOrderUpdating }] = useMutation(PUSH_TASK)
 
     const [updateStatusOrder, { loading: isStatusOrderUpdating }] =
         useMutation(UPDATE_STATUS_ORDER)
@@ -101,6 +101,7 @@ const useStatuses = (scrollableRef: RefObject<HTMLDivElement>) => {
     })
     return {
         isStatusOrderUpdating,
+        isTaskOrderUpdating,
     }
 }
 export default useStatuses

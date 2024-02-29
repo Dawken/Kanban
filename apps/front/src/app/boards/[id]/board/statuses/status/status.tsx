@@ -21,6 +21,7 @@ type CustomStatusProps = {
     tasks: TaskProps[]
     statusesLength: number
     isStatusOrderUpdating?: boolean
+    isTaskOrderUpdating?: boolean
     dragId: DragIdProps
     hideCreateTask?: boolean
 }
@@ -29,6 +30,7 @@ const Status = ({
     tasks,
     statusesLength,
     isStatusOrderUpdating,
+    isTaskOrderUpdating,
     dragId,
     hideCreateTask,
 }: CustomStatusProps) => {
@@ -60,7 +62,10 @@ const Status = ({
         data: {
             status,
         },
-        disabled: isEditStatusNameOpen || isStatusOrderUpdating,
+        disabled:
+            isEditStatusNameOpen ||
+            isStatusOrderUpdating ||
+            isTaskOrderUpdating,
     })
 
     const { setNodeRef: droppableArea } = useDroppable({
@@ -81,7 +86,7 @@ const Status = ({
             <div
                 className={`${isDragging ? 'invisible' : 'visible'} 
                 ${
-                    isStatusOrderUpdating
+                    isStatusOrderUpdating || isTaskOrderUpdating
                         ? 'pointer-events-none'
                         : 'pointer-events-auto'
                 }
@@ -148,9 +153,11 @@ const Status = ({
                         tasks={tasks}
                         status={status}
                         isCreateTaskOpen={isCreateTaskOpen}
+                        isTaskOrderUpdating={isTaskOrderUpdating}
                         handleOpenCreateTask={handleOpenCreateTask}
                         handleCloseCreateTask={handleCloseCreateTask}
                         hideCreateTask={hideCreateTask}
+                        dragId={dragId}
                     />
                 </div>
             </div>

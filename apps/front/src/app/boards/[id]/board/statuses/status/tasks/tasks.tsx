@@ -6,22 +6,27 @@ import AddTaskTextField from '@src/app/boards/[id]/board/statuses/status/tasks/a
 import useTasks from '@src/app/boards/[id]/board/statuses/status/tasks/useTasks'
 import Task from '@src/app/boards/[id]/board/statuses/status/tasks/task/task'
 import { StatusProps } from '@src/types/status/statusProps'
+import { DragIdProps } from '@src/types/dragIdProps'
 
 type TasksProps = {
     tasks: TaskProps[]
     status: StatusProps
     isCreateTaskOpen: boolean
+    isTaskOrderUpdating?: boolean
     handleOpenCreateTask: () => void
     handleCloseCreateTask: () => void
     hideCreateTask?: boolean
+    dragId: DragIdProps
 }
 const Tasks = ({
     tasks,
     status,
     isCreateTaskOpen,
+    isTaskOrderUpdating,
     handleOpenCreateTask,
     handleCloseCreateTask,
     hideCreateTask,
+    dragId,
 }: TasksProps) => {
     const { tasksIds, isTaskCreating, addNewTask } = useTasks(tasks)
 
@@ -32,7 +37,16 @@ const Tasks = ({
                     <>
                         <div className='flex flex-col gap-1'>
                             {tasks.map((task) => {
-                                return <Task task={task} key={task.id} />
+                                return (
+                                    <Task
+                                        task={task}
+                                        isTaskOrderUpdating={
+                                            isTaskOrderUpdating
+                                        }
+                                        dragId={dragId}
+                                        key={task.id}
+                                    />
+                                )
                             })}
                         </div>
                         {isCreateTaskOpen ? (

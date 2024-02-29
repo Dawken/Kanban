@@ -10,12 +10,15 @@ import CopyToClipboard from '@src/components/ui/copyToClipboard'
 import useUpdateTaskName from '@src/hooks/task/useUpdateTaskName'
 import TaskDetails from '@src/app/boards/[id]/board/statuses/status/tasks/task/taskDetails/taskDetails'
 import EditTask from '@src/app/boards/[id]/board/statuses/status/tasks/task/editTask'
+import { DragIdProps } from '@src/types/dragIdProps'
 
 type TasksProps = {
     task: TaskProps
+    isTaskOrderUpdating?: boolean
+    dragId?: DragIdProps
 }
 
-const Task = ({ task }: TasksProps) => {
+const Task = ({ task, isTaskOrderUpdating, dragId }: TasksProps) => {
     const {
         open: isEditTaskOpen,
         handleOpen: handleOpenEditTask,
@@ -43,7 +46,11 @@ const Task = ({ task }: TasksProps) => {
                 disabled={isEditTaskOpen}
             >
                 <div
-                    className='bg-black min-h-[95px] rounded mx-1 text-white font-sans relative cursor-pointer'
+                    className={`bg-black ${
+                        isTaskOrderUpdating && dragId === task.id
+                            ? 'animate-pulse'
+                            : 'animate-none'
+                    } min-h-[95px] rounded mx-1 text-white font-sans relative cursor-pointer`}
                     onClick={handleOpenTaskDetails}
                 >
                     <div className='h-full flex justify-between p-2'>

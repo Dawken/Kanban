@@ -17,7 +17,8 @@ const Statuses = ({
     scrollableRef,
     dragId,
 }: StatusesProps) => {
-    const { isStatusOrderUpdating } = useStatuses(scrollableRef)
+    const { isStatusOrderUpdating, isTaskOrderUpdating } =
+        useStatuses(scrollableRef)
 
     return (
         <>
@@ -31,6 +32,7 @@ const Statuses = ({
                             )}
                             statusesLength={statuses.length}
                             isStatusOrderUpdating={isStatusOrderUpdating}
+                            isTaskOrderUpdating={isTaskOrderUpdating}
                             dragId={dragId}
                             key={status.id}
                         />
