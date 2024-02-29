@@ -79,10 +79,10 @@ const useStatuses = (scrollableRef: RefObject<HTMLDivElement>) => {
         },
         onDragEnd(event) {
             // Change task order
-            const task = event.active?.data.current?.item
+            const overTask = event.over?.data.current?.item
 
-            if (task && !deepEqual(draggedTask, task)) {
-                const { id, statusId, order } = task
+            if (overTask && !deepEqual(overTask, draggedTask)) {
+                const { id, statusId, order } = overTask
                 pushTaskToStatus(id, statusId, order)
             }
 
