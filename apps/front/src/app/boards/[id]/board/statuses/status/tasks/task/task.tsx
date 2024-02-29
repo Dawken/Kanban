@@ -11,6 +11,7 @@ import useUpdateTaskName from '@src/hooks/task/useUpdateTaskName'
 import TaskDetails from '@src/app/boards/[id]/board/statuses/status/tasks/task/taskDetails/taskDetails'
 import EditTask from '@src/app/boards/[id]/board/statuses/status/tasks/task/editTask'
 import { DragIdProps } from '@src/types/dragIdProps'
+import MuiCircularProgress from '@src/components/ui/animations/muiCircularProgress'
 
 type TasksProps = {
     task: TaskProps
@@ -91,12 +92,20 @@ const Task = ({ task, isTaskOrderUpdating, dragId }: TasksProps) => {
                             >
                                 <MoreHorizIcon className='text-gray-400' />
                             </IconButton>
-                            <div onClick={(event) => event.stopPropagation()}>
-                                <CopyToClipboard
-                                    text={task.taskName}
-                                    placement='bottom'
-                                />
-                            </div>
+                            {isTaskOrderUpdating && dragId === task.id ? (
+                                <div className='w-8 h-9 flex items-center justify-center'>
+                                    <MuiCircularProgress size={18} />
+                                </div>
+                            ) : (
+                                <div
+                                    onClick={(event) => event.stopPropagation()}
+                                >
+                                    <CopyToClipboard
+                                        text={task.taskName}
+                                        placement='bottom'
+                                    />
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>

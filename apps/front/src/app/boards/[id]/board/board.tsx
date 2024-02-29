@@ -107,7 +107,7 @@ const Board = () => {
                                 <div>
                                     <Skeleton
                                         height={620}
-                                        width={270}
+                                        width={276}
                                         variant='rounded'
                                     />
                                 </div>
