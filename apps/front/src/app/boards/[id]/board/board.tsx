@@ -46,7 +46,7 @@ const Board = () => {
     return (
         <div className='sm:mx-10 h-full m-2'>
             <div className='max-sm:flex justify-center'>
-                <div className='sm:w-4/5 max-sm:w-[250px] text-center text-gray-200 mt-10 text-xl font-bold md:w-[40vw]'>
+                <div className='sm:w-4/5 max-sm:w-[250px] text-center text-gray-200 mt-10 max-sm:mt-2 text-xl font-bold md:w-[40vw]'>
                     {loading ? (
                         <div className='flex items-center gap-3'>
                             <Skeleton
@@ -97,7 +97,7 @@ const Board = () => {
                 isDraggingTask={isDraggingTask}
             >
                 <div
-                    className='statusesScrollbar max-sm:h-[85vh] h-5/6 overflow-auto'
+                    className='statusesScrollbar max-sm:h-5/6 h-5/6 overflow-auto'
                     ref={scrollableRef}
                 >
                     <section className='flex items-start max-sm:flex-col gap-6'>
