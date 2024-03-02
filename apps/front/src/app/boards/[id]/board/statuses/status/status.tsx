@@ -13,7 +13,6 @@ import { TaskProps } from '@src/types/task/taskProps'
 import Tasks from '@src/app/boards/[id]/board/statuses/status/tasks/tasks'
 import EditStatus from '@src/app/boards/[id]/board/statuses/status/editStatus'
 import { useDroppable } from '@dnd-kit/core'
-import MuiCircularProgress from '@src/components/ui/animations/muiCircularProgress'
 import { DragIdProps } from '@src/types/dragIdProps'
 
 type CustomStatusProps = {
@@ -107,11 +106,7 @@ const Status = ({
                 >
                     <div className='p-3 flex items-center justify-between'>
                         <div className='flex items-center justify-start w-4/5 font-sans'>
-                            {dragId === status.id && isStatusOrderUpdating ? (
-                                <MuiCircularProgress size={20} />
-                            ) : (
-                                <DragIndicatorIcon className='text-xl' />
-                            )}
+                            <DragIndicatorIcon className='text-xl' />
                             <div className='w-11/12 ml-2 font-bold text-xs'>
                                 {isEditStatusNameOpen ? (
                                     <ClickAwayListener
