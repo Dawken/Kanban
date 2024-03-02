@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 const RootLayout = ({ children }: { children: ReactNode }) => {
     return (
         <html lang='en'>
-            <body className='bg-black w-screen h-screen font-raleway overflow-x-hidden overflow-y-hidden'>
+            <body className='bg-black w-screen h-[100dvh] font-raleway overflow-x-hidden overflow-y-hidden'>
                 <NextTopLoader color={'#00ff82'} showSpinner={false} />
                 <ClientProvider>{children}</ClientProvider>
             </body>
