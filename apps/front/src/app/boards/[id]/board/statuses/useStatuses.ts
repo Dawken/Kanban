@@ -73,7 +73,7 @@ const useStatuses = (scrollableRef: RefObject<HTMLDivElement>) => {
     useDndMonitor({
         onDragStart(event: DragStartEvent) {
             setDraggedTask(event.active?.data.current?.item)
-            if (event.active.data.current?.status) {
+            if (event.active.data.current?.status && window.innerWidth > 640) {
                 scrollToTop()
             }
         },
