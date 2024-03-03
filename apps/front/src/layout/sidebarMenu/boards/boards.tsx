@@ -29,7 +29,7 @@ const Boards = ({ expanded }: ExpandedProps) => {
     const { handleOpen, open, handleClose } = useToggleOpen()
 
     return (
-        <div className='flex flex-col items-center mx-2 flex-1'>
+        <div className='flex flex-col items-center mx-2 h-4/5'>
             <div className='w-full h-12 px-1'>
                 <ToolTip name={'Add new board'}>
                     <button
@@ -49,7 +49,7 @@ const Boards = ({ expanded }: ExpandedProps) => {
             <div
                 className={`${
                     expanded ? 'text-left' : 'text-center'
-                } my-5 px-2 font-bold w-full whitespace-nowrap overflow-hidden`}
+                } py-5 px-2 font-bold w-full whitespace-nowrap overflow-hidden`}
             >
                 {loading ? (
                     <Skeleton

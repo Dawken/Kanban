@@ -12,7 +12,7 @@ const LogoSection = ({ expanded }: ExpandedProps) => {
     const { toggleExpanded } = useLogoSection(expanded)
 
     return (
-        <>
+        <div className='w-full h-[10%] flex place-content-around items-center gap-32'>
             {expanded ? (
                 <>
                     <div className='lg:flex justify-center items-start w-16'>
@@ -39,7 +39,7 @@ const LogoSection = ({ expanded }: ExpandedProps) => {
                     onClick={() => toggleExpanded()}
                 />
             )}
-        </>
+        </div>
     )
 }
 

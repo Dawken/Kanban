@@ -11,7 +11,10 @@ const Logout = ({ expanded }: ExpandedProps) => {
 
     return (
         <ToolTip name={'Logout'}>
-            <button className='w-full px-4 mb-5' onClick={() => logoutUser()}>
+            <button
+                className='w-full h-[10%] px-4'
+                onClick={() => logoutUser()}
+            >
                 <div
                     className={`w-full h-12 bg-zinc-900 rounded-md gap-2 flex ${
                         loading ? 'justify-center' : 'justify-start'
