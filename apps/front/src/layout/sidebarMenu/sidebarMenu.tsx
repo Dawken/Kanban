@@ -15,7 +15,7 @@ const SidebarMenu = () => {
         >
             <div
                 className={`flex-1 ${
-                    expanded ? 'max-lg:w-11/12' : 'w-full'
+                    expanded ? 'max-lg:pr-5' : 'w-full'
                 } h-full flex flex-col justify-between`}
             >
                 <LogoSection expanded={expanded} />
