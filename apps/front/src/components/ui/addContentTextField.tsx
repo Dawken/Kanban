@@ -4,6 +4,7 @@ import DoneIcon from '@mui/icons-material/Done'
 import CloseIcon from '@mui/icons-material/Close'
 import useTextState from '@src/hooks/useTextState'
 import ToolTip from '@src/components/ui/toolTip'
+import { twJoin } from 'tailwind-merge'
 
 type AddContentTextFieldProps = {
     closeNewStatus: () => void
@@ -77,11 +78,15 @@ const AddContentTextField = ({
                             event.preventDefault()
                         }
                     }}
-                    className={`w-full h-full border-2 border-transparent ${
-                        isTextEmpty ? 'border-red-600' : 'focus:border-blue-600'
-                    } p-1.5 rounded outline-none bg-black ${
-                        isSingleRow && 'whitespace-nowrap'
-                    } transition-colors duration-500 ease-in-out overflow-x-hidden resize-none`}
+                    className={twJoin(
+                        `w-full h-full border-2 border-transparent ${
+                            isTextEmpty
+                                ? 'border-red-600'
+                                : 'focus:border-blue-600'
+                        } p-1.5 rounded outline-none bg-black ${
+                            isSingleRow && 'whitespace-nowrap'
+                        } transition-colors duration-500 ease-in-out overflow-x-hidden resize-none`
+                    )}
                 />
             </ToolTip>
             <div className='absolute z-50 right-0 ml-auto h-12 flex justify-center items-center gap-2 rounded'>
