@@ -6,11 +6,10 @@ import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded'
 import TaskIcon from '@mui/icons-material/Task'
 import VpnKeyIcon from '@mui/icons-material/VpnKey'
 import CreateBoardButton from '@src/app/home/createBoardButton'
-import 'animate.css'
 
 const Home = () => {
     return (
-        <div className='h-full xl:flex justify-center items-center font-sans text-gray-400 boardsVerticalScrollbar animate__animated animate__fadeIn'>
+        <div className='h-full xl:flex justify-center items-center font-sans text-gray-400 boardsVerticalScrollbar animate-showUp'>
             <div className='flex justify-center items-center max-xl:flex-col xl:h-5/6 gap-5 m-5'>
                 <div className='space-y-8 max-lg:text-base flex flex-col items-center'>
                     <h1 className='text-5xl max-lg:text-4xl text-center xl:text-start'>
