@@ -20,13 +20,13 @@ const DeleteContentDialog = ({
 }: DeleteContentDialogProps) => {
     return (
         <Dialog onClose={handleClose} open={open}>
-            <div className='my-5 mx-10 font-bold space-y-5'>
+            <div className='my-6 mx-12 font-bold space-y-5'>
                 <div className='text-center'>
                     Are you sure you want to delete{' '}
                     {textContent.removedContentName}?
                 </div>
                 <div className='text-[#ADADB8] text-sm space-y-2'>
-                    <hr className='my-4 border-t border-[#474747] w-96' />
+                    <hr className='my-4 border-t border-[#474747] w-full' />
                     <p>The removal is associated with:</p>
                     <ul className='list-disc list-inside'>
                         {textContent.effectsOfDeletion.map((effect, index) => {
