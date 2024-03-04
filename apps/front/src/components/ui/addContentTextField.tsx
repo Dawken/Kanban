@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { CircularProgress, TextareaAutosize } from '@mui/material'
+import { CircularProgress, TextareaAutosize, Tooltip } from '@mui/material'
 import DoneIcon from '@mui/icons-material/Done'
 import CloseIcon from '@mui/icons-material/Close'
 import useTextState from '@src/hooks/useTextState'
@@ -51,8 +51,8 @@ const AddContentTextField = ({
 
     return (
         <div className='relative'>
-            <ToolTip
-                name={isTextEmpty ? 'Text cannot be empty' : ''}
+            <Tooltip
+                title={isTextEmpty ? 'Text cannot be empty' : ''}
                 placement={'bottom-start'}
                 open={true}
             >
@@ -89,7 +89,7 @@ const AddContentTextField = ({
                         }`
                     )}
                 />
-            </ToolTip>
+            </Tooltip>
             <div className='absolute z-50 right-0 ml-auto h-12 flex justify-center items-center gap-2 rounded'>
                 <button
                     className={`${

@@ -5,15 +5,13 @@ type ToolTipProps = {
     name: string
     children: ReactElement
     placement?: 'top' | 'bottom' | 'bottom-start'
-    open?: boolean
 }
-const ToolTip = ({ name, children, placement, open }: ToolTipProps) => {
+const ToolTip = ({ name, children, placement }: ToolTipProps) => {
     return (
         <Tooltip
             TransitionComponent={Zoom}
             title={name}
             placement={placement ?? 'right'}
-            open={open ?? false}
         >
             {children}
         </Tooltip>
