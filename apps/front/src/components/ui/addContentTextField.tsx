@@ -75,7 +75,9 @@ const AddContentTextField = ({
                         }
                     }}
                     className={`w-full h-full border-2 border-transparent ${
-                        isTextEmpty ? 'border-red-600' : 'focus:border-blue-600'
+                        isTextEmpty
+                            ? 'focus:border-red-600'
+                            : 'focus:border-blue-600'
                     } p-1.5 rounded outline-none bg-black ${
                         isSingleRow && 'whitespace-nowrap'
                     } transition-colors duration-500 ease-in-out overflow-x-hidden resize-none`}
