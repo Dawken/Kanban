@@ -29,14 +29,14 @@ const Boards = ({ expanded }: ExpandedProps) => {
     const { handleOpen, open, handleClose } = useToggleOpen()
 
     return (
-        <div className='flex flex-col items-center mx-2 h-4/5'>
-            <div className='w-full h-12 px-1'>
+        <div className='flex flex-col items-center mx-2 h-3/4'>
+            <div className='w-full h-12 px-2'>
                 <ToolTip name={'Add new board'}>
                     <button
                         className='w-full h-12 bg-zinc-900 rounded-md whitespace-nowrap overflow-hidden flex justify-center items-center font-bold hover:bg-gradient-to-br from-[#00dffc] to-[#00ff82] hover:text-black'
                         onClick={handleOpen}
                     >
-                        <AddIcon />
+                        <AddIcon className='text-xl' />
                         {expanded && (
                             <span className='overflow-ellipsis'>
                                 Add new Board
@@ -49,7 +49,7 @@ const Boards = ({ expanded }: ExpandedProps) => {
             <div
                 className={`${
                     expanded ? 'text-left' : 'text-center'
-                } py-5 px-2 font-bold w-full whitespace-nowrap overflow-hidden`}
+                } py-5 px-3 font-bold w-full whitespace-nowrap overflow-hidden`}
             >
                 {loading ? (
                     <Skeleton

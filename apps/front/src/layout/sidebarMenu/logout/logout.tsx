@@ -24,7 +24,7 @@ const Logout = ({ expanded }: ExpandedProps) => {
                         <CircularProgress size={25} />
                     ) : (
                         <>
-                            <LogoutIcon className='ml-5' />
+                            <LogoutIcon className='ml-5 text-xl' />
                             {expanded && (
                                 <span className='overflow-ellipsis'>
                                     Logout

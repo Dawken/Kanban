@@ -12,9 +12,9 @@ const LogoSection = ({ expanded }: ExpandedProps) => {
     const { toggleExpanded } = useLogoSection(expanded)
 
     return (
-        <div className='w-full h-[10%] flex place-content-around items-center gap-32'>
+        <div className='w-full h-[10%] flex items-center justify-center'>
             {expanded ? (
-                <>
+                <div className='flex place-content-around items-center gap-32'>
                     <div className='lg:flex justify-center items-start w-16'>
                         <Link href={'/'}>
                             <Image
@@ -31,7 +31,7 @@ const LogoSection = ({ expanded }: ExpandedProps) => {
                         className='cursor-pointer'
                         onClick={() => toggleExpanded()}
                     />
-                </>
+                </div>
             ) : (
                 <MenuIcon
                     fontSize='large'

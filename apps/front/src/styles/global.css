@@ -5,11 +5,11 @@
 
 .boardsVerticalScrollbar {
     overflow-y: scroll;
-    padding-left: 5px;
+    padding-left: 4px;
 }
 
 .boardsVerticalScrollbar::-webkit-scrollbar {
-    width: 5px;
+    width: 4px;
 }
 
 .boardsVerticalScrollbar:hover {

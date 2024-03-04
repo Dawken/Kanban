@@ -49,10 +49,10 @@ const Board = ({ board, expanded, dragId }: BoardsProps) => {
                         <Link
                             href={`/boards/${board.id}`}
                             className={
-                                'w-full h-full text-sm flex justify-start items-center whitespace-nowrap overflow-hidden'
+                                'w-full h-full flex justify-start items-center whitespace-nowrap overflow-hidden'
                             }
                         >
-                            <DashboardRoundedIcon className='text-2xl ml-[1.35rem] ' />
+                            <DashboardRoundedIcon className='text-xl ml-5 ' />
                             {expanded && (
                                 <div className='overflow-hidden overflow-ellipsis mx-2'>
                                     {board.boardName}
