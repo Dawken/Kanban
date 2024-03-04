@@ -10,9 +10,6 @@ const useTasks = (tasks: TaskProps[]) => {
     const params = useParams()
 
     const [createTask, { loading: isTaskCreating }] = useMutation(CREATE_TASK, {
-        onCompleted: () => {
-            toast.success('Task created')
-        },
         onError: () => {
             toast.error('Task creation failed')
         },

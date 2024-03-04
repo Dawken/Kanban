@@ -6,9 +6,6 @@ const useUpdateStatusName = () => {
     const [updateStatusName, { loading: isStatusNameUpdating }] = useMutation(
         UPDATE_STATUS_NAME,
         {
-            onCompleted: () => {
-                toast.success('Status name updated')
-            },
             onError: () => {
                 toast.error('Status name update failed')
             },
@@ -16,16 +13,12 @@ const useUpdateStatusName = () => {
     )
 
     const editStatusName = (statusName: string, statusId: string) => {
-        if (statusName.length < 1) {
-            return toast.error('Status name cannot be empty')
-        } else {
-            updateStatusName({
-                variables: {
-                    statusName,
-                    statusId,
-                },
-            })
-        }
+        updateStatusName({
+            variables: {
+                statusName,
+                statusId,
+            },
+        })
     }
 
     return { isStatusNameUpdating, editStatusName }

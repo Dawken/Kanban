@@ -10,9 +10,6 @@ const useUpdateTaskName = () => {
     const [updateTaskName, { loading: isTaskNameUpdating }] = useMutation(
         UPDATE_TASK_NAME,
         {
-            onCompleted: () => {
-                toast.success('Task name updated')
-            },
             onError: () => {
                 toast.error('Task name update failed')
             },
