@@ -67,23 +67,24 @@ const AddContentTextField = ({
                         }
                     }}
                     onKeyDown={(event) => {
-                        if (event.key === 'Enter') {
+                        if (['Enter', 'NumpadEnter'].includes(event.key)) {
                             addContent()
                         }
-                        if (event.key === 'Enter' && text.trim() === '') {
+                        if (
+                            ['Enter', 'NumpadEnter'].includes(event.key) &&
+                            text.trim() === ''
+                        ) {
                             event.preventDefault()
                         }
                     }}
                     className={`w-full h-full border-2 border-transparent ${
-                        isTextEmpty
-                            ? 'focus:border-red-600'
-                            : 'focus:border-blue-600'
+                        isTextEmpty ? 'border-red-600' : 'focus:border-blue-600'
                     } p-1.5 rounded outline-none bg-black ${
                         isSingleRow && 'whitespace-nowrap'
                     } transition-colors duration-500 ease-in-out overflow-x-hidden resize-none`}
                 />
             </ToolTip>
-            <div className='absolute z-10 right-0 ml-auto h-12 flex justify-center items-center gap-2 rounded'>
+            <div className='absolute z-50 right-0 ml-auto h-12 flex justify-center items-center gap-2 rounded'>
                 <button
                     className={`${
                         isTextEmpty
