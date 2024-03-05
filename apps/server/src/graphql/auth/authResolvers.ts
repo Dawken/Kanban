@@ -47,7 +47,9 @@ const authResolvers = {
                 } else if (bcrypt.compareSync(password, user.password)) {
                     const token = generateAccessToken(user)
                     const refreshToken = generateRefreshToken(user)
-                    const expiresAuthToken = new Date(Date.now() + 3600 * 1000) // 1 hour
+                    const expiresAuthToken = new Date(
+                        Date.now() + 3600 * 1000 * 24
+                    ) // 1 day
                     const expiresRefreshToken = new Date(
                         Date.now() + 3600 * 1000 * 24 * 7 // 7 days
                     )
@@ -98,7 +100,9 @@ const authResolvers = {
                 try {
                     const token = generateAccessToken(user)
                     const refreshToken = generateRefreshToken(user)
-                    const expiresAuthToken = new Date(Date.now() + 3600 * 1000) // 1 hour
+                    const expiresAuthToken = new Date(
+                        Date.now() + 3600 * 1000 * 24
+                    ) // 1 day
                     const expiresRefreshToken = new Date(
                         Date.now() + 3600 * 1000 * 24 * 7 // 7 days
                     )
