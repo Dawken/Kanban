@@ -18,7 +18,7 @@ const Home = () => {
                     <div className='font-medium text-xl'>
                         A simple app that helps you with
                     </div>
-                    <ul className='list-disc space-y-4 [&>li]:font-medium [&>li]:text-xl max-lg:[&>li]:text-base [&>li>span]:ml-2'>
+                    <ul className='list-disc space-y-5 [&>li]:font-medium [&>li]:text-xl max-lg:[&>li]:text-base [&>li>span]:ml-2'>
                         <li>
                             Clear Kanban Boards
                             <span>
