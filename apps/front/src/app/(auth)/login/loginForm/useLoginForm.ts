@@ -4,8 +4,6 @@ import { useMutation } from '@apollo/client'
 import { LOGIN_USER } from '@src/graphQL/auth/mutations'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/navigation'
-import { useDispatch } from 'react-redux'
-import { getClientResponse } from '@src/context/redux/user'
 
 type LoginCredentialsProps = {
     login: string
@@ -14,13 +12,10 @@ type LoginCredentialsProps = {
 const useLoginForm = () => {
     const router = useRouter()
 
-    const dispatch = useDispatch()
-
     const [isCredentialsInvalid, setIsCredentialsInvalid] = useState(false)
 
     const [loginUser, { loading, error }] = useMutation(LOGIN_USER, {
         onCompleted: () => {
-            dispatch(getClientResponse({ isLoggedIn: true }))
             toast.success('Login succeed')
             router.push('/')
         },

@@ -5,8 +5,6 @@ import {
     InMemoryCache,
 } from '@apollo/client'
 import { onError } from '@apollo/client/link/error'
-import { store } from '@src/context/redux/store'
-import { getClientResponse } from '@src/context/redux/user'
 import { UPDATE_COOKIE } from '@src/graphQL/auth/mutations'
 import { removeTypenameFromVariables } from '@apollo/client/link/remove-typename'
 
@@ -40,7 +38,7 @@ const errorLink = onError(({ graphQLErrors, operation, forward }) => {
                     })
                     return forward(operation)
                 } catch {
-                    store.dispatch(getClientResponse({ isLoggedIn: false }))
+                    window.location.href = '/login'
                 }
             }
         })

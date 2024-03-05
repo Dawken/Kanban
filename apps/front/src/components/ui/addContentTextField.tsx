@@ -3,7 +3,6 @@ import { CircularProgress, TextareaAutosize, Tooltip } from '@mui/material'
 import DoneIcon from '@mui/icons-material/Done'
 import CloseIcon from '@mui/icons-material/Close'
 import useTextState from '@src/hooks/useTextState'
-import ToolTip from '@src/components/ui/toolTip'
 import { twMerge } from 'tailwind-merge'
 
 type AddContentTextFieldProps = {
