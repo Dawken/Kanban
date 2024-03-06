@@ -1,16 +1,14 @@
-import { NextRequest } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 
-export default function middleware(request: NextRequest) {
-    const currentUser = request.cookies.get('AuthToken')?.value
+export async function middleware(request: NextRequest) {
+    const AuthToken = request.cookies.get('AuthToken')?.value
 
-    if (currentUser && !request.nextUrl.pathname.startsWith('/')) {
-        return Response.redirect(new URL('/', request.url))
+    if (!AuthToken) {
+        return NextResponse.redirect(new URL('/login', request.url))
     }
 
-    if (!currentUser && !request.nextUrl.pathname.startsWith('/login')) {
-        return Response.redirect(new URL('/login', request.url))
-    }
+    return NextResponse.next()
 }
 export const config = {
-    matcher: ['/((?!api|_next/static|_next/image|.*\\.png$).*)'],
+    matcher: ['/boards/:path*', '/'],
 }
