@@ -11,15 +11,12 @@ const authRefreshTokens = (user: UserAccountProps) => {
     const expiresRefreshToken = new Date(
         Date.now() + 3600 * 1000 * 24 * 7 // 7 days
     )
-    const domain =
-        process.env.NODE_ENV === 'production' ? process.env.DOMAIN : 'localhost'
 
     return {
         authToken,
         refreshToken,
         expiresAuthToken,
         expiresRefreshToken,
-        domain,
     }
 }
 export default authRefreshTokens

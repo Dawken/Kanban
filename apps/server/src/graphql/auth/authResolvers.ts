@@ -9,6 +9,7 @@ import checkAuth from '../../middlewares/checkAuth'
 import jwt, { JwtPayload } from 'jsonwebtoken'
 import { LoginProps } from '../../types/loginProps'
 import authRefreshTokens from '../../shared/authRefreshTokens'
+import domain from '../../config/domainConfig'
 
 const prisma = new PrismaClient()
 
@@ -47,7 +48,6 @@ const authResolvers = {
                         refreshToken,
                         expiresAuthToken,
                         expiresRefreshToken,
-                        domain,
                     } = authRefreshTokens(user)
 
                     res.setHeader('Set-Cookie', [
@@ -71,9 +71,11 @@ const authResolvers = {
             try {
                 res.clearCookie('AuthToken', {
                     httpOnly: true,
+                    domain: `.${domain}`,
                 })
                 res.clearCookie('RefreshToken', {
                     httpOnly: true,
+                    domain: `.${domain}`,
                 })
             } catch (error) {
                 throw new Error(error.message)
@@ -100,7 +102,6 @@ const authResolvers = {
                         refreshToken,
                         expiresAuthToken,
                         expiresRefreshToken,
-                        domain,
                     } = authRefreshTokens(user)
 
                     res.setHeader('Set-Cookie', [
