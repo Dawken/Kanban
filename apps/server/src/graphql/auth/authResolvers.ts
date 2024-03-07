@@ -12,6 +12,7 @@ import { Response, Request } from 'express'
 import checkAuth from '../../middlewares/checkAuth'
 import jwt, { JwtPayload } from 'jsonwebtoken'
 import { LoginProps } from '../../types/loginProps'
+import authRefreshTokens from '../../shared/authRefreshTokens'
 
 const prisma = new PrismaClient()
 
@@ -45,20 +46,16 @@ const authResolvers = {
                 if (!user) {
                     throw new Error('authentication-failed')
                 } else if (bcrypt.compareSync(password, user.password)) {
-                    const token = generateAccessToken(user)
-                    const refreshToken = generateRefreshToken(user)
-                    const expiresAuthToken = new Date(
-                        Date.now() + 3600 * 1000 * 24
-                    ) // 1 day
-                    const expiresRefreshToken = new Date(
-                        Date.now() + 3600 * 1000 * 24 * 7 // 7 days
-                    )
-                    const domain =
-                        process.env.NODE_ENV === 'production'
-                            ? process.env.DOMAIN
-                            : 'localhost'
+                    const {
+                        authToken,
+                        refreshToken,
+                        expiresAuthToken,
+                        expiresRefreshToken,
+                        domain,
+                    } = authRefreshTokens(user)
+
                     res.setHeader('Set-Cookie', [
-                        `AuthToken=${token}; Max-Age=3600; Path=/; Domain=.${domain}; Expires=${expiresAuthToken.toUTCString()}; HttpOnly; Secure; SameSite=None;`,
+                        `AuthToken=${authToken}; Max-Age=3600; Path=/; Domain=.${domain}; Expires=${expiresAuthToken.toUTCString()}; HttpOnly; Secure; SameSite=None;`,
                         `RefreshToken=${refreshToken}; Max-Age=604800; Path=/; Expires=${expiresRefreshToken.toUTCString()}; HttpOnly; Secure; SameSite=None;`,
                     ])
                 } else {
@@ -102,20 +99,16 @@ const authResolvers = {
                 })
 
                 try {
-                    const token = generateAccessToken(user)
-                    const refreshToken = generateRefreshToken(user)
-                    const expiresAuthToken = new Date(
-                        Date.now() + 3600 * 1000 * 24
-                    ) // 1 day
-                    const expiresRefreshToken = new Date(
-                        Date.now() + 3600 * 1000 * 24 * 7 // 7 days
-                    )
-                    const domain =
-                        process.env.NODE_ENV === 'production'
-                            ? process.env.DOMAIN
-                            : 'localhost'
+                    const {
+                        authToken,
+                        refreshToken,
+                        expiresAuthToken,
+                        expiresRefreshToken,
+                        domain,
+                    } = authRefreshTokens(user)
+
                     res.setHeader('Set-Cookie', [
-                        `AuthToken=${token}; Max-Age=3600; Path=/; Domain=.${domain}; Expires=${expiresAuthToken.toUTCString()}; HttpOnly; Secure; SameSite=None;`,
+                        `AuthToken=${authToken}; Max-Age=3600; Path=/; Domain=.${domain}; Expires=${expiresAuthToken.toUTCString()}; HttpOnly; Secure; SameSite=None;`,
                         `RefreshToken=${refreshToken}; Max-Age=604800; Path=/; Expires=${expiresRefreshToken.toUTCString()}; HttpOnly; Secure; SameSite=None;`,
                     ])
                 } catch (error) {
