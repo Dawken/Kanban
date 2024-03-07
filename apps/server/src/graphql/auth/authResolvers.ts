@@ -53,8 +53,12 @@ const authResolvers = {
                     const expiresRefreshToken = new Date(
                         Date.now() + 3600 * 1000 * 24 * 7 // 7 days
                     )
+                    const domain =
+                        process.env.NODE_ENV === 'production'
+                            ? process.env.DOMAIN
+                            : 'localhost'
                     res.setHeader('Set-Cookie', [
-                        `AuthToken=${token}; Max-Age=3600; Path=/; Expires=${expiresAuthToken.toUTCString()}; HttpOnly; Secure; SameSite=None;`,
+                        `AuthToken=${token}; Max-Age=3600; Path=/; Domain=.${domain}; Expires=${expiresAuthToken.toUTCString()}; HttpOnly; Secure; SameSite=None;`,
                         `RefreshToken=${refreshToken}; Max-Age=604800; Path=/; Expires=${expiresRefreshToken.toUTCString()}; HttpOnly; Secure; SameSite=None;`,
                     ])
                 } else {
@@ -106,8 +110,12 @@ const authResolvers = {
                     const expiresRefreshToken = new Date(
                         Date.now() + 3600 * 1000 * 24 * 7 // 7 days
                     )
+                    const domain =
+                        process.env.NODE_ENV === 'production'
+                            ? process.env.DOMAIN
+                            : 'localhost'
                     res.setHeader('Set-Cookie', [
-                        `AuthToken=${token}; Max-Age=3600; Path=/; Expires=${expiresAuthToken.toUTCString()}; HttpOnly; Secure; SameSite=None;`,
+                        `AuthToken=${token}; Max-Age=3600; Path=/; Domain=.${domain}; Expires=${expiresAuthToken.toUTCString()}; HttpOnly; Secure; SameSite=None;`,
                         `RefreshToken=${refreshToken}; Max-Age=604800; Path=/; Expires=${expiresRefreshToken.toUTCString()}; HttpOnly; Secure; SameSite=None;`,
                     ])
                 } catch (error) {
