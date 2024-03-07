@@ -24,15 +24,9 @@ const useStatuses = (scrollableRef: RefObject<HTMLDivElement>) => {
                 order,
                 boardId: params.id,
             },
-            update: (cache, { data }) => {
-                cache.writeQuery({
-                    query: GET_BOARD_TASKS,
-                    variables: { boardId: params.id },
-                    data: {
-                        tasks: data.pushTask,
-                    },
-                })
-            },
+            refetchQueries: [
+                { query: GET_BOARD_TASKS, variables: { boardId: params.id } },
+            ],
         })
     }
 

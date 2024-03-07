@@ -86,7 +86,7 @@ const typeDefs = gql`
             newStatusId: String!
             order: Int!
             boardId: String!
-        ): [Task]
+        ): Task
     }
 `
 export default typeDefs

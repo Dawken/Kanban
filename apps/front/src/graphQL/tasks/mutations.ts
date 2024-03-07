@@ -14,9 +14,6 @@ const PUSH_TASK = gql`
             boardId: $boardId
         ) {
             id
-            taskName
-            statusId
-            order
         }
     }
 `
