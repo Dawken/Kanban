@@ -3,8 +3,8 @@ import React from 'react'
 import useLogout from '@src/layout/sidebarMenu/logout/useLogout'
 import LogoutIcon from '@mui/icons-material/Logout'
 import { ExpandedProps } from '@src/types/expandedProps'
-import { CircularProgress } from '@mui/material'
 import ToolTip from '@src/components/ui/toolTip'
+import MuiCircularProgress from '@src/components/ui/animations/muiCircularProgress'
 
 const Logout = ({ expanded }: ExpandedProps) => {
     const { logoutUser, loading } = useLogout()
@@ -21,7 +21,7 @@ const Logout = ({ expanded }: ExpandedProps) => {
                     } items-center font-bold hover:bg-zinc-800 transition-all`}
                 >
                     {loading ? (
-                        <CircularProgress size={25} />
+                        <MuiCircularProgress size={25} />
                     ) : (
                         <>
                             <LogoutIcon className='ml-5 text-xl' />
