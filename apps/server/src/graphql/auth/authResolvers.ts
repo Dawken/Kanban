@@ -4,10 +4,6 @@ import { RegisterDTO } from './registerDTO'
 import { bodyValidator } from '../../shared/bodyValidator'
 import { UserAccountProps } from '../../types/userAccount'
 import { LoginDTO } from './loginDTO'
-import {
-    generateAccessToken,
-    generateRefreshToken,
-} from '../../utils/generateToken'
 import { Response, Request } from 'express'
 import checkAuth from '../../middlewares/checkAuth'
 import jwt, { JwtPayload } from 'jsonwebtoken'
@@ -56,7 +52,7 @@ const authResolvers = {
 
                     res.setHeader('Set-Cookie', [
                         `AuthToken=${authToken}; Max-Age=3600; Path=/; Domain=.${domain}; Expires=${expiresAuthToken.toUTCString()}; HttpOnly; Secure; SameSite=None;`,
-                        `RefreshToken=${refreshToken}; Max-Age=604800; Path=/; Expires=${expiresRefreshToken.toUTCString()}; HttpOnly; Secure; SameSite=None;`,
+                        `RefreshToken=${refreshToken}; Max-Age=604800; Path=/; Domain=.${domain}; Expires=${expiresRefreshToken.toUTCString()}; HttpOnly; Secure; SameSite=None;`,
                     ])
                 } else {
                     throw new Error('authentication-failed')
@@ -109,7 +105,7 @@ const authResolvers = {
 
                     res.setHeader('Set-Cookie', [
                         `AuthToken=${authToken}; Max-Age=3600; Path=/; Domain=.${domain}; Expires=${expiresAuthToken.toUTCString()}; HttpOnly; Secure; SameSite=None;`,
-                        `RefreshToken=${refreshToken}; Max-Age=604800; Path=/; Expires=${expiresRefreshToken.toUTCString()}; HttpOnly; Secure; SameSite=None;`,
+                        `RefreshToken=${refreshToken}; Max-Age=604800; Path=/; Domain=.${domain}; Expires=${expiresRefreshToken.toUTCString()}; HttpOnly; Secure; SameSite=None;`,
                     ])
                 } catch (error) {
                     throw new Error(error.message)
