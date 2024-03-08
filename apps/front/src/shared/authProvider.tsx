@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation'
 import useLocalStorage from 'use-local-storage'
 
 const AuthProvider = ({ children }: { children: ReactNode }) => {
-    const [isLoggedIn] = useLocalStorage('isLoggedIn', false)
+    const [isLoggedIn] = useLocalStorage('isLoggedIn', true)
 
     const router = useRouter()
 
