@@ -169,7 +169,14 @@ const taskResolvers = {
                                 },
                             },
                         })
-                        return task
+                        return await prisma.task.findMany({
+                            where: {
+                                status: {
+                                    boardId,
+                                },
+                            },
+                            orderBy: [{ statusId: 'asc' }, { order: 'asc' }],
+                        })
                     }
                 } catch {
                     throw new Error('failed-task-push')

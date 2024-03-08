@@ -24,9 +24,15 @@ const useStatuses = (scrollableRef: RefObject<HTMLDivElement>) => {
                 order,
                 boardId: params.id,
             },
-            refetchQueries: [
-                { query: GET_BOARD_TASKS, variables: { boardId: params.id } },
-            ],
+            update: (cache, { data }) => {
+                cache.writeQuery({
+                    query: GET_BOARD_TASKS,
+                    variables: { boardId: params.id },
+                    data: {
+                        tasks: data.pushTask,
+                    },
+                })
+            },
         })
     }
 
@@ -73,7 +79,7 @@ const useStatuses = (scrollableRef: RefObject<HTMLDivElement>) => {
         },
         onDragEnd(event) {
             // Change task order
-            const overTask = event.over?.data.current?.item
+            const overTask = event.active?.data.current?.item
 
             if (overTask && !deepEqual(overTask, draggedTask)) {
                 const { id, statusId, order } = overTask
