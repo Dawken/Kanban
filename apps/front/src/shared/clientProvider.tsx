@@ -14,7 +14,7 @@ const ClientProvider = ({ children }: { children: ReactNode }) => {
             <ThemeProvider theme={darkTheme}>
                 <ApolloProvider client={client}>{children}</ApolloProvider>
                 <ToastContainer
-                    position='bottom-left'
+                    position='bottom-right'
                     autoClose={5000}
                     hideProgressBar={false}
                     newestOnTop={false}

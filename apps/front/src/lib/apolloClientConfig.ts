@@ -7,6 +7,7 @@ import {
 import { onError } from '@apollo/client/link/error'
 import { UPDATE_COOKIE } from '@src/graphQL/auth/mutations'
 import { removeTypenameFromVariables } from '@apollo/client/link/remove-typename'
+import useLocalStorage from 'use-local-storage'
 
 const authGateway = process.env.NEXT_PUBLIC_AUTH_GATEWAY
 
@@ -38,7 +39,11 @@ const errorLink = onError(({ graphQLErrors, operation, forward }) => {
                     })
                     return forward(operation)
                 } catch {
-                    window.location.href = '/login'
+                    const [, setIsLoggedId] = useLocalStorage(
+                        'isLoggedIn',
+                        false
+                    )
+                    setIsLoggedId(false)
                 }
             }
         })

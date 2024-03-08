@@ -4,6 +4,7 @@ import { useMutation } from '@apollo/client'
 import { LOGIN_USER } from '@src/graphQL/auth/mutations'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/navigation'
+import useLocalStorage from 'use-local-storage'
 
 type LoginCredentialsProps = {
     login: string
@@ -14,10 +15,13 @@ const useLoginForm = () => {
 
     const [isCredentialsInvalid, setIsCredentialsInvalid] = useState(false)
 
+    const [, setIsLoggedId] = useLocalStorage('isLoggedIn', false)
+
     const [loginUser, { loading, error }] = useMutation(LOGIN_USER, {
         onCompleted: () => {
-            toast.success('Login succeed')
+            setIsLoggedId(true)
             router.push('/')
+            toast.success('Login succeed')
         },
         onError: (error) => {
             if (error.message === 'authentication-failed') {
