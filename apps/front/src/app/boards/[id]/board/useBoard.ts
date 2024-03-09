@@ -14,13 +14,16 @@ const useBoard = (dragId: DragIdProps) => {
 
     const scrollableRef = useRef<HTMLDivElement>(null)
 
-    const { data, loading } = useQuery(GET_BOARD, {
+    const { data, loading: isBoardDataLoading } = useQuery(GET_BOARD, {
         variables: { boardId: paramsId },
     })
 
-    const { data: boardTasks } = useQuery(GET_BOARD_TASKS, {
-        variables: { boardId: paramsId },
-    })
+    const { data: boardTasks, loading: isTaskLoading } = useQuery(
+        GET_BOARD_TASKS,
+        {
+            variables: { boardId: paramsId },
+        }
+    )
 
     const [tasks, setTasks] = useState<TaskProps[]>(boardTasks?.tasks ?? [])
 
@@ -45,7 +48,8 @@ const useBoard = (dragId: DragIdProps) => {
     return {
         data,
         scrollableRef,
-        loading,
+        isBoardDataLoading,
+        isTaskLoading,
         statuses,
         setStatuses,
         tasks,

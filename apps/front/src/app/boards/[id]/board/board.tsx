@@ -34,7 +34,8 @@ const Board = () => {
     const {
         data,
         scrollableRef,
-        loading,
+        isBoardDataLoading,
+        isTaskLoading,
         statuses,
         setStatuses,
         tasks,
@@ -47,7 +48,7 @@ const Board = () => {
         <div className='sm:mx-10 h-full m-2'>
             <div className='max-sm:flex justify-center'>
                 <div className='sm:w-4/5 max-sm:w-[250px] text-center text-gray-200 mt-10 max-sm:mt-2 text-xl font-bold md:w-[40vw]'>
-                    {loading ? (
+                    {isBoardDataLoading ? (
                         <div className='flex items-center gap-3'>
                             <Skeleton
                                 width={44}
@@ -101,7 +102,7 @@ const Board = () => {
                     ref={scrollableRef}
                 >
                     <section className='flex items-start max-sm:flex-col gap-6'>
-                        {loading ? (
+                        {isBoardDataLoading || isTaskLoading ? (
                             arrayFrom(
                                 4,
                                 <div>
