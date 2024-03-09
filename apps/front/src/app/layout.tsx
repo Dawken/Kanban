@@ -15,7 +15,7 @@ export const viewport: Viewport = {
 const RootLayout = ({ children }: { children: ReactNode }) => {
     return (
         <html lang='en'>
-            <body className='bg-black w-screen h-[100dvh] font-raleway overflow-x-hidden overflow-y-hidden'>
+            <body className='bg-black w-screen h-[100dvh] font-raleway'>
                 <link rel='icon' href='/images/favicon.ico' />
                 <NextTopLoader color={'#00ff82'} showSpinner={false} />
                 <ClientProvider>{children}</ClientProvider>
