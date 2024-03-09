@@ -42,7 +42,9 @@ const Board = ({ board, expanded, dragId }: BoardsProps) => {
                             params.id === board.id
                                 ? 'bg-gradient-to-br from-[#00dffc] to-[#00ff82] text-black'
                                 : 'bg-zinc-900'
-                        } w-full h-12 rounded-md flex items-center font-bold hover:bg-zinc-800 shadow-2xl`}
+                        } ${
+                            expanded ? 'max-lg:mr-5' : 'w-full'
+                        } h-12 rounded-md flex items-center font-bold hover:bg-zinc-800 shadow-2xl`}
                         onMouseEnter={handleHover}
                         onMouseLeave={handleUnhover}
                     >
