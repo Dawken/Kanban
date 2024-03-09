@@ -3,13 +3,14 @@ import { useMutation } from '@apollo/client'
 import { CREATE_BOARD } from '@src/graphQL/boards/mutations'
 import { toast } from 'react-toastify'
 import { GET_BOARDS } from '@src/graphQL/boards/queries'
-import { BoardCredentialsProps } from '@src/types/board/boardCredentialsProps'
 import { useRouter } from 'next/navigation'
+import { zodResolver } from '@hookform/resolvers/zod'
+import boardSchema, { BoardInput } from '@src/schemas/boardSchema'
 
 const useCreateBoardDialog = (handleClose: () => void) => {
     const router = useRouter()
 
-    const methods = useForm<BoardCredentialsProps>({
+    const methods = useForm<BoardInput>({
         defaultValues: {
             boardName: 'New Board',
             status: [
@@ -18,6 +19,7 @@ const useCreateBoardDialog = (handleClose: () => void) => {
                 { value: 'Done' },
             ],
         },
+        resolver: zodResolver(boardSchema),
     })
 
     const [createBoard, { loading, error }] = useMutation(CREATE_BOARD, {
@@ -30,16 +32,19 @@ const useCreateBoardDialog = (handleClose: () => void) => {
         },
     })
 
-    const transformBoardData = (data: BoardCredentialsProps) => {
+    const transformBoardData = (data: BoardInput) => {
         return {
             ...data,
-            status: data.status.map((status) => status.value),
+            status: data.status.map(
+                (status: { value: string }) => status.value
+            ),
         }
     }
 
     const addBoard = () => {
         return methods.handleSubmit((data) => {
             const boardData = transformBoardData(data)
+
             createBoard({
                 variables: boardData,
                 refetchQueries: [{ query: GET_BOARDS }],

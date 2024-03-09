@@ -1,6 +1,8 @@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import registerSchema, { RegisterInput } from './registerSchema'
+import registerSchema, {
+    RegisterInput,
+} from '../../../../schemas/registerSchema'
 import { useMutation } from '@apollo/client'
 import { CREATE_USER } from '@src/graphQL/auth/mutations'
 import { toast } from 'react-toastify'

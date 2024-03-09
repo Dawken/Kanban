@@ -1,7 +1,6 @@
 import React from 'react'
 import { Dialog, DialogTitle } from '@mui/material'
 import BoardForm from '@src/components/ui/form/boardForm'
-import FormButton from '@src/components/ui/form/formButton'
 import useCreateBoardDialog from '@src/components/ui/dialog/createBoardDialog/useCreateBoardDialog'
 
 type CreateBoardProps = {
@@ -11,6 +10,7 @@ type CreateBoardProps = {
 const CreateBoardDialog = ({ handleClose, open }: CreateBoardProps) => {
     const { methods, loading, error, addBoard } =
         useCreateBoardDialog(handleClose)
+
     return (
         <Dialog onClose={handleClose} open={open} fullWidth>
             <div className='m-3'>
@@ -20,13 +20,8 @@ const CreateBoardDialog = ({ handleClose, open }: CreateBoardProps) => {
                 <BoardForm
                     methods={methods}
                     submitAction={addBoard()}
-                    ActionButton={
-                        <FormButton
-                            text={'Create new Board'}
-                            loading={loading}
-                            isError={error}
-                        />
-                    }
+                    loading={loading}
+                    error={error}
                 />
             </div>
         </Dialog>
