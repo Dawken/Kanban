@@ -10,6 +10,10 @@ const useToggleOpen = () => {
         setOpen(false)
     }
 
-    return { open, handleOpen, handleClose }
+    const toggleOpen = () => {
+        setOpen((prevState) => !prevState)
+    }
+
+    return { open, handleOpen, handleClose, toggleOpen }
 }
 export default useToggleOpen
