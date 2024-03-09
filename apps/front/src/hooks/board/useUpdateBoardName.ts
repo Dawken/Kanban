@@ -16,9 +16,7 @@ const useUpdateBoardName = () => {
     )
 
     const editBoardName = (boardName: string, boardId: string) => {
-        if (boardName.length < 1) {
-            return toast.error('Board name cannot be empty')
-        } else {
+        if (boardName.trim().length > 0) {
             updateBoardName({
                 variables: {
                     boardName: boardName,

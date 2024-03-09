@@ -46,10 +46,14 @@ const BoardForm = ({
                                     name={`status.${index}.value`}
                                     value={status.value}
                                 />
-                                <DeleteStatusIcon
-                                    statusesLength={defaultValues.status.length}
-                                    onClickAction={() => remove(index)}
-                                />
+                                <div className='mb-2'>
+                                    <DeleteStatusIcon
+                                        statusesLength={
+                                            defaultValues.status.length
+                                        }
+                                        onClickAction={() => remove(index)}
+                                    />
+                                </div>
                             </div>
                         )
                     }

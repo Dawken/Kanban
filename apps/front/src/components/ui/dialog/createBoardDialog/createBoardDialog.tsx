@@ -13,7 +13,7 @@ const CreateBoardDialog = ({ handleClose, open }: CreateBoardProps) => {
 
     return (
         <Dialog onClose={handleClose} open={open} fullWidth>
-            <div className='m-3'>
+            <div className='m-3 mt-6'>
                 <DialogTitle className='text-2xl font-bold'>
                     Create new Board
                 </DialogTitle>

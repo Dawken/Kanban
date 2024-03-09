@@ -41,23 +41,34 @@ const EditBoard = ({ board, open, handleClose }: EditBoardProps) => {
                 <div className='m-6 space-y-5'>
                     <div className='font-bold'>Board Name</div>
                     <div className='flex items-center gap-3'>
-                        <TextField
-                            value={boardName}
-                            onChange={(event) =>
-                                handleChange(event.target.value)
-                            }
-                            fullWidth
-                        />
-                        {isBoardNameUpdating ? (
-                            <MuiCircularProgress size={24} />
-                        ) : (
-                            <DoneIcon
-                                className='cursor-pointer text-2xl'
-                                onClick={() =>
-                                    editBoardName(boardName, board.id)
+                        <div className='h-12 w-full mb-3'>
+                            <TextField
+                                value={boardName}
+                                error={boardName.trim().length < 1}
+                                onChange={(event) =>
+                                    handleChange(event.target.value)
                                 }
+                                helperText={
+                                    boardName.trim().length < 1 &&
+                                    'Board name cannot be empty'
+                                }
+                                fullWidth
                             />
-                        )}
+                        </div>
+                        <div className='mb-2'>
+                            {isBoardNameUpdating ? (
+                                <MuiCircularProgress size={20} />
+                            ) : (
+                                <DoneIcon
+                                    className='cursor-pointer text-xl'
+                                    onClick={() => {
+                                        if (boardName !== board.boardName) {
+                                            editBoardName(boardName, board.id)
+                                        }
+                                    }}
+                                />
+                            )}
+                        </div>
                     </div>
                     <div className='font-bold'>Board Statuses</div>
                     {board.status.map((status: StatusProps) => {
@@ -71,7 +82,7 @@ const EditBoard = ({ board, open, handleClose }: EditBoardProps) => {
                     })}
                     {isNewStatusOpen && (
                         <ClickAwayListener onClickAway={closeNewStatus}>
-                            <div>
+                            <div className='pb-8'>
                                 <AddContentTextField
                                     closeNewStatus={closeNewStatus}
                                     createContent={addStatus}

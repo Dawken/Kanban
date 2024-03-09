@@ -16,7 +16,7 @@ const DeleteStatusIcon = ({
                 statusesLength === 1
                     ? 'text-disabled cursor-not-allowed'
                     : 'cursor-pointer'
-            } mb-3`}
+            }`}
             type={'button'}
             onClick={onClickAction}
             disabled={statusesLength === 1}
