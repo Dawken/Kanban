@@ -6,7 +6,7 @@ const usePasswordStrength = (password: string) => {
 
     useEffect(() => {
         const strengthCheck = {
-            length: password && password.length > 7,
+            length: password && password.trim().length > 7,
             hasUpperCase: /(?=.*[A-Z])/.test(password), // String must contain at least one uppercase letter
             hasLowerCase: password && /[a-z]+/.test(password), // String must contain at least one lowercase letter
             hasNumber: /(?=.*[0-9])/.test(password), // String must contain at least 1 number
