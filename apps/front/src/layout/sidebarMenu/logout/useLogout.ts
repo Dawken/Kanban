@@ -1,13 +1,15 @@
 import { useMutation } from '@apollo/client'
 import { LOGOUT_USER } from '@src/graphQL/auth/mutations'
 import { toast } from 'react-toastify'
-import useLocalStorage from 'use-local-storage'
+import { useDispatch } from 'react-redux'
+import { getClientResponse } from '@src/context/redux/user'
 
 const useLogout = () => {
-    const [, setIsLoggedId] = useLocalStorage('isLoggedIn', false)
+    const dispatch = useDispatch()
+
     const [logoutUser, { loading }] = useMutation(LOGOUT_USER, {
         onCompleted: () => {
-            setIsLoggedId(false)
+            dispatch(getClientResponse({ isLoggedIn: false }))
             toast.success('Your session has expired')
         },
         onError: () => {

@@ -7,7 +7,8 @@ import {
 import { onError } from '@apollo/client/link/error'
 import { UPDATE_COOKIE } from '@src/graphQL/auth/mutations'
 import { removeTypenameFromVariables } from '@apollo/client/link/remove-typename'
-import useLocalStorage from 'use-local-storage'
+import { getClientResponse } from '@src/context/redux/user'
+import { store } from '@src/context/redux/store'
 
 const authGateway = process.env.NEXT_PUBLIC_AUTH_GATEWAY
 
@@ -39,11 +40,7 @@ const errorLink = onError(({ graphQLErrors, operation, forward }) => {
                     })
                     return forward(operation)
                 } catch {
-                    const [, setIsLoggedId] = useLocalStorage(
-                        'isLoggedIn',
-                        false
-                    )
-                    setIsLoggedId(false)
+                    store.dispatch(getClientResponse({ isLoggedIn: false }))
                 }
             }
         })

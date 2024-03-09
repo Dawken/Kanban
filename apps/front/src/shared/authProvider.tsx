@@ -1,10 +1,10 @@
 'use client'
 import { ReactNode, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import useLocalStorage from 'use-local-storage'
+import { useAppSelector } from '@src/context/redux/store'
 
 const AuthProvider = ({ children }: { children: ReactNode }) => {
-    const [isLoggedIn] = useLocalStorage('isLoggedIn', true)
+    const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
 
     const router = useRouter()
 
