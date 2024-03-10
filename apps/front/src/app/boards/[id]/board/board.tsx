@@ -124,7 +124,10 @@ const Board = () => {
                             </SortableContext>
                         )}
                         {data?.board.id && (
-                            <AddStatus boardId={data.board.id} />
+                            <AddStatus
+                                boardId={data.board.id}
+                                scrollableRef={scrollableRef}
+                            />
                         )}
                     </section>
                 </div>

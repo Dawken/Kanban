@@ -1,11 +1,15 @@
-import React from 'react'
+import React, { RefObject, useEffect } from 'react'
 import AddIcon from '@mui/icons-material/Add'
 import useCreateStatus from '@src/hooks/status/useCreateStatus'
 import AddContentTextField from '@src/components/ui/addContentTextField'
 import useToggleOpen from '@src/hooks/useToggleOpen'
 import { ClickAwayListener } from '@mui/material'
 
-const AddStatus = ({ boardId }: { boardId: string }) => {
+type AddStatusProps = {
+    boardId: string
+    scrollableRef: RefObject<HTMLDivElement>
+}
+const AddStatus = ({ boardId, scrollableRef }: AddStatusProps) => {
     const { addStatus, isStatusCreating } = useCreateStatus()
 
     const {
@@ -13,6 +17,16 @@ const AddStatus = ({ boardId }: { boardId: string }) => {
         handleOpen,
         handleClose: closeNewStatus,
     } = useToggleOpen()
+
+    useEffect(() => {
+        if (scrollableRef.current && isNewStatusOpen) {
+            const { scrollWidth, clientWidth } = scrollableRef.current
+            // Scroll to right edge of statuses container
+            if (scrollWidth > clientWidth) {
+                scrollableRef.current.scrollLeft = scrollWidth
+            }
+        }
+    }, [isNewStatusOpen, scrollableRef])
 
     return (
         <>
