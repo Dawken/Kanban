@@ -7,6 +7,7 @@ import useTasks from '@src/app/boards/[id]/board/statuses/status/tasks/useTasks'
 import Task from '@src/app/boards/[id]/board/statuses/status/tasks/task/task'
 import { StatusProps } from '@src/types/status/statusProps'
 import { DragIdProps } from '@src/types/dragIdProps'
+import SkeletonTask from '@src/components/ui/animations/skeletons/skeletonTask'
 
 type TasksProps = {
     tasks: TaskProps[]
@@ -28,7 +29,8 @@ const Tasks = ({
     hideCreateTask,
     dragId,
 }: TasksProps) => {
-    const { tasksIds, isTaskCreating, addNewTask } = useTasks(tasks)
+    const { tasksIds, isTaskCreating, addNewTask, newTaskName } =
+        useTasks(tasks)
 
     return (
         <SortableContext items={tasksIds}>
@@ -48,6 +50,9 @@ const Tasks = ({
                                     />
                                 )
                             })}
+                            {isTaskCreating && (
+                                <SkeletonTask taskName={newTaskName} />
+                            )}
                         </div>
                         {isCreateTaskOpen ? (
                             <div className='m-1'>

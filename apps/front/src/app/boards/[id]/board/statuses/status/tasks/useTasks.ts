@@ -5,6 +5,7 @@ import { toast } from 'react-toastify'
 import { CREATE_TASK } from '@src/graphQL/tasks/mutations'
 import { GET_BOARD_TASKS } from '@src/graphQL/tasks/queries'
 import { useParams } from 'next/navigation'
+import useTextState from '@src/hooks/useTextState'
 
 const useTasks = (tasks: TaskProps[]) => {
     const params = useParams()
@@ -15,11 +16,14 @@ const useTasks = (tasks: TaskProps[]) => {
         },
     })
 
+    const { text: newTaskName, handleChange } = useTextState()
+
     const addNewTask = (
         taskName: string,
         statusId: string,
         description?: string
     ) => {
+        handleChange(taskName)
         createTask({
             variables: {
                 taskName,
@@ -45,6 +49,7 @@ const useTasks = (tasks: TaskProps[]) => {
         tasksIds,
         isTaskCreating,
         addNewTask,
+        newTaskName,
     }
 }
 export default useTasks

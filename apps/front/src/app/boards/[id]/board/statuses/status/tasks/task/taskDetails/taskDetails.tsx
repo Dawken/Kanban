@@ -8,7 +8,9 @@ import dayjs from 'dayjs'
 import AddContentTextField from '@src/components/ui/addContentTextField'
 import Skeleton from '@mui/material/Skeleton'
 import Description from '@src/app/boards/[id]/board/statuses/status/tasks/task/taskDetails/description/description'
-import useTaskDetails from '@src/app/boards/[id]/board/statuses/status/tasks/task/taskDetails/useTaskDetails'
+import { useQuery } from '@apollo/client'
+import { GET_TASK } from '@src/graphQL/tasks/queries'
+import useUpdateTaskName from '@src/hooks/task/useUpdateTaskName'
 
 type TaskDetailsProps = {
     open: boolean
@@ -17,9 +19,6 @@ type TaskDetailsProps = {
 }
 
 const TaskDetails = ({ open, handleClose, taskId }: TaskDetailsProps) => {
-    const { data, isTaskDataLoading, updateName, isTaskNameUpdating } =
-        useTaskDetails(taskId)
-
     const {
         open: isDeleteDialogOpen,
         handleOpen: handleOpenDeleteDialog,
@@ -33,6 +32,12 @@ const TaskDetails = ({ open, handleClose, taskId }: TaskDetailsProps) => {
     } = useToggleOpen()
 
     const { removeTask, isTaskRemoving } = useDeleteTask()
+
+    const { data, loading: isTaskDataLoading } = useQuery(GET_TASK, {
+        variables: { taskId },
+    })
+
+    const { isTaskNameUpdating, updateName } = useUpdateTaskName()
 
     return (
         <>
