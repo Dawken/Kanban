@@ -148,7 +148,9 @@ const Board = () => {
                             hideCreateTask={true}
                         />
                     )}
-                    {draggedTask && <Task task={draggedTask} />}
+                    {draggedTask && (
+                        <Task task={draggedTask} isTaskDragged={true} />
+                    )}
                 </DragOverlay>
             </DntContext>
         </div>

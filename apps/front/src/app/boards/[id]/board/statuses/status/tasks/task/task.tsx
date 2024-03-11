@@ -16,9 +16,15 @@ type TasksProps = {
     task: TaskProps
     isTaskOrderUpdating?: boolean
     dragId?: DragIdProps
+    isTaskDragged?: boolean
 }
 
-const Task = ({ task, isTaskOrderUpdating, dragId }: TasksProps) => {
+const Task = ({
+    task,
+    isTaskOrderUpdating,
+    dragId,
+    isTaskDragged,
+}: TasksProps) => {
     const {
         open: isEditTaskOpen,
         handleOpen: handleOpenEditTask,
@@ -52,7 +58,7 @@ const Task = ({ task, isTaskOrderUpdating, dragId }: TasksProps) => {
                             ? 'pointer-events-none cursor-default animate-pulse'
                             : 'animate-none'
                     } min-h-[95px] rounded mx-1 text-white font-sans relative ${
-                        dragId && 'hover:bg-[#131313FF]'
+                        !isTaskDragged && 'hover:bg-[#131313FF]'
                     } transition-colors duration-500`}
                     onClick={handleOpenTaskDetails}
                 >
