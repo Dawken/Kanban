@@ -4,10 +4,10 @@ import MuiCircularProgress from '@src/components/ui/animations/muiCircularProgre
 
 const SkeletonTask = ({ taskName }: { taskName: string }) => {
     return (
-        <div className='bg-black animate-pulse min-h-[95px] rounded mx-1 text-white font-sans relative cursor-pointer'>
+        <div className='bg-black animate-pulse min-h-[95px] rounded mx-1 text-white font-sans relative cursor-default pointer-events-none'>
             <div className='h-full flex justify-between p-2'>
                 <div className='w-4/5'>
-                    <div className='p-2 mb-[5px] text-sm break-words cursor-pointer hover:bg-blue-400 hover:bg-opacity-5 transition-colors duration-500 rounded'>
+                    <div className='p-2 mb-[5px] text-sm break-words'>
                         {taskName}
                     </div>
                 </div>

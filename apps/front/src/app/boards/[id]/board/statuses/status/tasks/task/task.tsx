@@ -11,7 +11,6 @@ import useUpdateTaskName from '@src/hooks/task/useUpdateTaskName'
 import TaskDetails from '@src/app/boards/[id]/board/statuses/status/tasks/task/taskDetails/taskDetails'
 import EditTask from '@src/app/boards/[id]/board/statuses/status/tasks/task/editTask'
 import { DragIdProps } from '@src/types/dragIdProps'
-import SkeletonTask from '@src/components/ui/animations/skeletons/skeletonTask'
 
 type TasksProps = {
     task: TaskProps
@@ -38,78 +37,73 @@ const Task = ({ task, isTaskOrderUpdating, dragId }: TasksProps) => {
 
     return (
         <>
-            {!isTaskNameUpdating ? (
-                <Draggable
-                    id={task.id}
-                    data={{
-                        type: 'Task',
-                        item: task,
-                    }}
-                    disabled={isEditTaskOpen}
+            <Draggable
+                id={task.id}
+                data={{
+                    type: 'Task',
+                    item: task,
+                }}
+                disabled={isEditTaskOpen || isTaskNameUpdating}
+            >
+                <div
+                    className={`bg-black ${
+                        isTaskNameUpdating ||
+                        (isTaskOrderUpdating && dragId === task.id)
+                            ? 'pointer-events-none cursor-default animate-pulse'
+                            : 'animate-none'
+                    } min-h-[95px] rounded mx-1 text-white font-sans relative`}
+                    onClick={handleOpenTaskDetails}
                 >
-                    <div
-                        className={`bg-black ${
-                            isTaskOrderUpdating && dragId === task.id
-                                ? 'animate-pulse'
-                                : 'animate-none'
-                        } min-h-[95px] rounded mx-1 text-white font-sans relative cursor-pointer`}
-                        onClick={handleOpenTaskDetails}
-                    >
-                        <div className='h-full flex justify-between p-2'>
-                            <div
-                                className='w-4/5'
-                                onClick={(event) => event.stopPropagation()}
-                            >
-                                {isEditTaskOpen ? (
-                                    <ClickAwayListener
-                                        onClickAway={handleCloseEditTask}
-                                    >
-                                        <div>
-                                            <AddContentTextField
-                                                closeNewStatus={
-                                                    handleCloseEditTask
-                                                }
-                                                createContent={updateName}
-                                                parentId={task.id}
-                                                isCreating={isTaskNameUpdating}
-                                                defaultText={task.taskName}
-                                            />
-                                        </div>
-                                    </ClickAwayListener>
-                                ) : (
-                                    <div
-                                        className='p-2 mb-[5px] text-sm break-words cursor-pointer hover:bg-blue-400 hover:bg-opacity-5 transition-colors duration-500 rounded'
-                                        onClick={handleOpenEditTask}
-                                    >
-                                        {task.taskName}
+                    <div className='h-full flex justify-between p-2'>
+                        <div
+                            className='w-4/5'
+                            onClick={(event) => event.stopPropagation()}
+                        >
+                            {isEditTaskOpen ? (
+                                <ClickAwayListener
+                                    onClickAway={handleCloseEditTask}
+                                >
+                                    <div>
+                                        <AddContentTextField
+                                            closeNewStatus={handleCloseEditTask}
+                                            createContent={updateName}
+                                            parentId={task.id}
+                                            isCreating={isTaskNameUpdating}
+                                            defaultText={task.taskName}
+                                        />
                                     </div>
-                                )}
-                            </div>
-                            <div className='absolute bottom-0 right-0 p-2.5 mr-1 flex flex-col justify-between h-full'>
-                                <IconButton
-                                    size='small'
-                                    onClick={(event) => {
-                                        handleClick(event)
-                                        event.stopPropagation()
-                                    }}
-                                >
-                                    <MoreHorizIcon className='text-gray-400' />
-                                </IconButton>
+                                </ClickAwayListener>
+                            ) : (
                                 <div
-                                    onClick={(event) => event.stopPropagation()}
+                                    className='p-2 mb-[5px] text-sm break-words cursor-pointer hover:bg-blue-400 hover:bg-opacity-5 transition-colors duration-500 rounded'
+                                    onClick={handleOpenEditTask}
                                 >
-                                    <CopyToClipboard
-                                        text={task.taskName}
-                                        placement='bottom'
-                                    />
+                                    {isTaskNameUpdating
+                                        ? newTaskName
+                                        : task.taskName}
                                 </div>
+                            )}
+                        </div>
+                        <div className='absolute bottom-0 right-0 p-2.5 mr-1 flex flex-col justify-between h-full'>
+                            <IconButton
+                                size='small'
+                                onClick={(event) => {
+                                    handleClick(event)
+                                    event.stopPropagation()
+                                }}
+                            >
+                                <MoreHorizIcon className='text-gray-400' />
+                            </IconButton>
+                            <div onClick={(event) => event.stopPropagation()}>
+                                <CopyToClipboard
+                                    text={task.taskName}
+                                    placement='bottom'
+                                />
                             </div>
                         </div>
                     </div>
-                </Draggable>
-            ) : (
-                <SkeletonTask taskName={newTaskName} />
-            )}
+                </div>
+            </Draggable>
             {open && (
                 <EditTask
                     open={open}
