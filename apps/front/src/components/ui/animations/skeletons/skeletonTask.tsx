@@ -15,8 +15,8 @@ const SkeletonTask = ({ taskName }: { taskName: string }) => {
                     <IconButton size='small'>
                         <MoreHorizIcon className='text-gray-400' />
                     </IconButton>
-                    <div className='h-9 w-9 flex items-center justify-center'>
-                        <MuiCircularProgress size={20} />
+                    <div className='h-9 flex items-center justify-center'>
+                        <MuiCircularProgress size={21} />
                     </div>
                 </div>
             </div>

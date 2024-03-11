@@ -35,7 +35,7 @@ const Tasks = ({
     return (
         <SortableContext items={tasksIds}>
             <div className='text-sm font-sans flex-1'>
-                {tasks.length > 0 ? (
+                {tasks.length > 0 || isTaskCreating ? (
                     <>
                         <div className='flex flex-col gap-1'>
                             {tasks.map((task) => {
