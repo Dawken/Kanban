@@ -51,7 +51,9 @@ const Task = ({ task, isTaskOrderUpdating, dragId }: TasksProps) => {
                         (isTaskOrderUpdating && dragId === task.id)
                             ? 'pointer-events-none cursor-default animate-pulse'
                             : 'animate-none'
-                    } min-h-[95px] rounded mx-1 text-white font-sans relative`}
+                    } min-h-[95px] rounded mx-1 text-white font-sans relative ${
+                        dragId && 'hover:bg-[#131313FF]'
+                    } transition-colors duration-500`}
                     onClick={handleOpenTaskDetails}
                 >
                     <div className='h-full flex justify-between p-2'>
