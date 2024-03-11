@@ -30,14 +30,22 @@ const useTasks = (tasks: TaskProps[]) => {
                 statusId,
                 description,
             },
-            refetchQueries: [
-                {
+            update: (cache, { data }) => {
+                const { tasks } = cache.readQuery<{ tasks: TaskProps[] }>({
                     query: GET_BOARD_TASKS,
-                    variables: {
-                        boardId: params.id,
+                    variables: { boardId: params.id },
+                }) || { tasks: [] }
+
+                if (!tasks) return
+
+                cache.writeQuery({
+                    query: GET_BOARD_TASKS,
+                    variables: { boardId: params.id },
+                    data: {
+                        tasks: [...tasks, data.createTask],
                     },
-                },
-            ],
+                })
+            },
         })
     }
 

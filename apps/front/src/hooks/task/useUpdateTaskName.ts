@@ -4,6 +4,7 @@ import { UPDATE_TASK_NAME } from '@src/graphQL/tasks/mutations'
 import { toast } from 'react-toastify'
 import { GET_BOARD_TASKS } from '@src/graphQL/tasks/queries'
 import useTextState from '@src/hooks/useTextState'
+import { TaskProps } from '@src/types/task/taskProps'
 
 const useUpdateTaskName = () => {
     const params = useParams()
@@ -26,14 +27,28 @@ const useUpdateTaskName = () => {
                 taskName,
                 taskId,
             },
-            refetchQueries: [
-                {
+            update: (cache, { data }) => {
+                const { tasks } = cache.readQuery<{ tasks: TaskProps[] }>({
                     query: GET_BOARD_TASKS,
-                    variables: {
-                        boardId: params.id,
+                    variables: { boardId: params.id },
+                }) || { tasks: [] }
+
+                if (!tasks) return
+
+                const updatedTasks = tasks.map((task) =>
+                    task.id === data.updateTaskName.id
+                        ? data.updateTaskName
+                        : task
+                )
+
+                cache.writeQuery({
+                    query: GET_BOARD_TASKS,
+                    variables: { boardId: params.id },
+                    data: {
+                        tasks: updatedTasks,
                     },
-                },
-            ],
+                })
+            },
         })
     }
     return {

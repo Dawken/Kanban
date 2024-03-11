@@ -17,6 +17,7 @@ const PUSH_TASK = gql`
             taskName
             statusId
             order
+            updatedAt
         }
     }
 `
@@ -31,10 +32,10 @@ const CREATE_TASK = gql`
             statusId: $statusId
             description: $description
         ) {
-            taskName
-            statusId
-            description
             id
+            taskName
+            order
+            statusId
         }
     }
 `
@@ -51,6 +52,10 @@ const UPDATE_TASK_NAME = gql`
     mutation UpdateTaskName($taskName: String!, $taskId: String!) {
         updateTaskName(taskName: $taskName, taskId: $taskId) {
             id
+            taskName
+            order
+            statusId
+            updatedAt
         }
     }
 `
