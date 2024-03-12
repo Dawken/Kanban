@@ -16,10 +16,16 @@ import { IconButton } from '@mui/material'
 type BoardsProps = {
     board: BoardProps
     expanded: boolean
-    dragId?: DragIdProps
+    dragId: DragIdProps
+    isBoardOrderUpdating?: boolean
 }
 
-const Board = ({ board, expanded, dragId }: BoardsProps) => {
+const Board = ({
+    board,
+    expanded,
+    isBoardOrderUpdating,
+    dragId,
+}: BoardsProps) => {
     const { open, handleOpen, handleClose } = useToggleOpen()
 
     const { isHover, handleHover, handleUnhover } = useToggleHover()
@@ -30,7 +36,7 @@ const Board = ({ board, expanded, dragId }: BoardsProps) => {
         <>
             <Draggable
                 id={board.id}
-                disabled={!expanded}
+                disabled={!expanded || isBoardOrderUpdating}
                 data={{
                     type: 'Board',
                     item: board,
@@ -42,9 +48,18 @@ const Board = ({ board, expanded, dragId }: BoardsProps) => {
                             params.id === board.id
                                 ? 'bg-gradient-to-br from-[#00dffc] to-[#00ff82] text-black'
                                 : 'bg-zinc-900'
-                        } ${
-                            expanded ? 'max-lg:mr-5' : 'w-full'
-                        } h-12 rounded-md flex items-center font-bold hover:bg-zinc-800 shadow-2xl`}
+                        } ${expanded ? 'max-lg:mr-5' : 'w-full'} 
+                        ${
+                            isBoardOrderUpdating
+                                ? 'pointer-events-none'
+                                : 'pointer-events-auto'
+                        }
+                        ${
+                            isBoardOrderUpdating && board.id === dragId
+                                ? 'animate-pulse'
+                                : 'animate-none'
+                        }
+                        h-12 rounded-md flex items-center font-bold hover:bg-zinc-800 shadow-2xl`}
                         onMouseEnter={handleHover}
                         onMouseLeave={handleUnhover}
                     >

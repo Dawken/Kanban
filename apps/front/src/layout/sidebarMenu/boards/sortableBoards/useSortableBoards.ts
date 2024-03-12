@@ -1,11 +1,14 @@
 import { useDndMonitor } from '@dnd-kit/core'
 import { useMutation } from '@apollo/client'
 import { UPDATE_BOARDS_ORDER } from '@src/graphQL/boards/mutations'
-import { GET_BOARDS } from '@src/graphQL/boards/queries'
 import { deepEqual } from 'fast-equals'
+import { useParams } from 'next/navigation'
+import { GET_BOARDS } from '@src/graphQL/boards/queries'
 
 const useSortableBoards = () => {
-    const [updateBoardOrder] = useMutation(UPDATE_BOARDS_ORDER)
+    const params = useParams()
+    const [updateBoardOrder, { loading: isBoardOrderUpdating }] =
+        useMutation(UPDATE_BOARDS_ORDER)
 
     const updateBoards = (boardId: string, order: number) => {
         updateBoardOrder({
@@ -13,7 +16,15 @@ const useSortableBoards = () => {
                 boardId,
                 order,
             },
-            refetchQueries: [{ query: GET_BOARDS }],
+            update: (cache, { data }) => {
+                cache.writeQuery({
+                    query: GET_BOARDS,
+                    variables: { boardId: params.id },
+                    data: {
+                        boards: data.updateBoardsOrder,
+                    },
+                })
+            },
         })
     }
 
@@ -31,5 +42,6 @@ const useSortableBoards = () => {
             }
         },
     })
+    return { isBoardOrderUpdating }
 }
 export default useSortableBoards

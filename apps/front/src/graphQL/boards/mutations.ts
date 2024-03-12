@@ -28,7 +28,14 @@ const DELETE_BOARD = gql`
 const UPDATE_BOARDS_ORDER = gql`
     mutation UpdateBoardsOrder($boardId: String!, $order: Int!) {
         updateBoardsOrder(boardId: $boardId, order: $order) {
+            boardName
             id
+            order
+            status {
+                id
+                statusName
+                order
+            }
         }
     }
 `

@@ -75,6 +75,7 @@ const Boards = ({ expanded }: ExpandedProps) => {
                         boards={boards}
                         expanded={expanded}
                         loading={loading}
+                        dragId={dragId}
                     />
                 </SortableContext>
                 <DragOverlay>

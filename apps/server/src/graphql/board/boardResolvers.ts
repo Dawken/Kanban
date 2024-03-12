@@ -108,50 +108,61 @@ const boardResolvers = {
                 throw new Error('failed-board-delete')
             }
         }),
-        updateBoardsOrder: checkAuth(async (_parent, { boardId, order }) => {
-            return prisma
-                .$transaction(async (transaction) => {
-                    const oldBoard = await transaction.board.findUnique({
-                        where: { id: boardId },
-                    })
+        updateBoardsOrder: checkAuth(
+            async (_parent, { boardId, order }, req) => {
+                return prisma
+                    .$transaction(async (transaction) => {
+                        const oldBoard = await transaction.board.findUnique({
+                            where: { id: boardId },
+                        })
 
-                    const board = await transaction.board.update({
-                        where: { id: boardId },
-                        data: {
-                            order,
-                        },
-                    })
-
-                    if (!board) {
-                        throw new Error('board-not-found')
-                    } else {
-                        await transaction.board.updateMany({
-                            where: {
-                                userId: oldBoard.userId,
-                                id: { not: boardId },
-                                order:
-                                    oldBoard.order < order
-                                        ? { gte: oldBoard.order, lte: order }
-                                        : {
-                                              gte: order,
-                                              lte: oldBoard.order,
-                                          },
-                            },
+                        const board = await transaction.board.update({
+                            where: { id: boardId },
                             data: {
-                                order:
-                                    oldBoard.order < order
-                                        ? { decrement: 1 }
-                                        : { increment: 1 },
+                                order,
                             },
                         })
 
-                        return board
-                    }
-                })
-                .catch(() => {
-                    throw new Error('failed-board-update')
-                })
-        }),
+                        if (!board) {
+                            throw new Error('board-not-found')
+                        } else {
+                            await transaction.board.updateMany({
+                                where: {
+                                    userId: oldBoard.userId,
+                                    id: { not: boardId },
+                                    order:
+                                        oldBoard.order < order
+                                            ? {
+                                                  gte: oldBoard.order,
+                                                  lte: order,
+                                              }
+                                            : {
+                                                  gte: order,
+                                                  lte: oldBoard.order,
+                                              },
+                                },
+                                data: {
+                                    order:
+                                        oldBoard.order < order
+                                            ? { decrement: 1 }
+                                            : { increment: 1 },
+                                },
+                            })
+
+                            return transaction.board.findMany({
+                                where: { userId: req.user.id },
+                                include: {
+                                    status: { orderBy: [{ order: 'asc' }] },
+                                },
+                                orderBy: { order: 'asc' },
+                            })
+                        }
+                    })
+                    .catch(() => {
+                        throw new Error('failed-board-update')
+                    })
+            }
+        ),
     },
 }
 

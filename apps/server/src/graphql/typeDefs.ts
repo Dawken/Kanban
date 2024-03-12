@@ -64,7 +64,7 @@ const typeDefs = gql`
         createBoard(boardName: String!, status: [String]): Board
         updateBoardName(boardId: String!, boardName: String!): Board
         deleteBoard(boardId: String!): Board
-        updateBoardsOrder(boardId: String!, order: Int!): Board
+        updateBoardsOrder(boardId: String!, order: Int!): [Board]
 
         #Status
         createStatus(statusName: String!, boardId: String!): Status
