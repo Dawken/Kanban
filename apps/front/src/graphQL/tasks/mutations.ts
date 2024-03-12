@@ -63,6 +63,7 @@ const UPDATE_TASK_NAME = gql`
 const UPDATE_DESCRIPTION = gql`
     mutation UpdateDescription($description: String!, $taskId: String!) {
         updateDescription(description: $description, taskId: $taskId) {
+            id
             description
             updatedAt
         }
