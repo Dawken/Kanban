@@ -47,7 +47,8 @@ const Status = ({
         handleClose: handleCloseCreateTask,
     } = useToggleOpen()
 
-    const { isStatusNameUpdating, editStatusName } = useUpdateStatusName()
+    const { isStatusNameUpdating, editStatusName, newStatusName } =
+        useUpdateStatusName()
 
     const {
         setNodeRef,
@@ -64,6 +65,7 @@ const Status = ({
         disabled:
             isEditStatusNameOpen ||
             isStatusOrderUpdating ||
+            isStatusNameUpdating ||
             isTaskOrderUpdating,
     })
 
@@ -85,12 +87,15 @@ const Status = ({
             <div
                 className={`${isDragging ? 'invisible' : 'visible'} 
                 ${
-                    isStatusOrderUpdating || isTaskOrderUpdating
+                    isStatusOrderUpdating ||
+                    isTaskOrderUpdating ||
+                    isStatusNameUpdating
                         ? 'pointer-events-none'
                         : 'pointer-events-auto'
                 }
                 ${
-                    dragId === status.id && isStatusOrderUpdating
+                    (dragId === status.id && isStatusOrderUpdating) ||
+                    isStatusNameUpdating
                         ? 'animate-pulse'
                         : 'animate-none'
                 }
@@ -132,7 +137,9 @@ const Status = ({
                                         className='p-2 hover:bg-blue-600 hover:bg-opacity-5 rounded font-bold overflow-hidden whitespace-nowrap overflow-ellipsis'
                                         onClick={handleOpenEditStatusName}
                                     >
-                                        {status.statusName}
+                                        {isStatusNameUpdating
+                                            ? newStatusName
+                                            : status.statusName}
                                     </div>
                                 )}
                             </div>
