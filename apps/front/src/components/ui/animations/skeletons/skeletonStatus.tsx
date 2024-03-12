@@ -4,7 +4,7 @@ import MuiCircularProgress from '@src/components/ui/animations/muiCircularProgre
 
 const SkeletonStatus = ({ newStatusName }: { newStatusName: string }) => {
     return (
-        <div className='pointer-events-none animate-pulse touch-none max-sm:w-[60vw] sm:min-w-[276px] sm:max-w-[276px] min-h-[420px] bg-neutral-900 rounded text-gray-400'>
+        <div className='pointer-events-none animate-pulse touch-none max-sm:w-[60vw] sm:min-w-[276px] self-stretch sm:max-w-[276px] min-h-[420px] bg-neutral-900 rounded text-gray-400'>
             <div className='h-12 cursor-grab sticky top-0 z-10 bg-neutral-900'>
                 <div className='p-3 flex items-center justify-between'>
                     <div className='flex items-center justify-start w-4/5 font-sans'>
