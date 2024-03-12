@@ -11,6 +11,9 @@ const CREATE_STATUS = gql`
     mutation CreateStatus($statusName: String!, $boardId: String!) {
         createStatus(statusName: $statusName, boardId: $boardId) {
             id
+            statusName
+            boardId
+            order
         }
     }
 `
@@ -18,8 +21,8 @@ const CREATE_STATUS = gql`
 const UPDATE_STATUS_NAME = gql`
     mutation UpdateStatusName($statusId: String!, $statusName: String!) {
         updateStatusName(statusId: $statusId, statusName: $statusName) {
-            statusName
             id
+            statusName
         }
     }
 `
