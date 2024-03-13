@@ -26,6 +26,15 @@ const darkTheme = createTheme({
                 },
             },
         },
+        MuiTextField: {
+            defaultProps: {
+                FormHelperTextProps: {
+                    style: {
+                        marginLeft: '0',
+                    },
+                },
+            },
+        },
     },
 })
 export { darkTheme }
