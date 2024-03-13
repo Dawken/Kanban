@@ -18,7 +18,7 @@ const useLoginForm = () => {
 
     const dispatch = useDispatch()
 
-    const [loginUser, { loading, error }] = useMutation(LOGIN_USER, {
+    const [loginUser, { loading }] = useMutation(LOGIN_USER, {
         onCompleted: () => {
             dispatch(getClientResponse({ isLoggedIn: true }))
             router.push('/')
@@ -46,7 +46,6 @@ const useLoginForm = () => {
         methods,
         login,
         loading,
-        error,
         isCredentialsInvalid,
     }
 }

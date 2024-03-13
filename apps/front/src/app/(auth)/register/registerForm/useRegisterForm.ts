@@ -11,7 +11,7 @@ import { useRouter } from 'next/navigation'
 const useRegisterForm = () => {
     const router = useRouter()
 
-    const [createUser, { loading, error }] = useMutation(CREATE_USER, {
+    const [createUser, { loading }] = useMutation(CREATE_USER, {
         onCompleted: () => {
             toast.success('Register succeed')
             router.push('/login')
@@ -44,7 +44,6 @@ const useRegisterForm = () => {
         password,
         addUser,
         loading,
-        error,
     }
 }
 

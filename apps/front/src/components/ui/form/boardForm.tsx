@@ -5,21 +5,14 @@ import DeleteStatusIcon from '@src/components/ui/dialog/editBoard/boardStatus/de
 import FormInput from '@src/components/ui/form/formInput'
 import { BoardInput } from '@src/schemas/boardSchema'
 import FormButton from '@src/components/ui/form/formButton'
-import { ApolloError } from '@apollo/client'
 
 type BoardFormProps = {
     methods: UseFormReturn<BoardInput>
     submitAction: () => void
     loading: boolean
-    error: ApolloError | undefined
 }
 
-const BoardForm = ({
-    methods,
-    submitAction,
-    loading,
-    error,
-}: BoardFormProps) => {
+const BoardForm = ({ methods, submitAction, loading }: BoardFormProps) => {
     const defaultValues = methods.getValues()
 
     const { control } = methods
@@ -65,11 +58,7 @@ const BoardForm = ({
                     <AddIcon />
                     Add new column
                 </div>
-                <FormButton
-                    text={'Create new Board'}
-                    loading={loading}
-                    isError={error}
-                />
+                <FormButton text={'Create new Board'} loading={loading} />
             </form>
         </FormProvider>
     )

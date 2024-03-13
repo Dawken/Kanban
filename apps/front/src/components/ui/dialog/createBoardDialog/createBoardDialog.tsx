@@ -8,8 +8,7 @@ type CreateBoardProps = {
     open: boolean
 }
 const CreateBoardDialog = ({ handleClose, open }: CreateBoardProps) => {
-    const { methods, loading, error, addBoard } =
-        useCreateBoardDialog(handleClose)
+    const { methods, loading, addBoard } = useCreateBoardDialog(handleClose)
 
     return (
         <Dialog onClose={handleClose} open={open} fullWidth>
@@ -21,7 +20,6 @@ const CreateBoardDialog = ({ handleClose, open }: CreateBoardProps) => {
                     methods={methods}
                     submitAction={addBoard()}
                     loading={loading}
-                    error={error}
                 />
             </div>
         </Dialog>

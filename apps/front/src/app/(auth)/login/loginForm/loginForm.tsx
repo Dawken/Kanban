@@ -5,10 +5,10 @@ import { FormProvider } from 'react-hook-form'
 import useLoginForm from '@src/app/(auth)/login/loginForm/useLoginForm'
 import FormButton from '@src/components/ui/form/formButton'
 import FormInputPassword from '@src/components/ui/form/formInputPassword'
+import ErrorIcon from '@mui/icons-material/Error'
 
 const LoginForm = () => {
-    const { methods, login, loading, error, isCredentialsInvalid } =
-        useLoginForm()
+    const { methods, login, loading, isCredentialsInvalid } = useLoginForm()
 
     return (
         <FormProvider {...methods}>
@@ -30,14 +30,15 @@ const LoginForm = () => {
                     error={isCredentialsInvalid}
                     required
                     helperText={
-                        isCredentialsInvalid && 'Incorrect login or password'
+                        isCredentialsInvalid && (
+                            <div className={'flex items-center text-xs gap-1'}>
+                                <ErrorIcon className='text-base' /> Incorrect
+                                login or password
+                            </div>
+                        )
                     }
                 />
-                <FormButton
-                    loading={loading}
-                    isError={error}
-                    text={'Sign In'}
-                />
+                <FormButton loading={loading} text={'Sign In'} />
             </form>
         </FormProvider>
     )

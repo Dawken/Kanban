@@ -22,7 +22,7 @@ const useCreateBoardDialog = (handleClose: () => void) => {
         resolver: zodResolver(boardSchema),
     })
 
-    const [createBoard, { loading, error }] = useMutation(CREATE_BOARD, {
+    const [createBoard, { loading }] = useMutation(CREATE_BOARD, {
         onCompleted: (data) => {
             toast.success('New board added')
             router.push(`/boards/${data.createBoard.id}`)
@@ -55,7 +55,6 @@ const useCreateBoardDialog = (handleClose: () => void) => {
     return {
         methods,
         loading,
-        error,
         addBoard,
     }
 }

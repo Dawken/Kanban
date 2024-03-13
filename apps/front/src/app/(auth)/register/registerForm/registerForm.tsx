@@ -8,7 +8,7 @@ import FormButton from '@src/components/ui/form/formButton'
 import FormInputPassword from '@src/components/ui/form/formInputPassword'
 
 const RegisterForm = () => {
-    const { methods, password, addUser, loading, error } = useRegister()
+    const { methods, password, addUser, loading } = useRegister()
 
     return (
         <FormProvider {...methods}>
@@ -29,11 +29,7 @@ const RegisterForm = () => {
                         label='Repeat password'
                     />
                 </div>
-                <FormButton
-                    loading={loading}
-                    isError={error}
-                    text={'Sign Up'}
-                />
+                <FormButton loading={loading} text={'Sign Up'} />
             </form>
         </FormProvider>
     )

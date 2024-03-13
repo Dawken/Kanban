@@ -93,7 +93,7 @@ const EditBoard = ({ board, open, handleClose }: EditBoardProps) => {
                         </ClickAwayListener>
                     )}
                     <div onClick={handleOpen}>
-                        <FormButton loading={false} text={'Add new status'} />
+                        <FormButton text={'Add new status'} />
                     </div>
                 </div>
             </div>
