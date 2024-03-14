@@ -18,11 +18,13 @@ const useLoginForm = () => {
 
     const dispatch = useDispatch()
 
-    const [loginUser, { loading }] = useMutation(LOGIN_USER, {
+    const [loginUser, { loading, client }] = useMutation(LOGIN_USER, {
         onCompleted: () => {
-            dispatch(getClientResponse({ isLoggedIn: true }))
-            router.push('/')
-            toast.success('Login succeed')
+            client.resetStore().then(() => {
+                dispatch(getClientResponse({ isLoggedIn: true }))
+                router.push('/')
+                toast.success('Login succeed')
+            })
         },
         onError: (error) => {
             if (error.message === 'authentication-failed') {
