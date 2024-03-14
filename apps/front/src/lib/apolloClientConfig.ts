@@ -3,6 +3,7 @@ import {
     ApolloLink,
     createHttpLink,
     InMemoryCache,
+    Observable,
 } from '@apollo/client'
 import { onError } from '@apollo/client/link/error'
 import { UPDATE_COOKIE } from '@src/graphQL/auth/mutations'
@@ -21,30 +22,30 @@ const httpLink = createHttpLink({
 
 const errorLink = onError(({ graphQLErrors, operation, forward }) => {
     if (graphQLErrors) {
-        graphQLErrors.find(async (error) => {
-            if (error.message === 'unauthorized') {
-                try {
-                    await client.mutate({
+        const unauthorizedError = graphQLErrors.find(
+            (error) => error.message === 'unauthorized'
+        )
+        if (unauthorizedError) {
+            return new Observable((observer) => {
+                client
+                    .mutate({
                         mutation: UPDATE_COOKIE,
                     })
-
-                    const refetchResult = await client.query({
-                        query: operation.query,
-                        variables: operation.variables,
+                    .then(() => {
+                        const subscription = forward(operation).subscribe({
+                            next: observer.next.bind(observer),
+                            error: observer.error.bind(observer),
+                            complete: observer.complete.bind(observer),
+                        })
+                        return () => subscription.unsubscribe()
                     })
-
-                    client.writeQuery({
-                        query: operation.query,
-                        data: refetchResult.data,
-                        variables: operation.variables,
+                    .catch(() => {
+                        store.dispatch(getClientResponse({ isLoggedIn: false }))
                     })
-                    return forward(operation)
-                } catch {
-                    store.dispatch(getClientResponse({ isLoggedIn: false }))
-                }
-            }
-        })
+            })
+        }
     }
+    return forward(operation)
 })
 
 const link = ApolloLink.from([removeTypenameLink, errorLink, httpLink])
