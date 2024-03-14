@@ -31,10 +31,10 @@ const LoginForm = () => {
                     required
                     helperText={
                         isCredentialsInvalid && (
-                            <div className={'flex items-center text-xs gap-1'}>
+                            <span className={'flex items-center text-xs gap-1'}>
                                 <ErrorIcon className='text-base' /> Incorrect
                                 login or password
-                            </div>
+                            </span>
                         )
                     }
                 />
